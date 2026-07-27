@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+   --background: #fffff0;
+  --foreground: #1a1a1a;
+
+  --primary: #8b6b2f;
+  --secondary: #5b4636;
+  --accent: #c9a227;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: var(--font-plus-jakarta-sans);
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.font-telugu {
+  font-family: var(--font-telugu);
+}

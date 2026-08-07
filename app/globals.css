@@ -15,7 +15,65 @@ body {
 }
 
 body {
-  font-family: var(--font-plus-jakarta-sans);
+  font-family: var(--font-aboreto);
+}
+
+body.site-is-loading {
+  overflow: hidden;
+}
+
+.page-loader {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  background: var(--background);
+  color: var(--primary);
+  transition: opacity 650ms ease, visibility 650ms ease;
+}
+
+.page-loader--leaving {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.page-loader__circle {
+  display: grid;
+  height: 5.5rem;
+  width: 5.5rem;
+  place-items: center;
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, var(--accent), var(--primary), transparent 70%);
+  animation: page-loader-spin 1s linear infinite;
+}
+
+.page-loader__inner {
+  display: grid;
+  height: calc(100% - 0.4rem);
+  width: calc(100% - 0.4rem);
+  place-items: center;
+  border-radius: inherit;
+  background: var(--background);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.page-loader__label {
+  margin: 0;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+@keyframes page-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 html.lenis,
@@ -33,4 +91,31 @@ html.lenis body {
 
 .font-telugu {
   font-family: var(--font-telugu);
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms ease-out 130ms, transform 700ms ease-out 130ms;
+}
+
+.scroll-reveal.scroll-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-loader__circle {
+    animation: none;
+  }
+
+  .page-loader {
+    transition: none;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }

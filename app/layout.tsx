@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Noto_Serif_Telugu, Plus_Jakarta_Sans } from "next/font/google";
+import { Aboreto, Noto_Serif_Telugu } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
+import PageLoader from "@/components/PageLoader";
 import "./globals.css";
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const aboreto = Aboreto({
   subsets: ["latin"],
-  weight: "variable",
-  variable: "--font-plus-jakarta-sans",
+  weight: "400",
+  variable: "--font-aboreto",
 });
 
 const telugu = Noto_Serif_Telugu({
@@ -29,9 +30,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakartaSans.variable} ${telugu.variable} antialiased`}
+        className={`${aboreto.variable} ${telugu.variable} antialiased`}
       >
         <SmoothScroll />
+        <PageLoader />
         {children}
       </body>
     </html>

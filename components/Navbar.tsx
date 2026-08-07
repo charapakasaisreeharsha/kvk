@@ -1,217 +1,155 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import {
+  BookOpen,
+  Languages,
+  Mail,
+  Menu,
+  Route,
+  Search,
+  Trophy,
+  UserRound,
+  X,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+type Language = "en" | "te";
+
+const links = [
+  { href: "#about", en: "About", te: "పరిచయం", icon: UserRound },
+  { href: "#journey", en: "Journey", te: "ప్రయాణం", icon: Route },
+  { href: "#research", en: "Research", te: "పరిశోధన", icon: Search },
+  { href: "#books", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
+  { href: "#awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
+  { href: "#contact", en: "Contact", te: "సంప్రదించండి", icon: Mail },
+];
+
+const labelMotion = {
+  initial: { opacity: 0, y: 7 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -7 },
+};
 
 export default function Navbar() {
-  const [visible, setVisible] = useState(true);
+  const [language, setLanguage] = useState<Language>("en");
   const [pastHero, setPastHero] = useState(false);
-  const [language, setLanguage] = useState<"en" | "te">("en");
   const [menuOpen, setMenuOpen] = useState(false);
-  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const scheduleHide = () => {
-    if (hideTimer.current) {
-      clearTimeout(hideTimer.current);
-    }
-
-    hideTimer.current = setTimeout(() => setVisible(false), 1200);
-  };
+  const otherLanguage = language === "en" ? "te" : "en";
 
   useEffect(() => {
-    const handleScroll = () => {
+    const updateNavbarBackground = () => {
       const hero = document.getElementById("hero");
-
-      if (!hero) return;
-
-      const heroBottom = hero.offsetTop + hero.offsetHeight;
-
-      if (hideTimer.current) {
-        clearTimeout(hideTimer.current);
-      }
-
-      const isPastHero = window.scrollY >= heroBottom - 80;
-      setPastHero(isPastHero);
-
-      if (!isPastHero) {
-        setVisible(true);
-        return;
-      }
-
-      setVisible(true);
-      scheduleHide();
+      setPastHero(Boolean(hero && window.scrollY >= hero.offsetHeight - 80));
     };
 
-    handleScroll();
+    updateNavbarBackground();
+    window.addEventListener("scroll", updateNavbarBackground, { passive: true });
 
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-
-      if (hideTimer.current) {
-        clearTimeout(hideTimer.current);
-      }
-    };
+    return () => window.removeEventListener("scroll", updateNavbarBackground);
   }, []);
 
   return (
-    <header
-      onMouseEnter={() => {
-        if (hideTimer.current) {
-          clearTimeout(hideTimer.current);
-        }
-        setVisible(true);
-      }}
-      onMouseLeave={() => {
-        if (pastHero) {
-          scheduleHide();
-        }
-      }}
-      className={`fixed left-1/2 top-3 z-50 w-full max-w-7xl -translate-x-1/2 px-4 transition-all duration-500 sm:top-6 sm:px-6 ${
-        visible
-          ? "translate-y-0 opacity-100"
-          : "-translate-y-10 pointer-events-none opacity-0"
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 sm:px-6 sm:py-5">
       <nav
-        className={`flex h-14 items-center justify-between rounded-full border px-4 transition-colors duration-500 sm:h-16 sm:px-8 ${
+        aria-label="Primary navigation"
+        className={`mx-auto flex w-full max-w-6xl items-center justify-center gap-x-1 gap-y-2 rounded-2xl px-3 py-2 transition-[background-color,box-shadow] duration-500 sm:rounded-full sm:px-5 ${
           pastHero
-            ? "border-[#b7833f] bg-[#a87532] shadow-[0_8px_32px_rgba(0,0,0,.25)]"
-            : "border-transparent bg-transparent shadow-none"
+            ? "bg-[#8b6b2f] shadow-[0_12px_32px_rgba(80,25,0,0.24)]"
+            : "bg-transparent shadow-none"
         }`}
       >
-        {/* Logo / Name */}
-        <div>
-          <h1 className="max-w-48 text-xs font-bold tracking-wide text-white sm:max-w-none sm:text-lg">
-            Sri Kuppa Venkata Krishna Murthy
-          </h1>
-        </div>
-
-        {/* Language Toggle */}
-        <div className="hidden items-center rounded-full border border-white/20 bg-white/10 p-1 backdrop-blur-xl sm:flex">
-          <button
-            onClick={() => setLanguage("en")}
-            className={`rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 ${
-              language === "en"
-                ? "bg-white text-black shadow"
-                : "text-white hover:bg-white/10"
-            }`}
-          >
-            EN
-          </button>
-
-          <button
-            onClick={() => setLanguage("te")}
-            className={`rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 ${
-              language === "te"
-                ? "bg-white text-black shadow"
-                : "text-white hover:bg-white/10"
-            }`}
-          >
-            తె
-          </button>
-        </div>
-
-        {/* Navigation */}
-        <ul className="hidden items-center gap-5 text-sm font-bold tracking-wide text-white xl:flex">
-          <li>
-            <Link href="#about" className="transition hover:text-amber-300">
-              {language === "en" ? "About" : "పరిచయం"}
-            </Link>
-          </li>
-
-          <li>
-            <Link href="#journey" className="transition hover:text-amber-300">
-              {language === "en" ? "Journey" : "ప్రయాణం"}
-            </Link>
-          </li>
-
-          <li>
-            <Link href="#research" className="transition hover:text-amber-300">
-              {language === "en" ? "Research" : "పరిశోధన"}
-            </Link>
-          </li>
-
-          <li>
-            <Link href="#books" className="transition hover:text-amber-300">
-              {language === "en" ? "Books" : "గ్రంథాలు"}
-            </Link>
-          </li>
-
-          <li>
-            <Link href="#awards" className="transition hover:text-amber-300">
-              {language === "en" ? "Awards" : "పురస్కారాలు"}
-            </Link>
-          </li>
-
-          <li>
-            <Link href="#contact" className="transition hover:text-amber-300">
-              {language === "en" ? "Contact" : "సంప్రదించండి"}
-            </Link>
-          </li>
+        <ul className="hidden flex-1 flex-wrap items-center justify-center gap-x-1 gap-y-1 sm:gap-x-2 lg:flex">
+          {links.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="flex items-center gap-1.5 rounded-full px-2.5 py-2 text-xs font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-3 sm:text-sm"
+              >
+                <link.icon className="size-3.5" aria-hidden="true" />
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={language}
+                    {...labelMotion}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="block"
+                  >
+                    {link[language]}
+                  </motion.span>
+                </AnimatePresence>
+              </Link>
+            </li>
+          ))}
         </ul>
+
+        <button
+          type="button"
+          onClick={() => setLanguage(otherLanguage)}
+          aria-label={`Switch navigation language to ${otherLanguage === "en" ? "English" : "Telugu"}`}
+          className="group flex shrink-0 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-2 text-xs font-bold text-white transition-all duration-300 hover:bg-white hover:text-[#8b6b2f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-4 sm:text-sm"
+        >
+          <Languages className="size-4 transition-transform duration-300 group-hover:rotate-12" />
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={language}
+              {...labelMotion}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="min-w-5"
+            >
+              {language === "en" ? "EN" : "తె"}
+            </motion.span>
+          </AnimatePresence>
+        </button>
 
         <button
           type="button"
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
-          onClick={() => {
-            if (hideTimer.current) clearTimeout(hideTimer.current);
-            setVisible(true);
-            setMenuOpen((isOpen) => !isOpen);
-          }}
-          className="rounded-full p-2 text-white transition hover:bg-white/10 xl:hidden"
+          onClick={() => setMenuOpen((open) => !open)}
+          className="ml-1 rounded-full p-2 text-white transition-colors duration-200 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
         >
           {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </nav>
 
-      {menuOpen && (
-        <div
-          className={`mt-3 rounded-2xl border p-4 shadow-[0_8px_32px_rgba(0,0,0,.25)] xl:hidden ${
-            pastHero
-              ? "border-[#b7833f] bg-[#a87532]"
-              : "border-white/20 bg-black/30 backdrop-blur-xl"
-          }`}
-        >
-          <div className="mb-4 flex items-center justify-between rounded-full border border-white/20 bg-white/10 p-1 sm:hidden">
-            <button
-              onClick={() => setLanguage("en")}
-              className={`rounded-full px-4 py-2 text-sm font-semibold ${language === "en" ? "bg-white text-black" : "text-white"}`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage("te")}
-              className={`rounded-full px-4 py-2 text-sm font-semibold ${language === "te" ? "bg-white text-black" : "text-white"}`}
-            >
-              తె
-            </button>
-          </div>
-          <ul className="grid grid-cols-2 gap-3 text-sm font-bold text-white sm:grid-cols-3">
-            {[
-              ["#about", language === "en" ? "About" : "పరిచయం"],
-              ["#journey", language === "en" ? "Journey" : "ప్రయాణం"],
-              ["#research", language === "en" ? "Research" : "పరిశోధన"],
-              ["#books", language === "en" ? "Books" : "గ్రంథాలు"],
-              ["#awards", language === "en" ? "Awards" : "పురస్కారాలు"],
-              ["#contact", language === "en" ? "Contact" : "సంప్రదించండి"],
-            ].map(([href, label]) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  onClick={() => setMenuOpen(false)}
-                  className="block rounded-lg px-3 py-2 transition hover:bg-white/10"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className={`mx-auto mt-2 max-w-6xl rounded-2xl p-2 shadow-[0_12px_32px_rgba(80,25,0,0.24)] transition-colors duration-500 lg:hidden ${
+              pastHero ? "bg-[#8b6b2f]" : "bg-[#8b6b2f]/95 backdrop-blur-md"
+            }`}
+          >
+            <ul className="flex flex-col gap-1">
+              {links.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <link.icon className="size-4 shrink-0" aria-hidden="true" />
+                    <AnimatePresence mode="wait" initial={false}>
+                      <motion.span
+                        key={language}
+                        {...labelMotion}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="block"
+                      >
+                        {link[language]}
+                      </motion.span>
+                    </AnimatePresence>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

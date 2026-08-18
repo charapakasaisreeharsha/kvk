@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Aboreto, Noto_Serif_Telugu } from "next/font/google";
+import { Inter, Inter_Tight, Noto_Serif_Telugu } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageLoader from "@/components/PageLoader";
 import "./globals.css";
 
-const aboreto = Aboreto({
+const inter = Inter({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-aboreto",
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter-tight",
 });
 
 const telugu = Noto_Serif_Telugu({
@@ -30,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${aboreto.variable} ${telugu.variable} antialiased`}
+        className={`${inter.variable} ${interTight.variable} ${telugu.variable} antialiased`}
       >
         <SmoothScroll />
         <PageLoader />

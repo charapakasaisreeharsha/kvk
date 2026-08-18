@@ -21,7 +21,7 @@ export default function Hero() {
           Sanskrit Scholar • Vedic Science Researcher
         </p>
 
-        <h1 className="max-w-2xl text-3xl font-black leading-tight md:text-5xl lg:text-6xl">
+        <h1 className="max-w-2xl text-3xl font-normal leading-tight md:text-5xl lg:text-6xl">
           Sri Kuppa Venkata
           <br />
           Krishna Murthy

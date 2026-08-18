@@ -8,7 +8,7 @@ export default function Introduction() {
           <p className="text-xs font-semibold uppercase tracking-[0.34em] text-[var(--primary)]">
             About
           </p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-5xl lg:text-6xl">
+          <h2 className="mt-5 text-3xl font-normal tracking-tight text-[var(--foreground)] sm:text-5xl lg:text-6xl">
             Sri Kuppa Venkata Krishna Murthy
           </h2>
           <p className="mt-3 text-sm font-medium text-[var(--secondary)] sm:text-base">

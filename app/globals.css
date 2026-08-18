@@ -9,13 +9,28 @@
   --accent: #c9a227;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
 }
 
 body {
-  font-family: var(--font-aboreto);
+  font-family: var(--font-inter);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter-tight);
 }
 
 body.site-is-loading {
@@ -93,13 +108,41 @@ html.lenis body {
   font-family: var(--font-telugu);
 }
 
+.book-scroll {
+  scrollbar-color: color-mix(in srgb, var(--accent) 78%, transparent) color-mix(in srgb, var(--secondary) 12%, transparent);
+  scrollbar-width: thin;
+}
+
+.book-scroll::-webkit-scrollbar {
+  height: 0.6rem;
+}
+
+.book-scroll::-webkit-scrollbar-track {
+  margin-inline: 0.35rem;
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--secondary) 12%, transparent);
+}
+
+.book-scroll::-webkit-scrollbar-thumb {
+  border: 2px solid var(--background);
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.book-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(28px);
   transition: opacity 700ms ease-out 130ms, transform 700ms ease-out 130ms;
 }
 
-.scroll-reveal.scroll-reveal--visible {
+.scroll-reveal--pending {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.scroll-reveal--visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -113,7 +156,8 @@ html.lenis body {
     transition: none;
   }
 
-  .scroll-reveal {
+  .scroll-reveal,
+  .scroll-reveal--pending {
     opacity: 1;
     transform: none;
     transition: none;

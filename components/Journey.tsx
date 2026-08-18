@@ -11,7 +11,7 @@ export default function Journey() {
             <p className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">
               Journey &amp; Legacy · Part I
             </p>
-            <h2 className="max-w-3xl text-4xl font-semibold leading-[1.15] text-[var(--foreground)] sm:text-5xl">
+            <h2 className="max-w-3xl text-4xl font-normal leading-[1.15] text-[var(--foreground)] sm:text-5xl">
               A life spent reading the Vedas
               <br />
               in the language of mathematics
@@ -163,7 +163,7 @@ export default function Journey() {
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">
             Founded 2004
           </p>
-          <h3 className="mb-8 max-w-lg text-3xl font-semibold leading-tight text-[var(--foreground)] sm:text-4xl">
+          <h3 className="mb-8 max-w-lg text-3xl font-normal leading-tight text-[var(--foreground)] sm:text-4xl">
             Founding I-SERVE
           </h3>
 
@@ -276,7 +276,7 @@ export default function Journey() {
                 className="rounded-3xl border border-[var(--secondary)]/15 p-6 transition-colors hover:border-[var(--accent)]/50"
               >
                 <span className="mb-4 inline-block h-1 w-10 rounded-full bg-[var(--accent)]" />
-                <h4 className="text-lg font-semibold leading-snug text-[var(--foreground)]">
+                <h4 className="text-lg font-normal leading-snug text-[var(--foreground)]">
                   {guru.name}
                 </h4>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">

@@ -5,6 +5,8 @@ import AutoScrollReveal from "@/components/AutoScrollReveal";
 import Journey from "@/components/Journey";
 import Books from "@/components/Books";
 import LiteraryContributions from "@/components/LiteraryContributions";
+import GallerySection from "@/components/GallerySection";
+import Awards from "@/components/Awards";
 
 export default function Home() {
   return (
@@ -16,6 +18,8 @@ export default function Home() {
         <Journey />
         <LiteraryContributions />
         <Books />
+        <Awards />
+        <GallerySection />
         <AutoScrollReveal />
       </main>
     </>

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import {
   BookOpen,
+  Images,
   Languages,
   Mail,
   Menu,
@@ -18,6 +19,7 @@ import { useEffect, useState } from "react";
 type Language = "en" | "te";
 
 const links = [
+  { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
   { href: "#about", en: "About", te: "పరిచయం", icon: UserRound },
   { href: "#journey", en: "Journey", te: "ప్రయాణం", icon: Route },
   { href: "#research", en: "Research", te: "పరిశోధన", icon: Search },

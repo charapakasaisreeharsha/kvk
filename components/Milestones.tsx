@@ -102,7 +102,7 @@ export default function Milestones() {
     <section ref={sectionRef} className="mb-24" aria-labelledby="milestones-heading">
       <div className="mb-10 max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">Roles &amp; Milestones</p>
-        <h3 id="milestones-heading" className="mt-4 text-3xl font-semibold text-[var(--foreground)]">A career in service of learning</h3>
+        <h3 id="milestones-heading" className="mt-4 text-3xl font-normal text-[var(--foreground)]">A career in service of learning</h3>
         <p className="mt-3 leading-7 text-[var(--secondary)]">Each role widened the reach of his work—from teaching and editorial stewardship to research leadership and institutional service.</p>
       </div>
 
@@ -124,7 +124,7 @@ export default function Milestones() {
                 </div>
                 <div className={`relative z-10 max-w-md ${isLeft ? "" : "sm:flex sm:flex-col sm:items-end"}`}>
                   <span className={`text-xs font-bold uppercase tracking-[0.16em] ${isReached ? "text-[var(--accent)]" : "text-[var(--primary)]"}`}>{item.years}</span>
-                  <h4 className={`mt-1 text-lg font-semibold transition-colors duration-500 ${isCurrent ? "text-[var(--primary)]" : "text-[var(--foreground)]"}`}>{item.role}</h4>
+                  <h4 className={`mt-1 text-lg font-normal transition-colors duration-500 ${isCurrent ? "text-[var(--primary)]" : "text-[var(--foreground)]"}`}>{item.role}</h4>
                   <p className="mt-1 text-sm font-medium text-[var(--secondary)]">{item.org}</p>
                   <p className="mt-2 text-sm leading-6 text-[var(--secondary)]/80">{item.context}</p>
                 </div>

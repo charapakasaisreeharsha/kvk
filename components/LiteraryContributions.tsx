@@ -93,7 +93,7 @@ export default function LiteraryContributions() {
         <div className="flex flex-col gap-8 border-b border-[var(--secondary)]/15 pb-10 sm:gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">Literary contributions</p>
-          <h2 className="mt-4 text-4xl font-semibold leading-tight text-[var(--foreground)] sm:text-5xl">KVK&apos;s writings</h2>
+          <h2 className="mt-4 text-4xl font-normal leading-tight text-[var(--foreground)] sm:text-5xl">KVK&apos;s writings</h2>
           <p className="mt-6 text-base leading-8 text-[var(--secondary)] sm:text-lg">A body of work spanning devotional poetry, philosophy, literature, and Vedic science — composed in Sanskrit, Telugu, and English.</p>
           </div>
 
@@ -110,14 +110,14 @@ export default function LiteraryContributions() {
         <div id="poetry" className="mt-14 scroll-mt-28 pt-2 sm:mt-20">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">Poetry</p>
           <div className="mt-7 grid gap-6 lg:grid-cols-[1.6fr_0.8fr]">
-            {Object.entries(poetry).map(([language, works]) => <article key={language} className="rounded-3xl border border-[var(--secondary)]/15 bg-[var(--background)] p-6 sm:p-8"><h3 className="mb-6 text-2xl font-semibold text-[var(--foreground)]">{language}</h3><WorkList works={works} /></article>)}
+            {Object.entries(poetry).map(([language, works]) => <article key={language} className="rounded-3xl border border-[var(--secondary)]/15 bg-[var(--background)] p-6 sm:p-8"><h3 className="mb-6 text-2xl font-normal text-[var(--foreground)]">{language}</h3><WorkList works={works} /></article>)}
           </div>
         </div>
 
         <div id="prose" className="mt-16 scroll-mt-28 border-t border-[var(--secondary)]/15 pt-12 sm:mt-20">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">Prose</p>
           <div className="mt-7 grid gap-6 md:grid-cols-2">
-            {prose.map(({ heading, works }) => <article id={heading.startsWith("Telugu") && heading.includes("Scientific") ? "scientific" : undefined} key={heading} className="scroll-mt-28 rounded-3xl border border-[var(--secondary)]/15 bg-[var(--background)] p-6 sm:p-8"><h3 className="mb-6 text-xl font-semibold text-[var(--foreground)]">{heading}</h3><WorkList works={works} /></article>)}
+            {prose.map(({ heading, works }) => <article id={heading.startsWith("Telugu") && heading.includes("Scientific") ? "scientific" : undefined} key={heading} className="scroll-mt-28 rounded-3xl border border-[var(--secondary)]/15 bg-[var(--background)] p-6 sm:p-8"><h3 className="mb-6 text-xl font-normal text-[var(--foreground)]">{heading}</h3><WorkList works={works} /></article>)}
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -61,14 +61,16 @@ export default function GallerySection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const scrollToGalleryStart = () => sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = sectionRef.current;
     const track = trackRef.current;
     if (!section || !track) return;
 
-    const ctx = gsap.context(() => {
-      // The track sits inside a padded viewport. Measuring that viewport (rather
-      // than the whole section) lets the final card align neatly at every width.
+    const media = gsap.matchMedia();
+
+    media.add("(min-width: 0px)", () => {
+      // Measure the visible viewport, not the page. This keeps the final card
+      // aligned after a resize, orientation change, or ScrollTrigger refresh.
       const getScrollAmount = () => Math.max(track.scrollWidth - track.parentElement!.clientWidth, 0);
 
       const tween = gsap.to(track, {
@@ -86,9 +88,13 @@ export default function GallerySection() {
         scrub: 1,
         invalidateOnRefresh: true,
       });
-    }, section);
+    });
 
-    return () => ctx.revert();
+    ScrollTrigger.refresh();
+
+    return () => {
+      media.revert();
+    };
   }, []);
 
   return (
@@ -96,7 +102,7 @@ export default function GallerySection() {
       id="gallery"
       ref={sectionRef}
       aria-labelledby="gallery-heading"
-      className="relative flex h-screen flex-col overflow-hidden bg-[var(--background)] px-6 py-10 text-[var(--foreground)] sm:px-12 sm:py-14"
+      className="relative flex min-h-screen flex-col overflow-x-hidden bg-[var(--background)] px-5 py-12 text-[var(--foreground)] sm:px-12 sm:py-14"
     >
       <div className="flex shrink-0 items-end justify-between gap-6">
         <div className="max-w-2xl">
@@ -109,12 +115,12 @@ export default function GallerySection() {
         <p className="hidden shrink-0 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--secondary)]/60 sm:block">Scroll to explore</p>
       </div>
 
-      <div className="mt-10 flex flex-1 items-center overflow-hidden">
-        <div ref={trackRef} className="flex gap-6 will-change-transform">
+      <div className="mt-8 flex items-start overflow-x-hidden sm:mt-10">
+        <div ref={trackRef} className="flex shrink-0 gap-5 will-change-transform sm:gap-6">
           {images.map((image, index) => (
             <figure
               key={image.src}
-              className="group relative h-[55vh] w-[70vw] shrink-0 overflow-hidden rounded-3xl border border-[var(--secondary)]/15 bg-[var(--secondary)]/5 shadow-[0_12px_30px_rgba(91,70,54,0.08)] sm:w-[38vw] lg:w-[26vw]"
+              className="group relative aspect-[3/4] w-[clamp(18rem,78vw,28rem)] shrink-0 overflow-hidden rounded-3xl border border-[var(--secondary)]/15 bg-[var(--secondary)]/5 shadow-[0_12px_30px_rgba(91,70,54,0.08)] sm:w-[clamp(20rem,44vw,28rem)] lg:w-[clamp(22rem,26vw,28rem)]"
             >
               <Image
                 src={image.src}
@@ -123,14 +129,14 @@ export default function GallerySection() {
                 sizes="(min-width: 1024px) 26vw, (min-width: 640px) 38vw, 70vw"
                 className={`object-cover transition duration-500 group-hover:scale-105 ${image.position ?? ""}`}
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent px-6 pb-6 pt-20 text-[var(--background)]">
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-5 pb-5 pt-20 text-[var(--background)] sm:px-6 sm:pb-6">
                 <span className="text-xs font-semibold tracking-[0.16em] text-[var(--accent)]">{String(index + 1).padStart(2, "0")}</span>
                 <figcaption className="mt-2 text-xl font-normal">{image.title}</figcaption>
                 <p className="mt-1 text-sm leading-5 text-[var(--background)]/75">{image.description}</p>
               </div>
             </figure>
           ))}
-          <article className="flex h-[55vh] w-[70vw] shrink-0 flex-col justify-end rounded-3xl border border-[var(--primary)]/25 bg-[var(--primary)] px-6 py-8 text-[var(--background)] shadow-[0_12px_30px_rgba(91,70,54,0.12)] sm:w-[38vw] lg:w-[26vw]">
+          <article className="flex aspect-[3/4] w-[clamp(18rem,78vw,28rem)] shrink-0 flex-col justify-end rounded-3xl border border-[var(--primary)]/25 bg-[var(--primary)] px-6 py-8 text-[var(--background)] shadow-[0_12px_30px_rgba(91,70,54,0.12)] sm:w-[clamp(20rem,44vw,28rem)] lg:w-[clamp(22rem,26vw,28rem)]">
             <span className="text-xs font-semibold tracking-[0.16em] text-[var(--accent)]">MORE TO EXPLORE</span>
             <h3 className="mt-3 text-3xl font-normal leading-tight">Discover more moments</h3>
             <p className="mt-3 text-sm leading-6 text-[var(--background)]/75">Explore the collection again and revisit the memories that shaped this journey.</p>

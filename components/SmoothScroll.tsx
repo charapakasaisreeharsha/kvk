@@ -2,6 +2,7 @@
 
 import Lenis from "@studio-freight/lenis";
 import { useEffect } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScroll() {
   useEffect(() => {
@@ -10,6 +11,11 @@ export default function SmoothScroll() {
       smoothWheel: true,
       syncTouch: false,
     });
+
+    // Lenis interpolates native scroll positions on animation frames. Keep GSAP's
+    // scrubbed animations in sync with those frames rather than only browser
+    // scroll events.
+    lenis.on("scroll", ScrollTrigger.update);
 
     let frameId = 0;
 
@@ -22,6 +28,7 @@ export default function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(frameId);
+      lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
     };
   }, []);

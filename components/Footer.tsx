@@ -1,0 +1,86 @@
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+
+const navLinks = [
+  { label: "Home", href: "#hero" },
+  { label: "About", href: "#about" },
+  { label: "Books", href: "#books" },
+  { label: "Awards", href: "#awards" },
+  { label: "Contact", href: "#contact" },
+  { label: "Gallery", href: "#gallery" },
+  { label: "Archive", href: "/archive" },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: "#" },
+  { label: "YouTube", href: "#" },
+  { label: "Facebook", href: "#" },
+];
+
+export default function Footer() {
+  return (
+    <footer id="footer" className="bg-[var(--foreground)] text-[var(--background)]">
+      <div
+        className="relative overflow-hidden bg-[var(--primary)] bg-cover bg-center bg-no-repeat px-5 pb-8 pt-9 text-[var(--background)] sm:px-10 sm:pb-10 sm:pt-14 md:px-14 lg:px-16"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(139, 107, 47, 0.88), rgba(139, 107, 47, 0.88)), url('/footer-bg.png')",
+        }}
+      >
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0">
+            <h2 className="text-3xl font-semibold leading-none sm:text-4xl">Let&apos;s connect</h2>
+            <p className="mt-4 max-w-md text-sm leading-6 text-[var(--background)]/80 sm:text-base">
+              विद्या ददाति विनयं विनयाद्याति पात्रताम्।
+            </p>
+          </div>
+
+          <div className="grid shrink-0 grid-cols-2 gap-x-7 gap-y-6 sm:flex sm:gap-10">
+            <nav aria-label="Footer navigation">
+              <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-right sm:text-base">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="inline-flex items-center gap-1 text-[var(--background)]/80 transition-colors hover:text-[var(--background)]"
+                    >
+                      {link.label}
+                      <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-right sm:text-base">
+              {socialLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="inline-flex items-center gap-1 text-[var(--background)]/80 transition-colors hover:text-[var(--background)]"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 select-none leading-[0.85] sm:mt-16 md:mt-20">
+          <span
+            className="block whitespace-nowrap font-bold tracking-[-0.06em] text-[var(--background)]"
+            style={{ fontSize: "clamp(3rem, 14vw, 10rem)" }}
+          >
+            KVK Legacy.
+          </span>
+        </div>
+
+        <div className="mt-7 flex flex-col gap-2 border-t border-[var(--background)]/20 pt-4 text-xs leading-5 text-[var(--background)]/70 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:text-sm">
+          <p>© {new Date().getFullYear()} KVK Legacy.</p>
+          <p>Built with care, for the pursuit of knowledge.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}

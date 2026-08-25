@@ -84,7 +84,7 @@ export default function PageLoader() {
     >
       <div className="page-loader__circle" aria-hidden="true">
         <div className="page-loader__inner">
-          <span>KVK</span>
+          <span></span>
         </div>
       </div>
       <p className="page-loader__label">Loading</p>

@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import {
+  Archive,
   BookOpen,
+  Home,
   Images,
   Languages,
   Mail,
   Menu,
   Route,
-  Search,
   Trophy,
   UserRound,
   X,
@@ -19,14 +20,22 @@ import { useEffect, useState } from "react";
 type Language = "en" | "te";
 
 const links = [
-  { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
-  { href: "#about", en: "About", te: "పరిచయం", icon: UserRound },
+  { href: "/", en: "Home", te: "హోమ్", icon: Home },
+  { href: "about", en: "About", te: "పరిచయం", icon: UserRound },
   { href: "#journey", en: "Journey", te: "ప్రయాణం", icon: Route },
-  { href: "#research", en: "Research", te: "పరిశోధన", icon: Search },
   { href: "#books", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
   { href: "#awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
   { href: "#contact", en: "Contact", te: "సంప్రదించండి", icon: Mail },
-];
+  { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
+  { href: "/archive", en: "Archive", te: "Archive", icon: Archive },
+]
+  .filter((link) => link.href !== "#journey")
+  .map((link) => {
+    if (link.href === "about") return { ...link, href: "/about" };
+    if (link.href === "#gallery") return { ...link, href: "/gallery" };
+    if (link.href.startsWith("#")) return { ...link, href: `/${link.href}` };
+    return link;
+  });
 
 const labelMotion = {
   initial: { opacity: 0, y: 7 },
@@ -37,13 +46,14 @@ const labelMotion = {
 export default function Navbar() {
   const [language, setLanguage] = useState<Language>("en");
   const [pastHero, setPastHero] = useState(false);
+  const [footerVisible, setFooterVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const otherLanguage = language === "en" ? "te" : "en";
 
   useEffect(() => {
     const updateNavbarBackground = () => {
       const hero = document.getElementById("hero");
-      setPastHero(Boolean(hero && window.scrollY >= hero.offsetHeight - 80));
+      setPastHero(!hero || window.scrollY >= hero.offsetHeight - 80);
     };
 
     updateNavbarBackground();
@@ -52,8 +62,29 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", updateNavbarBackground);
   }, []);
 
+  useEffect(() => {
+    const footer = document.getElementById("footer");
+    if (!footer) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setFooterVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setMenuOpen(false);
+      },
+      { threshold: 0.08 },
+    );
+
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 py-3 sm:px-6 sm:py-5">
+    <header
+      aria-hidden={footerVisible}
+      className={`fixed inset-x-0 top-0 z-50 px-3 py-3 transition-all duration-500 sm:px-6 sm:py-5 ${
+        footerVisible ? "pointer-events-none -translate-y-5 opacity-0" : "translate-y-0 opacity-100"
+      }`}
+    >
       <nav
         aria-label="Primary navigation"
         className={`mx-auto flex w-full max-w-6xl items-center justify-center gap-x-1 gap-y-2 rounded-2xl px-3 py-2 transition-[background-color,box-shadow] duration-500 sm:rounded-full sm:px-5 ${

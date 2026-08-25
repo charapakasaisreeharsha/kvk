@@ -1,0 +1,119 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+
+export default function AdminLogin() {
+  const router = useRouter();
+  const supabase = createClient();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(e: FormEvent) {
+    e.preventDefault();
+
+    setError("");
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setError("Invalid email or password.");
+      setLoading(false);
+      return;
+    }
+
+    router.push("/admin");
+    router.refresh();
+  }
+
+  return (
+    <main className="flex min-h-screen items-center justify-center bg-white px-4">
+      <form
+        onSubmit={handleLogin}
+        className="w-full max-w-md rounded-2xl p-6 shadow-sm ring-1 ring-gray-100 sm:p-8"
+      >
+        <div className="mb-7 flex flex-col items-center text-center sm:mb-8">
+          <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-black text-lg text-white">
+            🔒
+          </span>
+          <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
+            Archive Admin
+          </h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Sign in to manage the archive.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <input
+              type="email"
+              required
+              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              className="w-full rounded-lg px-4 py-3 text-sm outline-none ring-1 ring-gray-200 transition focus:ring-2 focus:ring-black/70"
+            />
+          </div>
+
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                required
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full rounded-lg px-4 py-3 pr-16 text-sm outline-none ring-1 ring-gray-200 transition focus:ring-2 focus:ring-black/70"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400 hover:text-gray-600"
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {error && (
+          <div
+            role="alert"
+            className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700"
+          >
+            {error}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 text-sm font-medium text-white transition hover:bg-gray-800 disabled:opacity-50"
+        >
+          {loading && (
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+          )}
+          {loading ? "Signing in..." : "Sign in"}
+        </button>
+      </form>
+    </main>
+  );
+}

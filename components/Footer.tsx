@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, PenLine } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "#hero" },
@@ -67,17 +67,26 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 select-none leading-[0.85] sm:mt-16 md:mt-20">
+        <div className="relative mt-12 select-none leading-[0.85] sm:mt-16 md:mt-20">
           <span
             className="block whitespace-nowrap font-bold tracking-[-0.06em] text-[var(--background)]"
             style={{ fontSize: "clamp(3rem, 14vw, 10rem)" }}
           >
-            KVK Legacy.
+            KVKM Legacy.
           </span>
+          <Link
+            href="/admin"
+            scroll
+            aria-label="Admin login"
+            title="Admin login"
+            className="absolute bottom-0 right-0 rounded p-1 text-[var(--background)]/20 transition-opacity hover:text-[var(--background)]/70 focus-visible:text-[var(--background)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--background)]"
+          >
+            <PenLine className="size-3.5" aria-hidden="true" />
+          </Link>
         </div>
 
         <div className="mt-7 flex flex-col gap-2 border-t border-[var(--background)]/20 pt-4 text-xs leading-5 text-[var(--background)]/70 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:text-sm">
-          <p>© {new Date().getFullYear()} KVK Legacy.</p>
+          <p>© {new Date().getFullYear()} KVKM Legacy.</p>
           <p>Built with care, for the pursuit of knowledge.</p>
         </div>
       </div>

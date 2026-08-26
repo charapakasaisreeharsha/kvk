@@ -93,11 +93,11 @@ export default function LiteraryContributions() {
         <div className="flex flex-col gap-8 border-b border-[var(--secondary)]/15 pb-10 sm:gap-10 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">Literary contributions</p>
-          <h2 className="mt-4 text-4xl font-normal leading-tight text-[var(--foreground)] sm:text-5xl">KVK&apos;s writings</h2>
+          <h2 className="mt-4 text-4xl font-normal leading-tight text-[var(--foreground)] sm:text-5xl">KVKM&apos;s writings</h2>
           <p className="mt-6 text-base leading-8 text-[var(--secondary)] sm:text-lg">A body of work spanning devotional poetry, philosophy, literature, and Vedic science — composed in Sanskrit, Telugu, and English.</p>
           </div>
 
-          <nav aria-label="Explore KVK's writings" className="grid w-full gap-2 sm:grid-cols-3 lg:w-[360px] lg:grid-cols-1">
+          <nav aria-label="Explore KVKM's writings" className="grid w-full gap-2 sm:grid-cols-3 lg:w-[360px] lg:grid-cols-1">
             {[["Poetry", "#poetry"], ["Prose", "#prose"], ["Scientific", "#scientific"]].map(([label, href]) => (
               <a key={label} href={href} className="group flex items-center justify-between rounded-full border border-[var(--primary)]/25 bg-[var(--background)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:bg-[var(--primary)] hover:text-[var(--background)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]">
                 {label}

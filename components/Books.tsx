@@ -125,7 +125,7 @@ export default function Books() {
             Books
           </h2>
           <p className="mt-3 text-base text-[var(--secondary)] sm:text-lg">
-            Edited by KVK
+            Edited by KVKM
           </p>
         </div>
 

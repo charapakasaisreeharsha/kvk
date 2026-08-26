@@ -2,11 +2,9 @@
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLogin() {
   const router = useRouter();
-  const supabase = createClient();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,13 +18,16 @@ export default function AdminLogin() {
     setError("");
     setLoading(true);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const response = await fetch("/api/admin/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ email, password }),
+    }).catch(() => null);
 
-    if (error) {
-      setError("Invalid email or password.");
+    if (!response?.ok) {
+      const result = await response?.json().catch(() => null);
+      setError(result?.error || "Unable to sign in. Please try again.");
       setLoading(false);
       return;
     }

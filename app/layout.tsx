@@ -23,9 +23,34 @@ const telugu = Noto_Serif_Telugu({
 });
 
 export const metadata: Metadata = {
-  title: "Sri Kuppa Venkata Krishna Murthy",
+  title: {
+    default: "Sri Kuppa Venkata Krishna Murthy",
+    template: "%s | Sri Kuppa Venkata Krishna Murthy",
+  },
   description:
-    "Official portfolio of Sri Kuppa Venkata Krishna Murthy.",
+    "Official portfolio of Prof. K. V. Krishna Murthy, scholar of Sanskrit literature, Vedic sciences, and modern science.",
+  applicationName: "Sri Kuppa Venkata Krishna Murthy",
+  keywords: [
+    "Kuppa Venkata Krishna Murthy",
+    "K. V. Krishna Murthy",
+    "Sanskrit scholar",
+    "Vedic sciences",
+    "Sanskrit literature",
+    "Indian scholarship",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "Sri Kuppa Venkata Krishna Murthy",
+    title: "Sri Kuppa Venkata Krishna Murthy",
+    description:
+      "Official portfolio of Prof. K. V. Krishna Murthy, scholar of Sanskrit literature, Vedic sciences, and modern science.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Sri Kuppa Venkata Krishna Murthy",
+    description:
+      "Official portfolio of Prof. K. V. Krishna Murthy, scholar of Sanskrit literature, Vedic sciences, and modern science.",
+  },
 };
 
 export default function RootLayout({

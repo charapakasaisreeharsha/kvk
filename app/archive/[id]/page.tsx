@@ -59,7 +59,7 @@ export default async function ArchiveWorkPage({
 
           <div>
 
-            <div className="aspect-[3/4] bg-gray-100 rounded-2xl overflow-hidden">
+            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
 
               {coverUrl ? (
                 <img

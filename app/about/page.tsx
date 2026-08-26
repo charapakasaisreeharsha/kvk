@@ -1,10 +1,15 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "About | Biography",
-  description: "Biography of Prof. K. V. Krishna Murthy",
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Read the biography of Prof. K. V. Krishna Murthy, Sanskrit scholar, poet, philosopher, and researcher of Vedic sciences.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

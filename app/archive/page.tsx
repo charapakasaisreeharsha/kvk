@@ -11,6 +11,16 @@ import {
   X,
 } from "lucide-react";
 import ArchiveFilters from "./ArchiveFilters";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Archive",
+  description:
+    "Browse the digital archive of Prof. K. V. Krishna Murthy's books, poetry, essays, research papers, and other writings.",
+  alternates: {
+    canonical: "/archive",
+  },
+};
 
 const PAGE_SIZE = 12;
 

@@ -98,6 +98,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
             <li key={link.href}>
               <Link
                 href={link.href}
+                scroll
                 className="flex items-center gap-1.5 rounded-full px-2.5 py-2 text-xs font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-3 sm:text-sm"
               >
                 <link.icon className="size-3.5" aria-hidden="true" />
@@ -162,6 +163,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    scroll
                     onClick={() => setMenuOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >

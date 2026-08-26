@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
@@ -59,7 +60,6 @@ const images: GalleryImage[] = [
 export default function GallerySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const scrollToGalleryStart = () => sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
@@ -140,16 +140,16 @@ export default function GallerySection() {
             <span className="text-xs font-semibold tracking-[0.16em] text-[var(--accent)]">MORE TO EXPLORE</span>
             <h3 className="mt-3 text-3xl font-normal leading-tight">Discover more moments</h3>
             <p className="mt-3 text-sm leading-6 text-[var(--background)]/75">Explore the collection again and revisit the memories that shaped this journey.</p>
-            <button
-              type="button"
-              onClick={scrollToGalleryStart}
+            <Link
+              href="/gallery"
+              scroll
               className="group mt-7 inline-flex w-fit items-center justify-between gap-4 rounded-full border border-[var(--background)]/25 bg-[var(--background)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:bg-transparent hover:text-[var(--background)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
             >
               View more
               <span className="flex size-7 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--background)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[var(--background)] group-hover:text-[var(--primary)]">
                 <ArrowUpRight className="size-4" aria-hidden="true" />
               </span>
-            </button>
+            </Link>
           </article>
         </div>
       </div>

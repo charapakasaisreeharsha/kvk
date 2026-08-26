@@ -1,16 +1,22 @@
 "use client";
 
 import Lenis from "@studio-freight/lenis";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { usePathname } from "next/navigation";
 
 export default function SmoothScroll() {
+  const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
+
   useEffect(() => {
     const lenis = new Lenis({
       lerp: 0.09,
       smoothWheel: true,
       syncTouch: false,
     });
+
+    lenisRef.current = lenis;
 
     // Lenis interpolates native scroll positions on animation frames. Keep GSAP's
     // scrubbed animations in sync with those frames rather than only browser
@@ -30,8 +36,21 @@ export default function SmoothScroll() {
       cancelAnimationFrame(frameId);
       lenis.off("scroll", ScrollTrigger.update);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    // Root layouts persist across navigations. Reset Lenis itself (rather than
+    // only the browser scroll position) so its internal target cannot restore
+    // the previous page's position on the next animation frame.
+    const frameId = requestAnimationFrame(() => {
+      lenisRef.current?.scrollTo(0, { immediate: true, force: true });
+      ScrollTrigger.refresh();
+    });
+
+    return () => cancelAnimationFrame(frameId);
+  }, [pathname]);
 
   return null;
 }

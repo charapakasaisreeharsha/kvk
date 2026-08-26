@@ -3,6 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 import AdminDashboard from "./AdminDashboard";
 import LogoutButton from "./LogoutButton";
 
+// The session must be checked for every request; never reuse a cached admin page.
+export const dynamic = "force-dynamic";
+
 export default async function AdminPage() {
   const supabase = await createClient();
   const {
@@ -13,7 +16,7 @@ export default async function AdminPage() {
   const { data: works, error } = await supabase
     .from("archive")
     .select(
-      "id, title, year, category, language, views, downloads, pdf_url, external_url, created_at"
+      "id, title, year, category, language, views, downloads, pdf_file, external_url, created_at"
     )
     .order("created_at", { ascending: false });
 

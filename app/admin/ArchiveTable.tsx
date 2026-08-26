@@ -3,7 +3,7 @@
 import { useState } from "react";
 import AddWorkButton from "./AddWorkButton";
 
-export type ArchiveWork = { id: string; title: string; year: number | null; category: string | null; language: string | null; views: number | null; downloads: number | null; pdf_url: string | null; external_url: string | null; created_at: string };
+export type ArchiveWork = { id: string; title: string; year: number | null; category: string | null; language: string | null; views: number | null; downloads: number | null; pdf_file: string | null; external_url: string | null; created_at: string };
 
 export default function ArchiveTable({ works, onWorksChange }: { works: ArchiveWork[]; onWorksChange?: (works: ArchiveWork[]) => void }) {
   const [items, setItems] = useState(works);
@@ -60,4 +60,4 @@ function ArchiveRows({ works, deletingId, onDelete }: { works: ArchiveWork[]; de
 }
 
 function DeleteButton({ work, deletingId, onDelete }: { work: ArchiveWork; deletingId: string | null; onDelete: (work: ArchiveWork) => void }) { return <button type="button" onClick={() => onDelete(work)} disabled={deletingId === work.id} className="font-medium text-red-600 transition hover:text-red-800 disabled:opacity-40">{deletingId === work.id ? "Deleting..." : "Delete"}</button>; }
-function SourceBadge({ work }: { work: ArchiveWork }) { if (work.pdf_url) return <span className="inline-flex shrink-0 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">PDF</span>; if (work.external_url) return <span className="inline-flex shrink-0 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">External</span>; return <span className="text-gray-400">—</span>; }
+function SourceBadge({ work }: { work: ArchiveWork }) { if (work.pdf_file) return <span className="inline-flex shrink-0 rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">PDF</span>; if (work.external_url) return <span className="inline-flex shrink-0 rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">External</span>; return <span className="text-gray-400">—</span>; }

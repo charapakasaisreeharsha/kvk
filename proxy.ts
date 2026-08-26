@@ -25,7 +25,16 @@ export async function proxy(request: NextRequest) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/admin/login";
     loginUrl.search = "";
-    return NextResponse.redirect(loginUrl);
+
+    // Supabase can refresh or clear auth cookies while getUser() runs. Keep
+    // those changes on the redirect response; otherwise the browser can keep
+    // an out-of-date session during the first navigation to an admin route.
+    const redirectResponse = NextResponse.redirect(loginUrl);
+    response.cookies
+      .getAll()
+      .forEach((cookie) => redirectResponse.cookies.set(cookie));
+
+    return redirectResponse;
   }
 
   return response;

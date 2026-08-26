@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
 
@@ -100,6 +101,7 @@ export default function GalleryPage() {
           ))}
         </div>
       </main>
+      <Footer />
 
       {activeIndex !== null && (
         <Lightbox

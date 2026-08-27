@@ -75,13 +75,25 @@ export default function ArchiveFilters({
 }: ArchiveFiltersProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const desktopBarRef = useRef<HTMLElement>(null);
+  const mobileBarRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const updateScrolledState = () => setHasScrolled(window.scrollY > 24);
+    const updateScrolledState = () => {
+      const activeBar = [desktopBarRef.current, mobileBarRef.current].find(
+        (bar) => bar?.offsetParent !== null,
+      );
+
+      setHasScrolled((activeBar?.getBoundingClientRect().top ?? 1) <= 0);
+    };
 
     updateScrolledState();
     window.addEventListener("scroll", updateScrolledState, { passive: true });
-    return () => window.removeEventListener("scroll", updateScrolledState);
+    window.addEventListener("resize", updateScrolledState);
+    return () => {
+      window.removeEventListener("scroll", updateScrolledState);
+      window.removeEventListener("resize", updateScrolledState);
+    };
   }, []);
 
   const barBackground = hasScrolled
@@ -90,7 +102,7 @@ export default function ArchiveFilters({
 
   return (
     <>
-      <section className={`sticky top-0 z-30 mx-auto hidden max-w-7xl rounded-[5px] px-6 py-3 transition-[background-color,box-shadow] duration-300 md:block ${barBackground}`}>
+      <section ref={desktopBarRef} className={`sticky top-0 z-30 mx-auto hidden max-w-7xl rounded-[5px] px-6 py-3 transition-[background-color,box-shadow] duration-300 md:block ${barBackground}`}>
         <div className="flex items-center gap-3">
           <SearchForm search={search} />
           <FilterSelect label="Language" value={language} options={languages} queryKey="language" />
@@ -98,7 +110,7 @@ export default function ArchiveFilters({
         </div>
       </section>
 
-      <section className={`sticky top-0 z-30 mx-auto max-w-7xl rounded-[5px] px-6 py-3 transition-[background-color,box-shadow] duration-300 md:hidden ${barBackground}`}>
+      <section ref={mobileBarRef} className={`sticky top-0 z-30 mx-auto max-w-7xl rounded-[5px] px-6 py-3 transition-[background-color,box-shadow] duration-300 md:hidden ${barBackground}`}>
         <div className="relative flex items-stretch gap-3">
           <SearchForm search={search} />
           <button

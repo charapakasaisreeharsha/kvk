@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -181,8 +182,8 @@ export default async function ArchivePage({
   }
 
   return (
-    <div className="min-h-screen bg-black p-[5px]">
-      <div className="min-h-[calc(100vh-10px)] rounded-[5px] bg-[var(--background)]">
+    <div className="min-h-screen bg-[var(--background)]">
+      <div className="min-h-screen">
       <Navbar sticky={false} />
 
       <main className="min-h-screen">
@@ -454,6 +455,7 @@ export default async function ArchivePage({
       </section>
 
       </main>
+      <Footer />
       </div>
     </div>
   );

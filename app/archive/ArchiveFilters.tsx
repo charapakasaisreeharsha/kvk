@@ -74,10 +74,23 @@ export default function ArchiveFilters({
   categories,
 }: ArchiveFiltersProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const updateScrolledState = () => setHasScrolled(window.scrollY > 24);
+
+    updateScrolledState();
+    window.addEventListener("scroll", updateScrolledState, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolledState);
+  }, []);
+
+  const barBackground = hasScrolled
+    ? "bg-[var(--primary)] shadow-[0_8px_24px_rgba(80,25,0,0.2)]"
+    : "bg-transparent shadow-none";
 
   return (
     <>
-      <section className="sticky top-0 z-30 mx-auto hidden max-w-7xl bg-white/95 px-6 py-3 shadow-sm backdrop-blur md:block">
+      <section className={`sticky top-0 z-30 mx-auto hidden max-w-7xl rounded-[5px] px-6 py-3 transition-[background-color,box-shadow] duration-300 md:block ${barBackground}`}>
         <div className="flex items-center gap-3">
           <SearchForm search={search} />
           <FilterSelect label="Language" value={language} options={languages} queryKey="language" />
@@ -85,7 +98,7 @@ export default function ArchiveFilters({
         </div>
       </section>
 
-      <section className="sticky top-0 z-30 mx-auto max-w-7xl bg-white/95 px-6 py-3 shadow-sm backdrop-blur md:hidden">
+      <section className={`sticky top-0 z-30 mx-auto max-w-7xl rounded-[5px] px-6 py-3 transition-[background-color,box-shadow] duration-300 md:hidden ${barBackground}`}>
         <div className="relative flex items-stretch gap-3">
           <SearchForm search={search} />
           <button

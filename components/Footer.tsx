@@ -1,13 +1,15 @@
 import Link from "next/link";
+import SmoothAnchorLink from "@/components/SmoothAnchorLink";
 import { ArrowUpRight, PenLine } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Books", href: "#books" },
-  { label: "Awards", href: "#awards" },
-  { label: "Contact", href: "#contact" },
-  { label: "Gallery", href: "#gallery" },
+  { label: "Home", href: "/#hero" },
+  { label: "About", href: "/about" },
+  { label: "Journey", href: "/#journey" },
+  { label: "Books", href: "/#books" },
+  { label: "Awards", href: "/#awards" },
+  { label: "Contact", href: "/#contact" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Archive", href: "/archive" },
 ];
 
@@ -21,6 +23,7 @@ export default function Footer() {
   return (
     <footer id="footer" className="bg-[var(--foreground)] text-[var(--background)]">
       <div
+        id="contact"
         className="relative overflow-hidden bg-[var(--primary)] bg-cover bg-center bg-no-repeat px-5 pb-8 pt-9 text-[var(--background)] sm:px-10 sm:pb-10 sm:pt-14 md:px-14 lg:px-16"
         style={{
           backgroundImage:
@@ -40,13 +43,13 @@ export default function Footer() {
               <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-right sm:text-base">
                 {navLinks.map((link) => (
                   <li key={link.href}>
-                    <Link
+                    <SmoothAnchorLink
                       href={link.href}
                       className="inline-flex items-center gap-1 text-[var(--background)]/80 transition-colors hover:text-[var(--background)]"
                     >
                       {link.label}
                       <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                    </Link>
+                    </SmoothAnchorLink>
                   </li>
                 ))}
               </ul>
@@ -54,13 +57,10 @@ export default function Footer() {
             <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-right sm:text-base">
               {socialLinks.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="inline-flex items-center gap-1 text-[var(--background)]/80 transition-colors hover:text-[var(--background)]"
-                  >
+                  <span className="inline-flex items-center gap-1 text-[var(--background)]/60">
                     {link.label}
                     <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                  </Link>
+                  </span>
                 </li>
               ))}
             </ul>

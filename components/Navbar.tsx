@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import SmoothAnchorLink from "@/components/SmoothAnchorLink";
 import {
   Archive,
   BookOpen,
@@ -29,7 +29,6 @@ const links = [
   { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
   { href: "/archive", en: "Archive", te: "Archive", icon: Archive },
 ]
-  .filter((link) => link.href !== "#journey")
   .map((link) => {
     if (link.href === "about") return { ...link, href: "/about" };
     if (link.href === "#gallery") return { ...link, href: "/gallery" };
@@ -96,7 +95,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
         <ul className="hidden flex-1 flex-wrap items-center justify-center gap-x-1 gap-y-1 sm:gap-x-2 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link
+              <SmoothAnchorLink
                 href={link.href}
                 scroll
                 className="flex items-center gap-1.5 rounded-full px-2.5 py-2 text-xs font-semibold tracking-wide text-white transition-colors duration-200 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-3 sm:text-sm"
@@ -112,7 +111,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
                     {link[language]}
                   </motion.span>
                 </AnimatePresence>
-              </Link>
+              </SmoothAnchorLink>
             </li>
           ))}
         </ul>
@@ -161,7 +160,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
             <ul className="flex flex-col gap-1">
               {links.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <SmoothAnchorLink
                     href={link.href}
                     scroll
                     onClick={() => setMenuOpen(false)}
@@ -178,7 +177,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
                         {link[language]}
                       </motion.span>
                     </AnimatePresence>
-                  </Link>
+                  </SmoothAnchorLink>
                 </li>
               ))}
             </ul>

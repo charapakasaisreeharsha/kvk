@@ -1,3 +1,7 @@
+"use client";
+
+import SmoothAnchorLink from "@/components/SmoothAnchorLink";
+
 export default function Hero() {
   return (
     <section id="hero" className="relative h-screen w-full overflow-hidden">
@@ -32,9 +36,9 @@ export default function Hero() {
           Vedas with modern scientific inquiry.
         </p>
 
-        <button className="mt-8 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition hover:bg-white hover:text-black sm:mt-10 sm:px-8 sm:text-sm">
+        <SmoothAnchorLink href="/#about" className="mt-8 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-xs font-semibold uppercase tracking-widest backdrop-blur-md transition hover:bg-white hover:text-black sm:mt-10 sm:px-8 sm:text-sm">
           Explore Journey
-        </button>
+        </SmoothAnchorLink>
       </div>
 
       {/* Scroll Indicator */}

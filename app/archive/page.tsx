@@ -181,7 +181,8 @@ export default async function ArchivePage({
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-black p-[5px]">
+      <div className="min-h-[calc(100vh-10px)] rounded-[5px] bg-[var(--background)]">
       <Navbar sticky={false} />
 
       <main className="min-h-screen">
@@ -453,6 +454,7 @@ export default async function ArchivePage({
       </section>
 
       </main>
-    </>
+      </div>
+    </div>
   );
 }

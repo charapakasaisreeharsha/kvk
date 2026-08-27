@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import SmoothAnchorLink from "@/components/SmoothAnchorLink";
 
 type Work = {
   title: string;
@@ -99,10 +100,10 @@ export default function LiteraryContributions() {
 
           <nav aria-label="Explore KVKM's writings" className="grid w-full gap-2 sm:grid-cols-3 lg:w-[360px] lg:grid-cols-1">
             {[["Poetry", "#poetry"], ["Prose", "#prose"], ["Scientific", "#scientific"]].map(([label, href]) => (
-              <a key={label} href={href} className="group flex items-center justify-between rounded-full border border-[var(--primary)]/25 bg-[var(--background)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:bg-[var(--primary)] hover:text-[var(--background)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]">
+              <SmoothAnchorLink key={label} href={href} className="group flex items-center justify-between rounded-full border border-[var(--primary)]/25 bg-[var(--background)] px-5 py-3 text-sm font-semibold text-[var(--foreground)] transition-colors hover:bg-[var(--primary)] hover:text-[var(--background)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]">
                 {label}
                 <span className="flex size-7 items-center justify-center rounded-full bg-[var(--primary)] text-[var(--background)] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-[var(--background)] group-hover:text-[var(--primary)]"><ArrowUpRight className="size-4" aria-hidden="true" /></span>
-              </a>
+              </SmoothAnchorLink>
             ))}
           </nav>
         </div>

@@ -52,5 +52,26 @@ export default function SmoothScroll() {
     return () => cancelAnimationFrame(frameId);
   }, [pathname]);
 
+  useEffect(() => {
+    const scrollToHash = (hash = window.location.hash) => {
+      const id = hash.replace(/^#/, "");
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+
+      lenisRef.current?.scrollTo(target, { offset: -96, duration: 1.1 });
+    };
+
+    const frameId = requestAnimationFrame(() => scrollToHash());
+    const handleSmoothScroll = (event: Event) => {
+      scrollToHash((event as CustomEvent<string>).detail);
+    };
+
+    window.addEventListener("smooth-scroll-to", handleSmoothScroll);
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("smooth-scroll-to", handleSmoothScroll);
+    };
+  }, [pathname]);
+
   return null;
 }

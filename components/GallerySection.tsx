@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import ImageLoadingFrame from "@/components/ImageLoadingFrame";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -204,13 +205,15 @@ export default function GallerySection() {
               key={image.src}
               className="group relative aspect-[3/4] w-[clamp(18rem,78vw,28rem)] shrink-0 overflow-hidden rounded-3xl border border-[var(--secondary)]/15 bg-[var(--secondary)]/5 shadow-[0_12px_30px_rgba(91,70,54,0.08)] sm:w-[clamp(20rem,44vw,28rem)] lg:w-[clamp(22rem,26vw,28rem)]"
             >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(min-width: 1024px) 26vw, (min-width: 640px) 38vw, 70vw"
-                className={`object-cover transition duration-500 group-hover:scale-105 ${image.position ?? ""}`}
-              />
+              <ImageLoadingFrame>
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  sizes="(min-width: 1024px) 26vw, (min-width: 640px) 38vw, 70vw"
+                  className={`object-cover transition duration-500 group-hover:scale-105 ${image.position ?? ""}`}
+                />
+              </ImageLoadingFrame>
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-5 pb-5 pt-20 text-[var(--background)] sm:px-6 sm:pb-6">
                 <span className="text-xs font-semibold tracking-[0.16em] text-[var(--accent)]">{String(index + 1).padStart(2, "0")}</span>
                 <figcaption className="mt-2 text-xl font-normal">{image.title}</figcaption>

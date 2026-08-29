@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import ArchiveFilters from "./ArchiveFilters";
+import ImageLoadingFrame from "@/components/ImageLoadingFrame";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -225,7 +226,7 @@ export default async function ArchivePage({
 
       <section className="max-w-7xl mx-auto px-6 py-12">
 
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-start justify-between gap-4 mb-6">
 
           <div>
             <h2 className="text-xl font-semibold">
@@ -238,6 +239,10 @@ export default async function ArchivePage({
               {search && ` matching "${search}"`}
             </p>
           </div>
+
+          <p className="shrink-0 pt-1 text-sm font-medium text-gray-500" aria-live="polite">
+            Page {page} of {totalPages}
+          </p>
 
         </div>
 
@@ -292,11 +297,13 @@ export default async function ArchivePage({
                 <div className="relative aspect-[4/5] w-[38%] shrink-0 overflow-hidden bg-gray-100 sm:w-full">
 
                   {work.coverUrl ? (
-                    <img
-                      src={work.coverUrl}
-                      alt={work.title}
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-300"
-                    />
+                    <ImageLoadingFrame>
+                      <img
+                        src={work.coverUrl}
+                        alt={work.title}
+                        className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-300"
+                      />
+                    </ImageLoadingFrame>
                   ) : (
                     <div className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-300">
                       <ImageOff size={28} strokeWidth={1.5} />

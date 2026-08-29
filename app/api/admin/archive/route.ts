@@ -71,7 +71,16 @@ function validateWork({ title, description, year, category, language, externalUr
   if (!cover.type.startsWith("image/")) return "Cover must be an image file.";
   if (!pdf && !externalUrl) return "Upload a PDF or provide an external source URL.";
   if (pdf && pdf.type !== "application/pdf") return "The uploaded file must be a PDF.";
-  if (externalUrl) try { new URL(externalUrl); } catch { return "Please enter a valid external URL."; }
+  if (externalUrl) {
+    try {
+      const url = new URL(externalUrl);
+      if (url.protocol !== "https:" && url.protocol !== "http:") {
+        return "External URLs must use HTTP or HTTPS.";
+      }
+    } catch {
+      return "Please enter a valid external URL.";
+    }
+  }
   return null;
 }
 

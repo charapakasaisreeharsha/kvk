@@ -167,7 +167,7 @@ function WorkList({ works }: { works: Work[] }) {
 const content = {
   en: {
     eyebrow: "Literary contributions",
-    heading: "KVKM's writings",
+    heading: "Kuppa Venkata Krishna Murthy's writings",
     intro:
       "A body of work spanning devotional poetry, philosophy, literature, and Vedic science — composed in Sanskrit, Telugu, and English.",
     nav: [
@@ -188,7 +188,7 @@ const content = {
   },
   te: {
     eyebrow: "సాహిత్య రచనలు",
-    heading: "KVKM రచనలు",
+    heading: "శ్రీ కుప్పా వేంకటకృష్ణమూర్తి రచనలు",
     intro:
       "సంస్కృతం, తెలుగు మరియు ఆంగ్లంలో రచించిన భక్తి కవిత్వం, తత్వశాస్త్రం, సాహిత్యం మరియు వేద విజ్ఞానాన్ని ఆవరించిన రచనల సమాహారం.",
     nav: [

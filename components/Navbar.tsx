@@ -3,7 +3,6 @@
 import SmoothAnchorLink from "@/components/SmoothAnchorLink";
 import { useLanguage } from "@/components/LanguageProvider";
 import {
-  Archive,
   BookOpen,
   Home,
   Images,
@@ -22,12 +21,12 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", en: "Home", te: "హోమ్", icon: Home },
   { href: "about", en: "About", te: "పరిచయం", icon: UserRound },
+  { href: "#gurus", en: "Gurus", te: "గురువులు", icon: UserRound },
   { href: "#journey", en: "Journey", te: "ప్రయాణం", icon: Route },
-  { href: "#books", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
   { href: "#awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
   { href: "#contact", en: "Contact", te: "సంప్రదించండి", icon: Mail },
   { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
-  { href: "/archive", en: "Archive", te: "Archive", icon: Archive },
+  { href: "/archive", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
 ]
   .map((link) => {
     if (link.href === "about") return { ...link, href: "/about" };

@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(
   _request: Request,
   {
@@ -66,5 +68,7 @@ export async function GET(
     archive_id: id,
   });
 
-  return NextResponse.redirect(signedUrl.signedUrl);
+  return NextResponse.redirect(signedUrl.signedUrl, {
+    headers: { "Cache-Control": "no-store" },
+  });
 }

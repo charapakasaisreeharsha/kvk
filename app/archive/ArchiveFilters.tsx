@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Filter, Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import FilterSelect from "./FilterSelect";
 
 type ArchiveFiltersProps = {
@@ -99,6 +100,7 @@ export default function ArchiveFilters({
   const barBackground = hasScrolled
     ? "bg-[var(--primary)] shadow-[0_8px_24px_rgba(80,25,0,0.2)]"
     : "bg-transparent shadow-none";
+  const hasActiveFilters = Boolean(search) || language !== "All" || category !== "All";
 
   return (
     <>
@@ -107,6 +109,15 @@ export default function ArchiveFilters({
           <SearchForm search={search} />
           <FilterSelect label="Language" value={language} options={languages} queryKey="language" />
           <FilterSelect label="Category" value={category} options={categories} queryKey="category" />
+          {hasActiveFilters && (
+            <Link
+              href="/archive"
+              scroll={false}
+              className="shrink-0 rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-black"
+            >
+              Clear filters
+            </Link>
+          )}
         </div>
       </section>
 

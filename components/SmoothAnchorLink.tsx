@@ -11,12 +11,18 @@ export default function SmoothAnchorLink({ onClick, href, ...props }: SmoothAnch
     if (event.defaultPrevented || typeof href !== "string") return;
 
     const target = new URL(href, window.location.href);
-    const isCurrentPageAnchor = target.pathname === window.location.pathname && target.hash;
+    const isCurrentPageAnchor =
+      target.pathname === window.location.pathname &&
+      target.search === window.location.search &&
+      target.hash;
 
     if (!isCurrentPageAnchor) return;
 
     event.preventDefault();
-    window.history.pushState(null, "", `${target.pathname}${target.hash}`);
+    const destination = `${target.pathname}${target.search}${target.hash}`;
+    if (destination !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+      window.history.pushState(null, "", destination);
+    }
     window.dispatchEvent(new CustomEvent("smooth-scroll-to", { detail: target.hash }));
   };
 

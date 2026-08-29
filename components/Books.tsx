@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import ImageLoadingFrame from "@/components/ImageLoadingFrame";
 
 const ENGLISH_BOOKS: string[] = [
   "Two Facets of Geometry — Dr. G. S. Murty",
@@ -88,13 +89,15 @@ function InfiniteBookRow({ label, books }: InfiniteBookRowProps) {
               className="relative flex h-48 w-36 shrink-0 snap-start overflow-hidden rounded-[1.35rem] border border-black/10 bg-[var(--primary)] shadow-[0_12px_24px_rgba(91,70,54,0.2)] sm:h-56 sm:w-44 lg:h-64 lg:w-52"
             >
               {title === ENGLISH_BOOKS[0] ? (
-                <Image
-                  src="/book-covers/the_two_facts_of_geometry.png"
-                  alt="Cover of Two Facets of Geometry"
-                  fill
-                  sizes="(max-width: 640px) 144px, (max-width: 1024px) 176px, 208px"
-                  className="object-cover"
-                />
+                <ImageLoadingFrame>
+                  <Image
+                    src="/book-covers/the_two_facts_of_geometry.png"
+                    alt="Cover of Two Facets of Geometry"
+                    fill
+                    sizes="(max-width: 640px) 144px, (max-width: 1024px) 176px, 208px"
+                    className="object-cover"
+                  />
+                </ImageLoadingFrame>
               ) : (
                 <div
                   role="img"

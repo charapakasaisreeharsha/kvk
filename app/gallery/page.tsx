@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import ImageLoadingFrame from "@/components/ImageLoadingFrame";
 
 type Photo = {
   src: string;
@@ -89,13 +90,15 @@ export default function GalleryPage() {
               aria-label={`View ${photo.alt} in full size`}
               className={`group relative cursor-zoom-in overflow-hidden rounded-[5px] bg-[#d8d2b4] ${photo.colSpan} ${photo.rowSpan}`}
             >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                sizes="(max-width: 640px) 50vw, 33vw"
-                className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-              />
+              <ImageLoadingFrame>
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+                />
+              </ImageLoadingFrame>
               <span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
             </button>
           ))}

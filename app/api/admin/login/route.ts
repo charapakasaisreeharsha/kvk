@@ -5,6 +5,9 @@ export const dynamic = "force-dynamic";
 
 const MAX_FAILED_ATTEMPTS = 5;
 const WINDOW_MS = 15 * 60 * 1000;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_PASSWORD_LENGTH = 128;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 type Attempt = { count: number; resetAt: number };
 
@@ -64,13 +67,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request format." }, { status: 415 });
   }
 
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (contentLength > 2_048) {
+    return NextResponse.json({ error: "Invalid sign-in details." }, { status: 413 });
+  }
+
   const payload: unknown = await request.json().catch(() => null);
   if (!payload || typeof payload !== "object") {
     return NextResponse.json({ error: "Invalid sign-in details." }, { status: 400 });
   }
 
   const { email, password } = payload as { email?: unknown; password?: unknown };
-  if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
+  if (
+    typeof email !== "string" ||
+    typeof password !== "string" ||
+    !EMAIL_PATTERN.test(email) ||
+    email.length > MAX_EMAIL_LENGTH ||
+    password.length === 0 ||
+    password.length > MAX_PASSWORD_LENGTH ||
+    /[\u0000-\u001F\u007F]/.test(email) ||
+    /[\u0000-\u001F\u007F]/.test(password)
+  ) {
     return NextResponse.json({ error: "Invalid sign-in details." }, { status: 400 });
   }
 

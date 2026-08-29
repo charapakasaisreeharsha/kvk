@@ -1,6 +1,20 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import ArchiveActions from "./ArchiveActions";
+
+export const dynamic = "force-dynamic";
+
+function safeExternalUrl(value: string | null) {
+  if (!value) return null;
+
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.toString() : null;
+  } catch {
+    return null;
+  }
+}
 
 export default async function ArchiveWorkPage({
   params,
@@ -38,6 +52,7 @@ export default async function ArchiveWorkPage({
         .from("archive-covers")
         .getPublicUrl(work.cover_file).data.publicUrl
     : null;
+  const externalUrl = safeExternalUrl(work.external_url);
 
   return (
     <main className="min-h-screen">
@@ -113,56 +128,13 @@ export default async function ArchiveWorkPage({
               </p>
             )}
 
-            {/* COUNTERS */}
-
-            <div className="flex gap-6 mt-8 text-sm text-gray-500">
-
-              <span>
-                {work.views ?? 0} views
-              </span>
-
-              <span>
-                {work.downloads ?? 0} downloads
-              </span>
-
-            </div>
-
-            {/* ACTIONS */}
-
-            <div className="flex flex-wrap gap-3 mt-8">
-
-              {work.pdf_file && (
-                <a
-                  href={`/archive/${work.id}/view`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl bg-black text-white px-6 py-3 font-medium hover:bg-gray-800 transition"
-                >
-                  Read PDF
-                </a>
-              )}
-
-              {work.pdf_file && (
-                <a
-                  href={`/archive/${work.id}/download`}
-                  className="rounded-xl border px-6 py-3 font-medium hover:bg-gray-50 transition"
-                >
-                  Download PDF
-                </a>
-              )}
-
-              {work.external_url && (
-                <a
-                  href={work.external_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-xl border px-6 py-3 font-medium hover:bg-gray-50 transition"
-                >
-                  Visit Original Source
-                </a>
-              )}
-
-            </div>
+            <ArchiveActions
+              id={work.id}
+              hasPdf={Boolean(work.pdf_file)}
+              externalUrl={externalUrl}
+              initialViews={work.views ?? 0}
+              initialDownloads={work.downloads ?? 0}
+            />
 
           </div>
 

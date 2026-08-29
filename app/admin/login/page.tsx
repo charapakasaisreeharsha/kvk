@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminLogin() {
@@ -11,29 +11,64 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const requestController = useRef<AbortController | null>(null);
+
+  function updateEmail(value: string) {
+    // Email addresses never need whitespace or control characters.
+    setEmail(value.replace(/[\s\u0000-\u001F\u007F]/g, "").slice(0, 254));
+  }
+
+  function updatePassword(value: string) {
+    // Keep passwords opaque (do not rewrite valid characters), but reject
+    // control characters and unreasonably large submissions while typing.
+    setPassword(value.replace(/[\u0000-\u001F\u007F]/g, "").slice(0, 128));
+  }
 
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
 
-    setError("");
-    setLoading(true);
+    if (loading) return;
 
-    const response = await fetch("/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "same-origin",
-      body: JSON.stringify({ email, password }),
-    }).catch(() => null);
-
-    if (!response?.ok) {
-      const result = await response?.json().catch(() => null);
-      setError(result?.error || "Unable to sign in. Please try again.");
-      setLoading(false);
+    const normalizedEmail = email.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
+      setError("Enter a valid email address.");
       return;
     }
 
-    router.push("/admin");
-    router.refresh();
+    setError("");
+    setLoading(true);
+    const controller = new AbortController();
+    requestController.current = controller;
+    const timeout = window.setTimeout(() => controller.abort(), 15_000);
+
+    try {
+      const response = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({ email: normalizedEmail, password }),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => null);
+        setError(result?.error || "Unable to sign in. Please try again.");
+        return;
+      }
+
+      router.replace("/admin");
+      router.refresh();
+    } catch (requestError) {
+      setError(
+        requestError instanceof DOMException && requestError.name === "AbortError"
+          ? "Sign-in timed out. Please check your connection and try again."
+          : "Unable to sign in. Please try again.",
+      );
+    } finally {
+      window.clearTimeout(timeout);
+      requestController.current = null;
+      setLoading(false);
+    }
   }
 
   return (
@@ -62,9 +97,10 @@ export default function AdminLogin() {
             <input
               type="email"
               required
+              maxLength={254}
               autoComplete="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => updateEmail(e.target.value)}
               placeholder="you@example.com"
               className="w-full rounded-lg px-4 py-3 text-sm outline-none ring-1 ring-gray-200 transition focus:ring-2 focus:ring-black/70"
             />
@@ -78,9 +114,10 @@ export default function AdminLogin() {
               <input
                 type={showPassword ? "text" : "password"}
                 required
+                maxLength={128}
                 autoComplete="current-password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => updatePassword(e.target.value)}
                 placeholder="••••••••"
                 className="w-full rounded-lg px-4 py-3 pr-16 text-sm outline-none ring-1 ring-gray-200 transition focus:ring-2 focus:ring-black/70"
               />

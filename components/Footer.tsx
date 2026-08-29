@@ -5,12 +5,12 @@ import { ArrowUpRight, PenLine } from "lucide-react";
 const navLinks = [
   { label: "Home", href: "/#hero" },
   { label: "About", href: "/about" },
+  { label: "Gurus", href: "/#gurus" },
   { label: "Journey", href: "/#journey" },
-  { label: "Books", href: "/#books" },
   { label: "Awards", href: "/#awards" },
   { label: "Contact", href: "/#contact" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Archive", href: "/archive" },
+  { label: "Books", href: "/archive" },
 ];
 
 const socialLinks = [
@@ -24,23 +24,23 @@ export default function Footer() {
     <footer id="footer" className="bg-[var(--foreground)] text-[var(--background)]">
       <div
         id="contact"
-        className="relative overflow-hidden bg-[var(--primary)] bg-cover bg-center bg-no-repeat px-5 pb-8 pt-9 text-[var(--background)] sm:px-10 sm:pb-10 sm:pt-14 md:px-14 lg:px-16"
+        className="relative overflow-hidden bg-[var(--primary)] bg-cover bg-center bg-no-repeat px-4 pb-6 pt-8 text-[var(--background)] sm:px-6 sm:pb-10 sm:pt-12 md:px-10 lg:px-16 lg:pt-14"
         style={{
           backgroundImage:
             "linear-gradient(rgba(139, 107, 47, 0.88), rgba(139, 107, 47, 0.88)), url('/footer-bg.png')",
         }}
       >
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-          <div className="min-w-0">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+          <div className="min-w-0 lg:max-w-xl">
             <h2 className="text-3xl font-semibold leading-none sm:text-4xl">Let&apos;s connect</h2>
-            <p className="mt-4 max-w-md text-sm leading-6 text-[var(--background)]/80 sm:text-base">
+            <p className="mt-3 max-w-md text-sm leading-6 text-[var(--background)]/80 sm:mt-4 sm:text-base">
               विद्या ददाति विनयं विनयाद्याति पात्रताम्।
             </p>
           </div>
 
-          <div className="grid shrink-0 grid-cols-2 gap-x-7 gap-y-6 sm:flex sm:gap-10">
+          <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] gap-x-6 gap-y-6 border-t border-[var(--background)]/20 pt-6 sm:gap-x-10 lg:w-auto lg:border-0 lg:pt-0">
             <nav aria-label="Footer navigation">
-              <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-right sm:text-base">
+              <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-base lg:text-right">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <SmoothAnchorLink
@@ -54,7 +54,7 @@ export default function Footer() {
                 ))}
               </ul>
             </nav>
-            <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-right sm:text-base">
+            <ul className="flex flex-col gap-1.5 text-right text-sm font-medium sm:text-base">
               {socialLinks.map((link) => (
                 <li key={link.label}>
                   <span className="inline-flex items-center gap-1 text-[var(--background)]/60">
@@ -67,10 +67,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="relative mt-12 select-none leading-[0.85] sm:mt-16 md:mt-20">
+        <div className="relative mt-10 select-none leading-[0.85] sm:mt-16 md:mt-20">
           <span
-            className="block whitespace-nowrap font-bold tracking-[-0.06em] text-[var(--background)]"
-            style={{ fontSize: "clamp(3rem, 14vw, 10rem)" }}
+            className="block whitespace-nowrap pr-6 font-bold tracking-[-0.06em] text-[var(--background)]"
+            style={{ fontSize: "clamp(2.25rem, 12vw, 10rem)" }}
           >
             KVKM Legacy.
           </span>
@@ -85,7 +85,7 @@ export default function Footer() {
           </Link>
         </div>
 
-        <div className="mt-7 flex flex-col gap-2 border-t border-[var(--background)]/20 pt-4 text-xs leading-5 text-[var(--background)]/70 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:text-sm">
+        <div className="mt-6 flex flex-col gap-1.5 border-t border-[var(--background)]/20 pt-4 text-xs leading-5 text-[var(--background)]/70 sm:mt-8 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:text-sm">
           <p>© {new Date().getFullYear()} KVKM Legacy.</p>
           <p>Built with care, for the pursuit of knowledge.</p>
         </div>

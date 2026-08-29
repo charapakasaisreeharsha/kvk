@@ -2,6 +2,10 @@
 
 import Milestones from "@/components/Milestones";
 import { useLanguage } from "@/components/LanguageProvider";
+import Image from "next/image";
+import Link from "next/link";
+import ImageLoadingFrame from "@/components/ImageLoadingFrame";
+import { ArrowUpRight } from "lucide-react";
 
 const content = {
   en: {
@@ -82,7 +86,7 @@ const content = {
     gurus: [
       { name: "శ్రీ కప్పగంతుల వీరభద్ర శాస్త్రి", subject: "సంస్కృత & తెలుగు సాహిత్యం", title: "" },
       { name: "శ్రీ కె. శ్రీ ఆంజనేయ శాస్త్రి", subject: "వ్యాకరణ శాస్త్రం", title: "\u201cవ్యాకరణ స్థాపనాచార్య\u201dగా గౌరవించబడ్డారు" },
-      { name: "శ్రీ కుప్ప లక్ష్మావధాని", subject: "వేదాంత శాస్త్రం & పురాణాలు", title: "\u201cసంఘ స్వాధ్యాయ భాస్కర\u201dగా ప్రసిద్ధి" },
+      { name: "శ్రీ కుప్పా లక్ష్మావధాని", subject: "వేదాంత శాస్త్రం & పురాణాలు", title: "\u201cసంఘ స్వాధ్యాయ భాస్కర\u201dగా ప్రసిద్ధి" },
       { name: "శ్రీ కె. సుబ్రహ్మణ్య శాస్త్రి", subject: "ప్రాచీన ఖగోళశాస్త్రం & వేద విజ్ఞానం", title: "పదవీ విరమణ చేసిన స్టాటిస్టీషియన్, నీటిపారుదల శాఖ, ఆంధ్రప్రదేశ్ ప్రభుత్వం" },
       { name: "శ్రీ కె. దక్షిణ మూర్తి", subject: "జ్యోతిష శాస్త్రం", title: "ఆదాయపు పన్ను ప్రాక్టీషనర్, మహబూబ్‌నగర్" },
       { name: "శ్రీ నారాయణ ఘనపాఠి", subject: "కృష్ణ యజుర్వేదం (పాక్షికం)", title: "మచిలీపట్నం" },
@@ -91,6 +95,15 @@ const content = {
       "ఆయన అధునాతన అధ్యయనాలు ధ్వన్యాలోకం, రసగంగాధరం వంటి సాంప్రదాయిక గ్రంథాలతో పాటు బృహత్ సంహిత, అద్భుత సాగరం వంటి శాస్త్రీయ సంస్కృత రచనలకు కూడా విస్తరించాయి.",
   },
 };
+
+const guruImages = [
+  null,
+  "/gurus/Kuppa%20Sri%20Anjaneya%20Sastry%20garu%20and%20Rajyalakshi%20garu.jpeg",
+  "/gurus/Kuppa%20Lakshmavadhani%20garu%20%26%20Smt.%20Bhanumathi%20garu.jpeg",
+  "/gurus/Kuppa%20Subramanya%20Sastry.jpeg",
+  "/gurus/Kuppa%20dakshina%20murthy%20garu.jpeg",
+  null,
+] as const;
 
 export default function Journey() {
   const { language } = useLanguage();
@@ -199,33 +212,57 @@ export default function Journey() {
         </div>
 
         {/* Gurus — text-only mosaic cards, no images, no flowchart */}
-        <div>
+        <div id="gurus" className="scroll-mt-24">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
             {t.gurusLabel}
           </p>
           <p className="mb-10 max-w-2xl text-[var(--secondary)] leading-7">{t.gurusIntro}</p>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {t.gurus.map((guru) => (
+            {t.gurus.map((guru, index) => (
               <div
                 key={guru.name}
-                className="rounded-3xl border border-[var(--secondary)]/15 p-6 transition-colors hover:border-[var(--accent)]/50"
+                className="overflow-hidden rounded-3xl border border-[var(--secondary)]/15 transition-colors hover:border-[var(--accent)]/50"
               >
-                <span className="mb-4 inline-block h-1 w-10 rounded-full bg-[var(--accent)]" />
-                <h4 className="text-lg font-normal leading-snug text-[var(--foreground)]">
-                  {guru.name}
-                </h4>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
-                  {guru.subject}
-                </p>
-                {guru.title && (
-                  <p className="mt-2 text-sm text-[var(--secondary)]">{guru.title}</p>
-                )}
+                <div className="relative aspect-[4/5] bg-[var(--foreground)]/5">
+                  {guruImages[index] ? (
+                    <ImageLoadingFrame>
+                      <Image src={guruImages[index]} alt={guru.name} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" className="object-cover" />
+                    </ImageLoadingFrame>
+                  ) : (
+                    <div className="grid h-full place-items-center text-xs font-semibold uppercase tracking-[0.18em] text-[var(--secondary)]/50">
+                      Portrait forthcoming
+                    </div>
+                  )}
+                </div>
+                <div className="p-6">
+                  <span className="mb-4 inline-block h-1 w-10 rounded-full bg-[var(--accent)]" />
+                  <h4 className="text-lg font-normal leading-snug text-[var(--foreground)]">
+                    {guru.name}
+                  </h4>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
+                    {guru.subject}
+                  </p>
+                  {guru.title && (
+                    <p className="mt-2 text-sm text-[var(--secondary)]">{guru.title}</p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
 
-          <p className="mt-14 max-w-2xl text-[var(--secondary)] leading-7">{t.gurusOutro}</p>
+          <div className="mt-14 flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
+            <p className="max-w-2xl text-[var(--secondary)] leading-7">{t.gurusOutro}</p>
+            <Link
+              href="/gurus"
+              className="group inline-flex shrink-0 items-center gap-5 self-end rounded-full bg-[#9a762e] py-1.5 pl-6 pr-2 text-base font-semibold text-white shadow-[0_6px_14px_rgba(91,70,54,0.2)] transition-colors hover:bg-[#805f22] sm:text-lg"
+            >
+              {language === "en" ? "Know more" : "మరిన్నీ చూడండి"}
+              <span className="grid size-10 place-items-center rounded-full bg-white text-[#9a762e] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                <ArrowUpRight className="size-5" strokeWidth={2} aria-hidden="true" />
+              </span>
+            </Link>
+          </div>
         </div>
 
       </div>

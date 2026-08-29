@@ -77,7 +77,10 @@ export default function FilterSelect({
       </button>
 
       {open && (
-        <div className="absolute z-20 top-full left-0 mt-2 w-full min-w-52 bg-white rounded-xl shadow-xl ring-1 ring-black/5 p-1.5 max-h-72 overflow-y-auto">
+        <div
+          className="absolute z-20 top-full left-0 mt-2 w-full min-w-52 max-h-72 touch-pan-y overflow-y-auto overscroll-contain rounded-xl bg-white p-1.5 shadow-xl ring-1 ring-black/5"
+          onWheel={(event) => event.stopPropagation()}
+        >
 
           {options.map((option) => (
             <button

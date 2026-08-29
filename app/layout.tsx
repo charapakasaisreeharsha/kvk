@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Inter_Tight, Noto_Serif_Telugu } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageLoader from "@/components/PageLoader";
+import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -65,7 +66,7 @@ export default function RootLayout({
       >
         <SmoothScroll />
         <PageLoader />
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

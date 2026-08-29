@@ -1,6 +1,7 @@
 "use client";
 
 import SmoothAnchorLink from "@/components/SmoothAnchorLink";
+import { useLanguage } from "@/components/LanguageProvider";
 import {
   Archive,
   BookOpen,
@@ -17,8 +18,6 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-
-type Language = "en" | "te";
 
 const links = [
   { href: "/", en: "Home", te: "హోమ్", icon: Home },
@@ -45,7 +44,7 @@ const labelMotion = {
 
 export default function Navbar({ sticky = true }: { sticky?: boolean }) {
   const pathname = usePathname();
-  const [language, setLanguage] = useState<Language>("en");
+  const { language, toggleLanguage } = useLanguage();
   const [pastHero, setPastHero] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -123,7 +122,7 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
 
         <button
           type="button"
-          onClick={() => setLanguage(otherLanguage)}
+          onClick={toggleLanguage}
           aria-label={`Switch navigation language to ${otherLanguage === "en" ? "English" : "Telugu"}`}
           className="group flex shrink-0 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-2 text-xs font-bold text-white transition-all duration-300 hover:bg-white hover:text-[#8b6b2f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-4 sm:text-sm"
         >

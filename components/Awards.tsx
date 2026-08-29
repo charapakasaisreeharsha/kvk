@@ -1,44 +1,116 @@
+"use client";
+
 import Image from "next/image";
 import { Award, GraduationCap, Landmark, Star, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
 
-const groups = [
-  {
-    icon: Award,
-    heading: "Early Recognition",
-    items: [
-      { title: "Ugadi Puraskar", meta: "Chief Minister of Andhra Pradesh · 2002" },
-      { title: "Jnana Saraswathi Puraskar", meta: "Saraswathi Temple, Basara, Telangana · 2002" },
-      { title: "Jnana Kulapati Puraskar", meta: "Maharshi Vignana Peetham, Vijayawada · 2003" },
+const content = {
+  en: {
+    badge: "Honours",
+    heading: "Awards & Recognition",
+    intro:
+      "A life of scholarship, teaching, and spiritual service recognised by institutions across India.",
+    statNumber: "10+",
+    statLabel: (
+      <>
+        Notable honours
+        <br />
+        listed here
+      </>
+    ),
+    groups: [
+      {
+        icon: Award,
+        heading: "Early Recognition",
+        items: [
+          { title: "Ugadi Puraskar", meta: "Chief Minister of Andhra Pradesh · 2002" },
+          { title: "Jnana Saraswathi Puraskar", meta: "Saraswathi Temple, Basara, Telangana · 2002" },
+          { title: "Jnana Kulapati Puraskar", meta: "Maharshi Vignana Peetham, Vijayawada · 2003" },
+        ],
+      },
+      {
+        icon: Star,
+        heading: "Peetham Honours",
+        items: [
+          { title: "Sri Kalyanananda Bharathi Prathibha Puraskar", meta: "Sri Maha Kameswari Peetham, Visakhapatnam · 2003" },
+          { title: "Sri Ramachandra Pura Pitha Puraskar", meta: "Karnataka · 2004" },
+        ],
+      },
+      {
+        icon: GraduationCap,
+        heading: "Scholarly Titles",
+        items: [
+          { title: "Veda Sastra Abhigna", meta: "Sarvaartha Sankshema Samiti, Hyderabad · 2006 · Title" },
+          { title: "Dr. Paidi Lakshmaiah Prathibha Puraskar", meta: "Hyderabad · 2007" },
+          { title: "Dharma Nidhi Puraskar", meta: "Sri Potti Sriramulu Telugu University, Hyderabad · 2007" },
+        ],
+      },
+      {
+        icon: Landmark,
+        heading: "National Honours",
+        items: [
+          { title: "Sri Ganapathi Sachchidananda Puraskar", meta: "Mysore · 2014" },
+          { title: "Purna Vidyanidhi Puraskar", meta: "Avadhoota Datta Peetham, Mysore · 2016" },
+        ],
+      },
     ],
   },
-  {
-    icon: Star,
-    heading: "Peetham Honours",
-    items: [
-      { title: "Sri Kalyanananda Bharathi Prathibha Puraskar", meta: "Sri Maha Kameswari Peetham, Visakhapatnam · 2003" },
-      { title: "Sri Ramachandra Pura Pitha Puraskar", meta: "Karnataka · 2004" },
+  te: {
+    badge: "గౌరవాలు",
+    heading: "అవార్డులు & గుర్తింపు",
+    intro:
+      "భారతదేశవ్యాప్తంగా సంస్థల గుర్తింపు పొందిన పాండిత్యం, బోధన మరియు ఆధ్యాత్మిక సేవా జీవితం.",
+    statNumber: "10+",
+    statLabel: (
+      <>
+        ఇక్కడ పేర్కొన్న
+        <br />
+        ప్రముఖ గౌరవాలు
+      </>
+    ),
+    groups: [
+      {
+        icon: Award,
+        heading: "తొలి గుర్తింపు",
+        items: [
+          { title: "ఉగాది పురస్కారం", meta: "ఆంధ్రప్రదేశ్ ముఖ్యమంత్రి · 2002" },
+          { title: "జ్ఞాన సరస్వతి పురస్కారం", meta: "సరస్వతీ దేవాలయం, బాసర, తెలంగాణ · 2002" },
+          { title: "జ్ఞాన కులపతి పురస్కారం", meta: "మహర్షి విజ్ఞాన పీఠం, విజయవాడ · 2003" },
+        ],
+      },
+      {
+        icon: Star,
+        heading: "పీఠ గౌరవాలు",
+        items: [
+          { title: "శ్రీ కళ్యాణానంద భారతి ప్రతిభా పురస్కారం", meta: "శ్రీ మహా కామేశ్వరీ పీఠం, విశాఖపట్నం · 2003" },
+          { title: "శ్రీ రామచంద్రపుర పీఠ పురస్కారం", meta: "కర్ణాటక · 2004" },
+        ],
+      },
+      {
+        icon: GraduationCap,
+        heading: "పాండిత్య బిరుదులు",
+        items: [
+          { title: "వేద శాస్త్ర అభిజ్ఞ", meta: "సర్వార్థ సంక్షేమ సమితి, హైదరాబాద్ · 2006 · బిరుదు" },
+          { title: "డా. పైడి లక్ష్మయ్య ప్రతిభా పురస్కారం", meta: "హైదరాబాద్ · 2007" },
+          { title: "ధర్మ నిధి పురస్కారం", meta: "శ్రీ పొట్టి శ్రీరాములు తెలుగు విశ్వవిద్యాలయం, హైదరాబాద్ · 2007" },
+        ],
+      },
+      {
+        icon: Landmark,
+        heading: "జాతీయ గౌరవాలు",
+        items: [
+          { title: "శ్రీ గణపతి సచ్చిదానంద పురస్కారం", meta: "మైసూర్ · 2014" },
+          { title: "పూర్ణ విద్యానిధి పురస్కారం", meta: "అవధూత దత్త పీఠం, మైసూర్ · 2016" },
+        ],
+      },
     ],
   },
-  {
-    icon: GraduationCap,
-    heading: "Scholarly Titles",
-    items: [
-      { title: "Veda Sastra Abhigna", meta: "Sarvaartha Sankshema Samiti, Hyderabad · 2006 · Title" },
-      { title: "Dr. Paidi Lakshmaiah Prathibha Puraskar", meta: "Hyderabad · 2007" },
-      { title: "Dharma Nidhi Puraskar", meta: "Sri Potti Sriramulu Telugu University, Hyderabad · 2007" },
-    ],
-  },
-  {
-    icon: Landmark,
-    heading: "National Honours",
-    items: [
-      { title: "Sri Ganapathi Sachchidananda Puraskar", meta: "Mysore · 2014" },
-      { title: "Purna Vidyanidhi Puraskar", meta: "Avadhoota Datta Peetham, Mysore · 2016" },
-    ],
-  },
-];
+};
 
 export default function Awards() {
+  const { language } = useLanguage();
+  const t = content[language];
+
   return (
     <section id="awards" className="bg-[var(--background)]" aria-labelledby="awards-heading">
       <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
@@ -48,13 +120,13 @@ export default function Awards() {
           <div className="relative w-full max-w-md">
             <div className="inline-flex items-center gap-2 rounded-full border border-[var(--background)]/25 bg-[var(--background)]/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em]">
               <Award className="size-3.5 text-[var(--accent)]" aria-hidden="true" />
-              Honours
+              {t.badge}
             </div>
             <h2 id="awards-heading" className="mt-5 text-4xl font-normal leading-tight sm:text-5xl">
-              Awards &amp; Recognition
+              {t.heading}
             </h2>
             <p className="mt-5 max-w-md text-base leading-7 text-[var(--background)]/75 sm:text-lg">
-              A life of scholarship, teaching, and spiritual service recognised by institutions across India.
+              {t.intro}
             </p>
 
             {/* Portrait with subtle offset accent circles */}
@@ -75,11 +147,9 @@ export default function Awards() {
             </div>
 
             <div className="mt-10 flex w-fit items-center gap-3 rounded-2xl border border-[var(--background)]/20 bg-black/10 px-4 py-3">
-              <span className="text-3xl font-normal text-[var(--accent)]">10+</span>
+              <span className="text-3xl font-normal text-[var(--accent)]">{t.statNumber}</span>
               <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--background)]/70">
-                Notable honours
-                <br />
-                listed here
+                {t.statLabel}
               </span>
             </div>
           </div>
@@ -87,10 +157,10 @@ export default function Awards() {
 
         {/* Right grid */}
         <div className="grid gap-x-10 gap-y-10 bg-[var(--background)] p-8 sm:grid-cols-2 sm:p-12 lg:py-28">
-          {groups.map((group) => {
+          {t.groups.map((group, groupIndex) => {
             const Icon = group.icon;
             return (
-              <div key={group.heading}>
+              <div key={groupIndex}>
                 <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--accent)]/15">
                   <Icon className="size-5 text-[var(--accent)]" aria-hidden="true" />
                 </div>
@@ -99,8 +169,8 @@ export default function Awards() {
                 </h3>
 
                 <ul className="mt-3 divide-y divide-[var(--primary)]/10">
-                  {group.items.map((item) => (
-                    <li key={item.title} className="flex items-start gap-2.5 py-3">
+                  {group.items.map((item, itemIndex) => (
+                    <li key={itemIndex} className="flex items-start gap-2.5 py-3">
                       <ArrowRight className="mt-1 size-3.5 shrink-0 text-[var(--accent)]" aria-hidden="true" />
                       <div>
                         <p className="text-[15px] font-medium leading-snug text-[var(--primary)]">{item.title}</p>

@@ -1,6 +1,101 @@
+"use client";
+
 import Milestones from "@/components/Milestones";
+import { useLanguage } from "@/components/LanguageProvider";
+
+const content = {
+  en: {
+    partLabel: "Journey & Legacy · Part I",
+    heading1: "A life spent reading the Vedas",
+    heading2: "in the language of mathematics",
+    intro:
+      "Trained under some of the last great traditional masters of Sanskrit grammar, Vedanta and astronomy, and armed with a modern postgraduate degree in Mathematics, Prof. Krishna Murthy occupies a rare middle ground — equally credible to traditional pandits and to university scientists.",
+    educationLabel: "Education",
+    edu1Year: "1969",
+    edu1Degree: "B.Sc.",
+    edu1Desc: "Mathematics, Physics & Chemistry — Andhra University",
+    edu2Year: "1972",
+    edu2Degree: "M.A.",
+    edu2Desc: "Pure Mathematics — Andhra University",
+    eduNote:
+      "His area of specialization has remained constant throughout his career: Sanskrit literature, and correlating it with modern science.",
+    foundedLabel: "Founded 2004",
+    foundingTitle: "Founding I-SERVE",
+    foundingP1:
+      "In 2004, Prof. Krishna Murthy founded the Institute of Scientific Research on Vedas (I-SERVE), a registered charitable trust dedicated to scientific research into the sciences embedded in ancient Sanskrit literature. The institute is recognised by India's Department of Scientific and Industrial Research (DSIR) as a Scientific and Industrial Research Organisation (SIRO).",
+    foundingP2:
+      "Under his leadership, I-SERVE has organised around 50 national and international conferences, and produced numerous conference volumes and publications now used as reference material by universities and research institutes across India and abroad. I-SERVE has forged formal research collaborations (MOUs) with institutions including the Central University of Hyderabad, Dr. B.R. Ambedkar Open University, S.V. Ayurvedic Medical College (Tirupati), the Sanskrit Academy at Osmania University, GITAM University, the Association of Ayurvedic Practitioners of North America (AAPNA, USA), and the Indic Studies Foundation (California, USA), among others.",
+    stats: [
+      ["50+", "national conferences"],
+      ["DSIR", "recognised SIRO"],
+      ["Global", "research collaborations"],
+      ["12", "years as Chairman"],
+    ],
+    mentorship1: "Over 50 students guided to the advanced Alankaranta level,",
+    mentorship2: "5 scholars mentored through their M.A. in Sanskrit.",
+    gurusLabel: "About His Gurus",
+    gurusIntro:
+      "Prof. Krishna Murthy's scholarship rests on rigorous, traditional training received directly from eminent gurus across multiple disciplines.",
+    gurus: [
+      { name: "Sri Kappagantula Virabhadra Sastry", subject: "Sanskrit & Telugu Sahitya", title: "" },
+      { name: "Sri K. Sri Anjaneya Sastry", subject: "Vyakarana Sastra (Grammar)", title: "revered as \u201cVyaakarana Sthaapanaacharya\u201d" },
+      { name: "Sri Kuppa Lakshmavadhani", subject: "Vedanta Sastra & Puranas", title: "known as \u201cSanga Swadhyaya Bhaskara\u201d" },
+      { name: "Sri K. Subrahmanya Sastry", subject: "Ancient Astronomy & Vedic Sciences", title: "retired Statistician, Dept. of Irrigation, Govt. of A.P." },
+      { name: "Sri K. Dakshina Murthy", subject: "Jyothisha Sastra (Astrology)", title: "Income Tax Practitioner, Mahabubnagar" },
+      { name: "Sri Narayana Ghanapathi", subject: "Krishna Yajurveda (Partial)", title: "Machilipatnam" },
+    ],
+    gurusOutro:
+      "His advanced studies also extended to classic texts such as Dhvanyaloka and Rasagangadhara, alongside scientific Sanskrit works including Brihat Samhita and Adbhuta Sagara.",
+  },
+  te: {
+    partLabel: "ప్రయాణం & వారసత్వం · భాగం I",
+    heading1: "గణితం భాషలో వేదాలను చదివిన జీవితం",
+    heading2: "",
+    intro:
+      "సంస్కృత వ్యాకరణం, వేదాంతం మరియు జ్యోతిష శాస్త్రంలో చివరి తరం మహాన్ సాంప్రదాయిక గురువుల వద్ద శిక్షణ పొంది, గణితంలో ఆధునిక స్నాతకోత్తర పట్టా కూడా కలిగిన ప్రొ. కృష్ణమూర్తి గారు సాంప్రదాయ పండితులకు మరియు విశ్వవిద్యాలయ శాస్త్రవేత్తలకు సమానంగా ఆమోదయోగ్యమైన అరుదైన మధ్యస్థానంలో నిలుస్తారు.",
+    educationLabel: "విద్య",
+    edu1Year: "1969",
+    edu1Degree: "బి.ఎస్సి.",
+    edu1Desc: "గణితం, భౌతిక శాస్త్రం & రసాయన శాస్త్రం — ఆంధ్ర విశ్వవిద్యాలయం",
+    edu2Year: "1972",
+    edu2Degree: "ఎం.ఎ.",
+    edu2Desc: "స్వచ్ఛ గణితం — ఆంధ్ర విశ్వవిద్యాలయం",
+    eduNote:
+      "ఆయన నిపుణత రంగం కెరీర్ మొత్తంలో స్థిరంగా ఉంది: సంస్కృత సాహిత్యం, దానిని ఆధునిక శాస్త్రంతో అనుసంధానించడం.",
+    foundedLabel: "స్థాపన 2004",
+    foundingTitle: "I-SERVE స్థాపన",
+    foundingP1:
+      "2004లో, ప్రొ. కృష్ణమూర్తి గారు ప్రాచీన సంస్కృత సాహిత్యంలో నిక్షిప్తమైన శాస్త్రాలపై శాస్త్రీయ పరిశోధన కోసం అంకితమైన నమోదిత ధార్మిక ట్రస్ట్ అయిన ఇన్‌స్టిట్యూట్ ఆఫ్ సైంటిఫిక్ రీసెర్చ్ ఆన్ వేదాస్ (I-SERVE) ను స్థాపించారు. ఈ సంస్థ భారత శాస్త్ర, సాంకేతిక పరిశోధన విభాగం (DSIR) చే శాస్త్రీయ మరియు పారిశ్రామిక పరిశోధన సంస్థ (SIRO)గా గుర్తింపు పొందింది.",
+    foundingP2:
+      "ఆయన నాయకత్వంలో, I-SERVE సుమారు 50 జాతీయ మరియు అంతర్జాతీయ సదస్సులను నిర్వహించింది, మరియు భారతదేశం మరియు విదేశాలలోని విశ్వవిద్యాలయాలు, పరిశోధన సంస్థలు ప్రస్తుతం సూచిక సామగ్రిగా ఉపయోగించే అనేక సదస్సు సంపుటాలు మరియు ప్రచురణలను రూపొందించింది. I-SERVE హైదరాబాద్ కేంద్రీయ విశ్వవిద్యాలయం, డా. బి.ఆర్. అంబేద్కర్ ఓపెన్ యూనివర్సిటీ, ఎస్.వి. ఆయుర్వేదిక్ మెడికల్ కాలేజీ (తిరుపతి), ఉస్మానియా విశ్వవిద్యాలయంలోని సంస్కృత అకాడమీ, గీతం విశ్వవిద్యాలయం, అసోసియేషన్ ఆఫ్ ఆయుర్వేదిక్ ప్రాక్టీషనర్స్ ఆఫ్ నార్త్ అమెరికా (AAPNA, USA), మరియు ఇండిక్ స్టడీస్ ఫౌండేషన్ (కాలిఫోర్నియా, USA) వంటి సంస్థలతో అధికారిక పరిశోధన సహకారాలను (MOUs) ఏర్పరచుకుంది.",
+    stats: [
+      ["50+", "జాతీయ సదస్సులు"],
+      ["DSIR", "గుర్తింపు పొందిన SIRO"],
+      ["ప్రపంచవ్యాప్తం", "పరిశోధన సహకారాలు"],
+      ["12", "చైర్మన్‌గా సంవత్సరాలు"],
+    ],
+    mentorship1: "50 మందికి పైగా విద్యార్థులను అలంకారాంత స్థాయి వరకు మార్గనిర్దేశం చేశారు,",
+    mentorship2: "5 మంది పండితులను సంస్కృతంలో ఎం.ఎ. పూర్తయ్యేలా మెంటర్ చేశారు.",
+    gurusLabel: "ఆయన గురువుల గురించి",
+    gurusIntro:
+      "ప్రొ. కృష్ణమూర్తి గారి పాండిత్యం అనేక విభాగాలలో ప్రముఖ గురువుల నుండి నేరుగా పొందిన కఠోర, సాంప్రదాయ శిక్షణపై ఆధారపడి ఉంది.",
+    gurus: [
+      { name: "శ్రీ కప్పగంతుల వీరభద్ర శాస్త్రి", subject: "సంస్కృత & తెలుగు సాహిత్యం", title: "" },
+      { name: "శ్రీ కె. శ్రీ ఆంజనేయ శాస్త్రి", subject: "వ్యాకరణ శాస్త్రం", title: "\u201cవ్యాకరణ స్థాపనాచార్య\u201dగా గౌరవించబడ్డారు" },
+      { name: "శ్రీ కుప్ప లక్ష్మావధాని", subject: "వేదాంత శాస్త్రం & పురాణాలు", title: "\u201cసంఘ స్వాధ్యాయ భాస్కర\u201dగా ప్రసిద్ధి" },
+      { name: "శ్రీ కె. సుబ్రహ్మణ్య శాస్త్రి", subject: "ప్రాచీన ఖగోళశాస్త్రం & వేద విజ్ఞానం", title: "పదవీ విరమణ చేసిన స్టాటిస్టీషియన్, నీటిపారుదల శాఖ, ఆంధ్రప్రదేశ్ ప్రభుత్వం" },
+      { name: "శ్రీ కె. దక్షిణ మూర్తి", subject: "జ్యోతిష శాస్త్రం", title: "ఆదాయపు పన్ను ప్రాక్టీషనర్, మహబూబ్‌నగర్" },
+      { name: "శ్రీ నారాయణ ఘనపాఠి", subject: "కృష్ణ యజుర్వేదం (పాక్షికం)", title: "మచిలీపట్నం" },
+    ],
+    gurusOutro:
+      "ఆయన అధునాతన అధ్యయనాలు ధ్వన్యాలోకం, రసగంగాధరం వంటి సాంప్రదాయిక గ్రంథాలతో పాటు బృహత్ సంహిత, అద్భుత సాగరం వంటి శాస్త్రీయ సంస్కృత రచనలకు కూడా విస్తరించాయి.",
+  },
+};
 
 export default function Journey() {
+  const { language } = useLanguage();
+  const t = content[language];
+
   return (
     <section id="journey" className="relative scroll-mt-24 bg-[var(--background)] py-20 sm:py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
@@ -9,19 +104,19 @@ export default function Journey() {
         <div className="mb-16 grid gap-8 border-b border-[var(--secondary)]/15 pb-12 sm:mb-24 sm:gap-10 sm:pb-16 lg:grid-cols-[1.2fr_0.8fr] lg:items-stretch">
           <div>
             <p className="mb-6 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">
-              Journey &amp; Legacy · Part I
+              {t.partLabel}
             </p>
             <h2 className="max-w-3xl text-4xl font-normal leading-[1.15] text-[var(--foreground)] sm:text-5xl">
-              A life spent reading the Vedas
-              <br />
-              in the language of mathematics
+              {t.heading1}
+              {t.heading2 && (
+                <>
+                  <br />
+                  {t.heading2}
+                </>
+              )}
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-7 text-[var(--secondary)] sm:mt-8 sm:text-lg sm:leading-8">
-              Trained under some of the last great traditional masters of Sanskrit
-              grammar, Vedanta and astronomy, and armed with a modern postgraduate
-              degree in Mathematics, Prof. Krishna Murthy occupies a rare middle
-              ground — equally credible to traditional pandits and to university
-              scientists.
+              {t.intro}
             </p>
           </div>
 
@@ -35,136 +130,37 @@ export default function Journey() {
           </div>
         </div>
 
-        {/* Education — unchanged */}
+        {/* Education */}
         <div className="mb-24 grid gap-10 sm:grid-cols-[120px_1fr]">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
-            Education
+            {t.educationLabel}
           </p>
 
           <div className="space-y-6 border-l-2 border-[var(--accent)]/40 pl-8">
             <div className="flex flex-wrap items-baseline gap-x-4">
-              <span className="text-sm font-semibold text-[var(--primary)]">1969</span>
-              <span className="text-xl font-semibold text-[var(--foreground)]">B.Sc.</span>
-              <span className="text-[var(--secondary)]">
-                Mathematics, Physics &amp; Chemistry — Andhra University
-              </span>
+              <span className="text-sm font-semibold text-[var(--primary)]">{t.edu1Year}</span>
+              <span className="text-xl font-semibold text-[var(--foreground)]">{t.edu1Degree}</span>
+              <span className="text-[var(--secondary)]">{t.edu1Desc}</span>
             </div>
             <div className="flex flex-wrap items-baseline gap-x-4">
-              <span className="text-sm font-semibold text-[var(--primary)]">1972</span>
-              <span className="text-xl font-semibold text-[var(--foreground)]">M.A.</span>
-              <span className="text-[var(--secondary)]">
-                Pure Mathematics — Andhra University
-              </span>
+              <span className="text-sm font-semibold text-[var(--primary)]">{t.edu2Year}</span>
+              <span className="text-xl font-semibold text-[var(--foreground)]">{t.edu2Degree}</span>
+              <span className="text-[var(--secondary)]">{t.edu2Desc}</span>
             </div>
-            <p className="pt-2 text-[var(--secondary)]">
-              His area of specialization has remained constant throughout his
-              career: Sanskrit literature, and correlating it with modern
-              science.
-            </p>
+            <p className="pt-2 text-[var(--secondary)]">{t.eduNote}</p>
           </div>
         </div>
 
         {/* Roles & Milestones — candy-crush style level map, no images: numbered nodes with curved connectors */}
         <Milestones />
 
-        {false && <div className="mb-24">
-          <p className="mb-12 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
-            Roles &amp; Milestones
-          </p>
-
-          <div className="relative">
-            {(() => {
-              const roles = [
-                { role: "Chief Editor", org: "Bhaktimala — monthly magazine, Avadhoota Datta Peetham, Mysore", years: "since 1986" },
-                { role: "Trustee", org: "Avadhoota Datta Peetham, Mysore", years: "1986–2000" },
-                { role: "Sanskrit Teacher", org: "SGS Veda Sastra Pathasala, Mysore", years: "1986–2004" },
-                { role: "Educational Officer (Vidyadhikari)", org: "Avadhoota Datta Peetham, Mysore", years: "since 1990" },
-                { role: "Executive Trustee", org: "Sri Bhaktimala Trust, Mysore", years: "1991–2002" },
-                { role: "Member, Veda Sastra Pandit Selection Committee", org: "A.P. Endowments Department", years: "2002" },
-                { role: "Member", org: "TTD's Sri Venkateswara Institute of Higher Vedic Studies", years: "2003" },
-                { role: "Chairman & Managing Trustee", org: "Institute of Scientific Research on Vedas (I-SERVE)", years: "2004–2016" },
-                { role: "Member, Board of Ayurveda Studies", org: "Dr. N.T.R. University of Medical Sciences, Vijayawada", years: "2008–2009" },
-                { role: "Professor", org: "School of Vedic Studies & Research, JNIAS, Hyderabad", years: "" },
-              ];
-
-              return roles.map((item, i) => {
-                const isLeft = i % 2 === 0;
-                const isLast = i === roles.length - 1;
-                return (
-                  <div key={item.role} className="relative pb-8 last:pb-0">
-                    {!isLast && (
-                      <span className="absolute left-8 top-16 h-[calc(100%-4rem)] border-l-2 border-dashed border-[var(--accent)]/50 sm:hidden" />
-                    )}
-                    <div
-                      className={`flex items-start gap-4 sm:items-center sm:gap-6 ${
-                        isLeft ? "sm:flex-row" : "sm:flex-row-reverse sm:text-right"
-                      }`}
-                    >
-                      {/* node — numbered badge, no image needed */}
-                      <div className="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[var(--primary)] text-lg font-bold text-[var(--background)] shadow-md ring-4 ring-[var(--background)]">
-                        {i + 1}
-                      </div>
-
-                      {/* label */}
-                      <div className={isLeft ? "" : "sm:flex sm:flex-col sm:items-end"}>
-                        <span className="text-sm font-semibold text-[var(--primary)]">
-                          {item.years || "—"}
-                        </span>
-                        <p className="mt-1 leading-6 text-[var(--foreground)]">
-                          <span className="font-semibold">{item.role}</span>
-                          <br />
-                          <span className="text-sm text-[var(--secondary)]">{item.org}</span>
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* curved connector to next node — S-curve like a level map path */}
-                    {!isLast && (
-                      <svg
-                        className="mx-auto -my-2 hidden h-16 w-40 text-[var(--accent)]/50 sm:block"
-                        viewBox="0 0 160 64"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d={
-                            isLeft
-                              ? "M20 0 C 20 32, 140 32, 140 64"
-                              : "M140 0 C 140 32, 20 32, 20 64"
-                          }
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeDasharray="2 10"
-                          strokeLinecap="round"
-                        />
-                        <path
-                          d={
-                            isLeft
-                              ? "M133 58 L140 64 L147 58"
-                              : "M13 58 L20 64 L27 58"
-                          }
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </div>
-                );
-              });
-            })()}
-          </div>
-        </div>}
-
         {/* Founding I-SERVE — image floats left, text wraps beside it, then continues full-width below once past image height */}
         <div className="mb-24">
           <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)]">
-            Founded 2004
+            {t.foundedLabel}
           </p>
           <h3 className="mb-8 max-w-lg text-3xl font-normal leading-tight text-[var(--foreground)] sm:text-4xl">
-            Founding I-SERVE
+            {t.foundingTitle}
           </h3>
 
           <div className="text-[var(--secondary)] leading-8">
@@ -176,38 +172,13 @@ export default function Journey() {
               />
             </div>
 
-            <p className="mb-6">
-              In 2004, Prof. Krishna Murthy founded the Institute of Scientific
-              Research on Vedas (I-SERVE), a registered charitable trust
-              dedicated to scientific research into the sciences embedded in
-              ancient Sanskrit literature. The institute is recognised by
-              India&rsquo;s Department of Scientific and Industrial Research
-              (DSIR) as a Scientific and Industrial Research Organisation
-              (SIRO).
-            </p>
-            <p>
-              Under his leadership, I-SERVE has organised around 50 national
-              and international conferences, and produced numerous conference
-              volumes and publications now used as reference material by
-              universities and research institutes across India and abroad.
-              I-SERVE has forged formal research collaborations (MOUs) with
-              institutions including the Central University of Hyderabad, Dr.
-              B.R. Ambedkar Open University, S.V. Ayurvedic Medical College
-              (Tirupati), the Sanskrit Academy at Osmania University, GITAM
-              University, the Association of Ayurvedic Practitioners of North
-              America (AAPNA, USA), and the Indic Studies Foundation
-              (California, USA), among others.
-            </p>
+            <p className="mb-6">{t.foundingP1}</p>
+            <p>{t.foundingP2}</p>
             <div className="clear-both" />
           </div>
 
           <div className="mt-10 flex flex-wrap gap-x-12 gap-y-6 border-t border-[var(--secondary)]/15 pt-8">
-            {[
-              ["50+", "national conferences"],
-              ["DSIR", "recognised SIRO"],
-              ["Global", "research collaborations"],
-              ["12", "years as Chairman"],
-            ].map(([n, label]) => (
+            {t.stats.map(([n, label]) => (
               <div key={label}>
                 <p className="text-3xl font-semibold text-[var(--primary)]">{n}</p>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-[var(--secondary)]/60">
@@ -221,56 +192,21 @@ export default function Journey() {
         {/* Mentorship line */}
         <div className="mb-24 border-y border-[var(--secondary)]/15 py-10 text-center">
           <p className="text-2xl font-semibold leading-relaxed text-[var(--foreground)] sm:text-3xl">
-            Over 50 students guided to the advanced Alankaranta level,
+            {t.mentorship1}
             <br className="hidden sm:block" />
-            5 scholars mentored through their M.A. in Sanskrit.
+            {t.mentorship2}
           </p>
         </div>
 
         {/* Gurus — text-only mosaic cards, no images, no flowchart */}
         <div>
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
-            About His Gurus
+            {t.gurusLabel}
           </p>
-          <p className="mb-10 max-w-2xl text-[var(--secondary)] leading-7">
-            Prof. Krishna Murthy&rsquo;s scholarship rests on rigorous,
-            traditional training received directly from eminent gurus across
-            multiple disciplines.
-          </p>
+          <p className="mb-10 max-w-2xl text-[var(--secondary)] leading-7">{t.gurusIntro}</p>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Sri Kappagantula Virabhadra Sastry",
-                subject: "Sanskrit & Telugu Sahitya",
-                title: "",
-              },
-              {
-                name: "Sri K. Sri Anjaneya Sastry",
-                subject: "Vyakarana Sastra (Grammar)",
-                title: "revered as \u201cVyaakarana Sthaapanaacharya\u201d",
-              },
-              {
-                name: "Sri Kuppa Lakshmavadhani",
-                subject: "Vedanta Sastra & Puranas",
-                title: "known as \u201cSanga Swadhyaya Bhaskara\u201d",
-              },
-              {
-                name: "Sri K. Subrahmanya Sastry",
-                subject: "Ancient Astronomy & Vedic Sciences",
-                title: "retired Statistician, Dept. of Irrigation, Govt. of A.P.",
-              },
-              {
-                name: "Sri K. Dakshina Murthy",
-                subject: "Jyothisha Sastra (Astrology)",
-                title: "Income Tax Practitioner, Mahabubnagar",
-              },
-              {
-                name: "Sri Narayana Ghanapathi",
-                subject: "Krishna Yajurveda (Partial)",
-                title: "Machilipatnam",
-              },
-            ].map((guru) => (
+            {t.gurus.map((guru) => (
               <div
                 key={guru.name}
                 className="rounded-3xl border border-[var(--secondary)]/15 p-6 transition-colors hover:border-[var(--accent)]/50"
@@ -289,11 +225,7 @@ export default function Journey() {
             ))}
           </div>
 
-          <p className="mt-14 max-w-2xl text-[var(--secondary)] leading-7">
-            His advanced studies also extended to classic texts such as
-            Dhvanyaloka and Rasagangadhara, alongside scientific Sanskrit works
-            including Brihat Samhita and Adbhuta Sagara.
-          </p>
+          <p className="mt-14 max-w-2xl text-[var(--secondary)] leading-7">{t.gurusOutro}</p>
         </div>
 
       </div>

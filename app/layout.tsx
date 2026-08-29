@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight, Noto_Serif_Telugu } from "next/font/google";
+import { Cinzel, Lora, Noto_Serif_Telugu } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import PageLoader from "@/components/PageLoader";
 import LanguageProvider from "@/components/LanguageProvider";
 import "./globals.css";
 
-const inter = Inter({
+const lora = Lora({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-lora",
 });
 
-const interTight = Inter_Tight({
+const cinzel = Cinzel({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter-tight",
+  variable: "--font-cinzel",
 });
 
 const telugu = Noto_Serif_Telugu({
@@ -62,11 +62,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${interTight.variable} ${telugu.variable} antialiased`}
+        className={`${lora.variable} ${cinzel.variable} ${telugu.variable} antialiased`}
       >
-        <SmoothScroll />
-        <PageLoader />
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <SmoothScroll />
+          <PageLoader />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

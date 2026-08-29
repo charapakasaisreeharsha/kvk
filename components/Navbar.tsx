@@ -21,7 +21,7 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", en: "Home", te: "హోమ్", icon: Home },
   { href: "about", en: "About", te: "పరిచయం", icon: UserRound },
-  { href: "#gurus", en: "Gurus", te: "గురువులు", icon: UserRound },
+  { href: "/gurus", en: "Gurus", te: "గురువులు", icon: UserRound },
   { href: "#journey", en: "Journey", te: "ప్రయాణం", icon: Route },
   { href: "#awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
   { href: "#contact", en: "Contact", te: "సంప్రదించండి", icon: Mail },

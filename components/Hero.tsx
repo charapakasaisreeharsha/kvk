@@ -5,7 +5,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 
 const content = {
   en: {
-    eyebrow: "Sanskrit Scholar • Vedic Science Researcher",
+    eyebrow: "Vedic Science, Rediscovered Through Sanskrit Mastery",
     nameLine1: "Sri Kuppa Venkata",
     nameLine2: "Krishna Murthy",
     subtitle:

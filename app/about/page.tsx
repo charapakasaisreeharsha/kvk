@@ -131,7 +131,7 @@ export default function AboutPage() {
 
           {/* Heading + intro */}
           <div>
-            <h1 className="break-words text-center text-4xl font-normal leading-tight tracking-tight text-[#1a1a1a] sm:text-5xl lg:text-right lg:text-6xl">
+            <h1 className="break-words text-center text-3xl font-normal leading-tight tracking-tight text-[#1a1a1a] sm:text-4xl lg:text-right lg:whitespace-nowrap">
               {t.name}
             </h1>
 

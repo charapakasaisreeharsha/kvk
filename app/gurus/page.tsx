@@ -1,53 +1,211 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import Image from "next/image";
-import Link from "next/link";
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Gurus",
-  description: "The revered teachers who guided Prof. K. V. Krishna Murthy's scholarship.",
-  alternates: { canonical: "/gurus" },
+import Image from "next/image";
+import { useLanguage } from "@/components/LanguageProvider";
+
+const content = {
+  en: {
+    label: "Journey & Legacy",
+    swamijiTitle: "Supreme Spiritual Leader",
+    swamijiName: "Satyananda Swamiji",
+    meetingHeading: "Meeting the Spiritual Leader",
+    meetingBody:
+      "It was during a quiet visit to the ashram that Prof. Krishna Murthy, along with his wife, had the fortune of meeting Satyananda Swamiji in person. What began as a courtesy visit turned into hours of conversation on Sanskrit, Vedanta, and the sciences hidden within ancient texts — a meeting that Prof. Krishna Murthy would later describe as one of the most formative encounters of his scholarly life. The Swamiji's blessings and guidance continue to shape the values and direction of his work to this day.",
+    gurusLabel: "Other Gurus",
+    gurusHeading: "Teachers across many disciplines",
+  },
+  te: {
+    label: "ప్రయాణం & వారసత్వం",
+    swamijiTitle: "పరమ ఆధ్యాత్మిక గురువు",
+    swamijiName: "సత్యానంద స్వామిజీ",
+    meetingHeading: "ఆధ్యాత్మిక గురువును కలిసిన సందర్భం",
+    meetingBody:
+      "ఆశ్రమానికి చేసిన ఒక ప్రశాంతమైన సందర్శన సందర్భంగా, ప్రొ. కృష్ణమూర్తి గారు తన సతీమణితో కలిసి సత్యానంద స్వామిజీని వ్యక్తిగతంగా కలిసే అదృష్టం పొందారు. మర్యాదపూర్వక సందర్శనగా మొదలైనది సంస్కృతం, వేదాంతం మరియు ప్రాచీన గ్రంథాలలో దాగి ఉన్న శాస్త్రాలపై గంటల తరబడి సంభాషణగా మారింది — ఇది తన పండిత జీవితంలో అత్యంత ప్రభావవంతమైన సమావేశాలలో ఒకటిగా ప్రొ. కృష్ణమూర్తి గారు తరువాత అభివర్ణించారు. స్వామిజీ ఆశీర్వాదం మరియు మార్గదర్శకత్వం నేటికీ ఆయన కృషి యొక్క విలువలు మరియు దిశను రూపొందిస్తూనే ఉన్నాయి.",
+    gurusLabel: "ఇతర గురువులు",
+    gurusHeading: "అనేక విభాగాలలో గురువులు",
+  },
 };
 
 const gurus = [
-  { name: "Sri Kappagantula Virabhadra Sastry", subject: "Sanskrit & Telugu Sahitya", image: null },
-  { name: "Sri K. Sri Anjaneya Sastry", subject: "Vyakarana Sastra (Grammar)", image: "/gurus/Kuppa%20Sri%20Anjaneya%20Sastry%20garu%20and%20Rajyalakshi%20garu.jpeg" },
-  { name: "Sri Kuppa Lakshmavadhani", subject: "Vedanta Sastra & Puranas", image: "/gurus/Kuppa%20Lakshmavadhani%20garu%20%26%20Smt.%20Bhanumathi%20garu.jpeg" },
-  { name: "Sri K. Subrahmanya Sastry", subject: "Ancient Astronomy & Vedic Sciences", image: "/gurus/Kuppa%20Subramanya%20Sastry.jpeg" },
-  { name: "Sri K. Dakshina Murthy", subject: "Jyothisha Sastra (Astrology)", image: "/gurus/Kuppa%20dakshina%20murthy%20garu.jpeg" },
-  { name: "Sri Narayana Ghanapathi", subject: "Krishna Yajurveda (Partial)", image: null },
+  {
+    name: { en: "Sri Kappagantula Virabhadra Sastry", te: "శ్రీ కప్పగంతుల వీరభద్ర శాస్త్రి" },
+    subject: { en: "Sanskrit & Telugu Sahitya", te: "సంస్కృత & తెలుగు సాహిత్యం" },
+    title: { en: "", te: "" },
+    desc: {
+      en: "A foundational teacher in Prof. Krishna Murthy's early years, guiding him through classical Sanskrit and Telugu literary works and instilling a lifelong discipline of close textual reading.",
+      te: "ప్రొ. కృష్ణమూర్తి గారి తొలినాళ్లలో పునాదిగా నిలిచిన గురువు, సంస్కృత మరియు తెలుగు సాహిత్య గ్రంథాలలో మార్గదర్శనం చేసి, జీవితాంతం కొనసాగే సూక్ష్మ పఠన శిక్షణను నాటారు.",
+    },
+    image: null,
+  },
+  {
+    name: { en: "Sri K. Sri Anjaneya Sastry", te: "శ్రీ కె. శ్రీ ఆంజనేయ శాస్త్రి" },
+    subject: { en: "Vyakarana Sastra (Grammar)", te: "వ్యాకరణ శాస్త్రం" },
+    title: { en: "revered as \u201cVyaakarana Sthaapanaacharya\u201d", te: "\u201cవ్యాకరణ స్థాపనాచార్య\u201dగా గౌరవించబడ్డారు" },
+    desc: {
+      en: "Under this revered grammarian, Prof. Krishna Murthy undertook rigorous training in Panini's Vyakarana, developing the precision of language analysis that would later define his scholarly method.",
+      te: "ఈ గౌరవనీయ వ్యాకరణ పండితుడి వద్ద ప్రొ. కృష్ణమూర్తి గారు పాణిని వ్యాకరణంలో కఠోర శిక్షణ పొంది, తర్వాత తన పండిత పద్ధతిని నిర్వచించిన భాషా విశ్లేషణ ఖచ్చితత్వాన్ని అభివృద్ధి చేసుకున్నారు.",
+    },
+    image: "/gurus/Kuppa%20Sri%20Anjaneya%20Sastry%20garu%20and%20Rajyalakshi%20garu.jpeg",
+  },
+  {
+    name: { en: "Sri Kuppa Lakshmavadhani", te: "శ్రీ కుప్పా లక్ష్మావధాని" },
+    subject: { en: "Vedanta Sastra & Puranas", te: "వేదాంత శాస్త్రం & పురాణాలు" },
+    title: { en: "known as \u201cSanga Swadhyaya Bhaskara\u201d", te: "\u201cసంఘ స్వాధ్యాయ భాస్కర\u201dగా ప్రసిద్ధి" },
+    desc: {
+      en: "A master of Vedanta and the Puranic corpus, he introduced Prof. Krishna Murthy to philosophical traditions that would later inform his comparative work between Sanskrit thought and modern science.",
+      te: "వేదాంత మరియు పురాణ సాహిత్యంలో నిపుణుడైన ఈ గురువు, ప్రొ. కృష్ణమూర్తి గారికి తత్వశాస్త్ర సంప్రదాయాలను పరిచయం చేశారు, ఇవి తర్వాత సంస్కృత ఆలోచన మరియు ఆధునిక విజ్ఞానం మధ్య తులనాత్మక కృషికి పునాదిగా నిలిచాయి.",
+    },
+    image: "/gurus/Kuppa%20Lakshmavadhani%20garu%20%26%20Smt.%20Bhanumathi%20garu.jpeg",
+  },
+  {
+    name: { en: "Sri K. Subrahmanya Sastry", te: "శ్రీ కె. సుబ్రహ్మణ్య శాస్త్రి" },
+    subject: { en: "Ancient Astronomy & Vedic Sciences", te: "ప్రాచీన ఖగోళశాస్త్రం & వేద విజ్ఞానం" },
+    title: { en: "retired Statistician, Dept. of Irrigation, Govt. of A.P.", te: "పదవీ విరమణ చేసిన స్టాటిస్టీషియన్, నీటిపారుదల శాఖ, ఆంధ్రప్రదేశ్ ప్రభుత్వం" },
+    desc: {
+      en: "A rare bridge between statistical rigor and ancient astronomical texts, he mentored Prof. Krishna Murthy in reading Vedic astronomy through a quantitative, evidence-based lens.",
+      te: "గణాంక కచ్చితత్వం మరియు ప్రాచీన ఖగోళ గ్రంథాల మధ్య అరుదైన వారధిగా నిలిచిన ఈ గురువు, వేద ఖగోళశాస్త్రాన్ని పరిమాణాత్మక, ఆధార-ఆధారిత దృక్కోణంలో చదవడంలో ప్రొ. కృష్ణమూర్తి గారికి మార్గదర్శకత్వం వహించారు.",
+    },
+    image: "/gurus/Kuppa%20Subramanya%20Sastry.jpeg",
+  },
+  {
+    name: { en: "Sri K. Dakshina Murthy", te: "శ్రీ కె. దక్షిణ మూర్తి" },
+    subject: { en: "Jyothisha Sastra (Astrology)", te: "జ్యోతిష శాస్త్రం" },
+    title: { en: "Income Tax Practitioner, Mahabubnagar", te: "ఆదాయపు పన్ను ప్రాక్టీషనర్, మహబూబ్‌నగర్" },
+    desc: {
+      en: "Balancing a professional career with deep traditional scholarship, he trained Prof. Krishna Murthy in classical Jyothisha, emphasizing its mathematical and observational foundations.",
+      te: "వృత్తిపరమైన కెరీర్‌ను లోతైన సాంప్రదాయ పాండిత్యంతో సమతుల్యం చేసుకున్న ఈ గురువు, శాస్త్రీయ జ్యోతిషంలో ప్రొ. కృష్ణమూర్తి గారికి శిక్షణ ఇచ్చారు, దాని గణిత మరియు పరిశీలనాత్మక పునాదులను నొక్కిచెప్పారు.",
+    },
+    image: "/gurus/Kuppa%20dakshina%20murthy%20garu.jpeg",
+  },
+  {
+    name: { en: "Sri Narayana Ghanapathi", te: "శ్రీ నారాయణ ఘనపాఠి" },
+    subject: { en: "Krishna Yajurveda (Partial)", te: "కృష్ణ యజుర్వేదం (పాక్షికం)" },
+    title: { en: "Machilipatnam", te: "మచిలీపట్నం" },
+    desc: {
+      en: "A traditional Vedic reciter from Machilipatnam, he introduced Prof. Krishna Murthy to sections of the Krishna Yajurveda, preserving oral recitation methods passed down through generations.",
+      te: "మచిలీపట్నానికి చెందిన సాంప్రదాయ వేద పఠనాచార్యుడు, ప్రొ. కృష్ణమూర్తి గారికి కృష్ణ యజుర్వేదంలోని కొన్ని భాగాలను పరిచయం చేసి, తరతరాలుగా వస్తున్న మౌఖిక పఠన పద్ధతులను కాపాడారు.",
+    },
+    image: null,
+  },
 ];
 
 export default function GurusPage() {
-  return (
-    <div className="min-h-screen bg-[var(--background)]">
-      <Navbar sticky={false} />
-      <main className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-        <Link href="/#gurus" className="text-sm font-medium text-[var(--secondary)] transition hover:text-[var(--primary)]">← Back to home</Link>
-        <p className="mt-12 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">Teachers & mentors</p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-normal leading-tight text-[var(--foreground)] sm:text-6xl">His revered gurus</h1>
-        <p className="mt-5 max-w-2xl leading-7 text-[var(--secondary)]">Prof. Krishna Murthy&apos;s scholarship was shaped by rigorous, direct traditional training across Sanskrit literature, grammar, Vedanta, astronomy, Jyothisha, and the Krishna Yajurveda.</p>
+  const { language } = useLanguage();
+  const t = content[language];
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {gurus.map((guru) => (
-            <article key={guru.name} className="overflow-hidden rounded-3xl border border-[var(--secondary)]/15 bg-white">
-              <div className="relative aspect-[4/5] bg-[var(--foreground)]/5">
-                {guru.image ? (
-                  <Image src={guru.image} alt={guru.name} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw" className="object-cover" />
-                ) : (
-                  <div className="grid h-full place-items-center text-xs font-semibold uppercase tracking-[0.18em] text-[var(--secondary)]/50">Portrait forthcoming</div>
-                )}
-              </div>
-              <div className="p-6">
-                <h2 className="text-xl font-medium text-[var(--foreground)]">{guru.name}</h2>
-                <p className="mt-2 text-sm font-semibold uppercase tracking-wide text-[var(--primary)]">{guru.subject}</p>
-              </div>
-            </article>
-          ))}
+  return (
+    <section className="relative bg-[var(--background)] py-16 sm:py-24 lg:py-28">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        {/* Label */}
+        <p className="mb-8 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)] sm:mb-10">
+          {t.label}
+        </p>
+
+        {/* Swamiji hero image — full width, curved edges */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:aspect-[16/9]">
+          <Image
+            src="/swamiji-hero.jpg"
+            alt={t.swamijiName}
+            fill
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="object-cover"
+            priority
+          />
         </div>
-      </main>
-      <Footer />
-    </div>
+
+        {/* Swamiji title strip — image covers half, curved left side, title on left */}
+        <div className="mt-6 flex flex-col overflow-hidden rounded-3xl border border-[var(--secondary)]/15 sm:flex-row sm:items-stretch">
+          <div className="order-2 flex flex-1 flex-col justify-center p-6 sm:order-1 sm:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+              {t.swamijiTitle}
+            </p>
+            <h1 className="mt-3 text-2xl font-normal leading-tight text-[var(--foreground)] sm:text-3xl lg:text-4xl">
+              {t.swamijiName}
+            </h1>
+          </div>
+          <div className="relative order-1 aspect-[4/3] w-full shrink-0 overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:order-2 sm:aspect-auto sm:w-1/2">
+            <Image
+              src="/swamiji-portrait.jpg"
+              alt={t.swamijiName}
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Client & wife with Swamiji — image right, details left */}
+        <div className="mt-14 grid gap-8 sm:mt-20 sm:grid-cols-2 sm:items-center sm:gap-10">
+          <div className="order-2 sm:order-1">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
+              {t.meetingHeading}
+            </p>
+            <p className="text-base leading-8 text-[var(--secondary)] sm:text-lg sm:leading-9">
+              {t.meetingBody}
+            </p>
+          </div>
+          <div className="relative order-1 aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:order-2">
+            <Image
+              src="/swamiji-with-client.jpg"
+              alt="Prof. Krishna Murthy and his wife with Satyananda Swamiji"
+              fill
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Other Gurus */}
+        <div className="mt-16 border-t border-[var(--secondary)]/15 pt-14 sm:mt-24 sm:pt-16">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
+            {t.gurusLabel}
+          </p>
+          <h2 className="mb-10 max-w-xl text-2xl font-normal leading-tight text-[var(--foreground)] sm:mb-14 sm:text-3xl">
+            {t.gurusHeading}
+          </h2>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {gurus.map((guru) => (
+              <div
+                key={guru.name.en}
+                className="overflow-hidden rounded-3xl border border-[var(--secondary)]/15"
+              >
+                <div className="relative aspect-[4/5] w-full bg-[var(--foreground)]/5">
+                  {guru.image ? (
+                    <Image
+                      src={guru.image}
+                      alt={guru.name[language]}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="grid h-full place-items-center px-4 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[var(--secondary)]/50">
+                      Portrait forthcoming
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-6">
+                  <span className="mb-4 inline-block h-1 w-10 rounded-full bg-[var(--accent)]" />
+                  <h3 className="text-lg font-normal leading-snug text-[var(--foreground)]">
+                    {guru.name[language]}
+                  </h3>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
+                    {guru.subject[language]}
+                  </p>
+                  {guru.title[language] && (
+                    <p className="mt-2 text-sm text-[var(--secondary)]">{guru.title[language]}</p>
+                  )}
+                  <p className="mt-4 text-sm leading-6 text-[var(--secondary)]">
+                    {guru.desc[language]}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

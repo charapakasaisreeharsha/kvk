@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import Footer from "@/components/Footer";
 import { useLanguage } from "@/components/LanguageProvider";
+import Navbar from "@/components/Navbar";
 
 const content = {
   en: {
     label: "Journey & Legacy",
     swamijiTitle: "Supreme Spiritual Leader",
     swamijiName: "Satyananda Swamiji",
-    meetingHeading: "Meeting the Spiritual Leader",
     meetingBody:
       "It was during a quiet visit to the ashram that Prof. Krishna Murthy, along with his wife, had the fortune of meeting Satyananda Swamiji in person. What began as a courtesy visit turned into hours of conversation on Sanskrit, Vedanta, and the sciences hidden within ancient texts — a meeting that Prof. Krishna Murthy would later describe as one of the most formative encounters of his scholarly life. The Swamiji's blessings and guidance continue to shape the values and direction of his work to this day.",
     gurusLabel: "Other Gurus",
@@ -18,7 +19,6 @@ const content = {
     label: "ప్రయాణం & వారసత్వం",
     swamijiTitle: "పరమ ఆధ్యాత్మిక గురువు",
     swamijiName: "సత్యానంద స్వామిజీ",
-    meetingHeading: "ఆధ్యాత్మిక గురువును కలిసిన సందర్భం",
     meetingBody:
       "ఆశ్రమానికి చేసిన ఒక ప్రశాంతమైన సందర్శన సందర్భంగా, ప్రొ. కృష్ణమూర్తి గారు తన సతీమణితో కలిసి సత్యానంద స్వామిజీని వ్యక్తిగతంగా కలిసే అదృష్టం పొందారు. మర్యాదపూర్వక సందర్శనగా మొదలైనది సంస్కృతం, వేదాంతం మరియు ప్రాచీన గ్రంథాలలో దాగి ఉన్న శాస్త్రాలపై గంటల తరబడి సంభాషణగా మారింది — ఇది తన పండిత జీవితంలో అత్యంత ప్రభావవంతమైన సమావేశాలలో ఒకటిగా ప్రొ. కృష్ణమూర్తి గారు తరువాత అభివర్ణించారు. స్వామిజీ ఆశీర్వాదం మరియు మార్గదర్శకత్వం నేటికీ ఆయన కృషి యొక్క విలువలు మరియు దిశను రూపొందిస్తూనే ఉన్నాయి.",
     gurusLabel: "ఇతర గురువులు",
@@ -94,8 +94,11 @@ export default function GurusPage() {
   const t = content[language];
 
   return (
-    <section className="relative bg-[var(--background)] py-16 sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+    <>
+      <Navbar />
+      <main>
+        <section className="relative bg-[var(--background)] pb-16 pt-24 sm:pb-24 sm:pt-28 lg:pb-28 lg:pt-32">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Label */}
         <p className="mb-8 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)] sm:mb-10">
           {t.label}
@@ -113,38 +116,20 @@ export default function GurusPage() {
           />
         </div>
 
-        {/* Swamiji title strip — image covers half, curved left side, title on left */}
-        <div className="mt-6 flex flex-col overflow-hidden rounded-3xl border border-[var(--secondary)]/15 sm:flex-row sm:items-stretch">
-          <div className="order-2 flex flex-1 flex-col justify-center p-6 sm:order-1 sm:p-10">
+        {/* Single row: title + name + meeting text (left) / client+wife image (right, half width) */}
+        <div className="mt-10 grid gap-8 sm:mt-14 sm:grid-cols-2 sm:items-center sm:gap-10">
+          <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               {t.swamijiTitle}
             </p>
             <h1 className="mt-3 text-2xl font-normal leading-tight text-[var(--foreground)] sm:text-3xl lg:text-4xl">
               {t.swamijiName}
             </h1>
-          </div>
-          <div className="relative order-1 aspect-[4/3] w-full shrink-0 overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:order-2 sm:aspect-auto sm:w-1/2">
-            <Image
-              src="/swamiji-portrait.jpg"
-              alt={t.swamijiName}
-              fill
-              sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-        </div>
-
-        {/* Client & wife with Swamiji — image right, details left */}
-        <div className="mt-14 grid gap-8 sm:mt-20 sm:grid-cols-2 sm:items-center sm:gap-10">
-          <div className="order-2 sm:order-1">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
-              {t.meetingHeading}
-            </p>
-            <p className="text-base leading-8 text-[var(--secondary)] sm:text-lg sm:leading-9">
+            <p className="mt-6 text-base leading-8 text-[var(--secondary)] sm:text-lg sm:leading-9">
               {t.meetingBody}
             </p>
           </div>
-          <div className="relative order-1 aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:order-2">
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5">
             <Image
               src="/swamiji-with-client.jpg"
               alt="Prof. Krishna Murthy and his wife with Satyananda Swamiji"
@@ -155,57 +140,74 @@ export default function GurusPage() {
           </div>
         </div>
 
-        {/* Other Gurus */}
+        {/* Other Gurus — same image+text template, alternating sides, repeated per guru */}
         <div className="mt-16 border-t border-[var(--secondary)]/15 pt-14 sm:mt-24 sm:pt-16">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-[var(--secondary)]/60">
             {t.gurusLabel}
           </p>
-          <h2 className="mb-10 max-w-xl text-2xl font-normal leading-tight text-[var(--foreground)] sm:mb-14 sm:text-3xl">
+          <h2 className="mb-12 max-w-xl text-2xl font-normal leading-tight text-[var(--foreground)] sm:mb-16 sm:text-3xl">
             {t.gurusHeading}
           </h2>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {gurus.map((guru) => (
-              <div
-                key={guru.name.en}
-                className="overflow-hidden rounded-3xl border border-[var(--secondary)]/15"
-              >
-                <div className="relative aspect-[4/5] w-full bg-[var(--foreground)]/5">
-                  {guru.image ? (
-                    <Image
-                      src={guru.image}
-                      alt={guru.name[language]}
-                      fill
-                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="grid h-full place-items-center px-4 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[var(--secondary)]/50">
-                      Portrait forthcoming
-                    </div>
-                  )}
+          <div className="flex flex-col gap-14 sm:gap-20">
+            {gurus.map((guru, i) => {
+              const imageOnRight = i % 2 === 0;
+              return (
+                <div
+                  key={guru.name.en}
+                  className="grid gap-8 sm:grid-cols-2 sm:items-center sm:gap-10"
+                >
+                  <div
+                    className={
+                      imageOnRight
+                        ? "order-2 sm:order-1"
+                        : "order-2 sm:order-2"
+                    }
+                  >
+                    <span className="mb-4 inline-block h-1 w-10 rounded-full bg-[var(--accent)]" />
+                    <h3 className="text-xl font-normal leading-snug text-[var(--foreground)] sm:text-2xl">
+                      {guru.name[language]}
+                    </h3>
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
+                      {guru.subject[language]}
+                    </p>
+                    {guru.title[language] && (
+                      <p className="mt-2 text-sm text-[var(--secondary)]">{guru.title[language]}</p>
+                    )}
+                    <p className="mt-4 text-base leading-7 text-[var(--secondary)]">
+                      {guru.desc[language]}
+                    </p>
+                  </div>
+                  <div
+                    className={
+                      imageOnRight
+                        ? "relative order-1 aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:order-2"
+                        : "relative order-1 aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:order-1"
+                    }
+                  >
+                    {guru.image ? (
+                      <Image
+                        src={guru.image}
+                        alt={guru.name[language]}
+                        fill
+                        sizes="(min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="grid h-full place-items-center px-4 text-center text-xs font-semibold uppercase tracking-[0.18em] text-[var(--secondary)]/50">
+                        Portrait forthcoming
+                      </div>
+                    )}
+                  </div>
                 </div>
-
-                <div className="p-6">
-                  <span className="mb-4 inline-block h-1 w-10 rounded-full bg-[var(--accent)]" />
-                  <h3 className="text-lg font-normal leading-snug text-[var(--foreground)]">
-                    {guru.name[language]}
-                  </h3>
-                  <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
-                    {guru.subject[language]}
-                  </p>
-                  {guru.title[language] && (
-                    <p className="mt-2 text-sm text-[var(--secondary)]">{guru.title[language]}</p>
-                  )}
-                  <p className="mt-4 text-sm leading-6 text-[var(--secondary)]">
-                    {guru.desc[language]}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
-      </div>
-    </section>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }

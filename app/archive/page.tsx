@@ -85,8 +85,8 @@ export default async function ArchivePage({
       `,
       { count: "exact" }
     )
-    .order("year", {
-      ascending: false,
+    .order("title", {
+      ascending: true,
       nullsFirst: false,
     });
 
@@ -194,10 +194,6 @@ export default async function ArchivePage({
       <section className="max-w-7xl mx-auto px-6 pt-16 pb-10">
 
         <div className="max-w-3xl">
-
-          <p className="text-sm uppercase tracking-[0.2em] text-gray-500">
-            Archive
-          </p>
 
           <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mt-3">
             A life in works.

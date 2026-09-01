@@ -9,9 +9,9 @@ const content = {
   en: {
     label: "Journey & Legacy",
     swamijiTitle: "Supreme Spiritual Leader",
-    swamijiName: "Satyananda Swamiji",
+    swamijiName: "Sri Ganapathy Sachchidananda Swamiji",
     meetingBody:
-      "It was during a quiet visit to the ashram that Prof. Krishna Murthy, along with his wife, had the fortune of meeting Satyananda Swamiji in person. What began as a courtesy visit turned into hours of conversation on Sanskrit, Vedanta, and the sciences hidden within ancient texts — a meeting that Prof. Krishna Murthy would later describe as one of the most formative encounters of his scholarly life. The Swamiji's blessings and guidance continue to shape the values and direction of his work to this day.",
+      "It was during a quiet visit to the ashram that Prof. Krishna Murthy, along with his wife, had the fortune of meeting Sri Ganapathy Sachchidananda Swamiji in person. What began as a courtesy visit turned into hours of conversation on Sanskrit, Vedanta, and the sciences hidden within ancient texts — a meeting that Prof. Krishna Murthy would later describe as one of the most formative encounters of his scholarly life. The Swamiji's blessings and guidance continue to shape the values and direction of his work to this day.",
     gurusLabel: "Other Gurus",
     gurusHeading: "Teachers across many disciplines",
   },
@@ -99,15 +99,10 @@ export default function GurusPage() {
       <main>
         <section className="relative bg-[var(--background)] pb-16 pt-24 sm:pb-24 sm:pt-28 lg:pb-28 lg:pt-32">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        {/* Label */}
-        <p className="mb-8 text-xs font-semibold uppercase tracking-[0.3em] text-[var(--primary)] sm:mb-10">
-          {t.label}
-        </p>
-
         {/* Swamiji hero image — full width, curved edges */}
         <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5 sm:aspect-[16/9]">
           <Image
-            src="/swamiji-hero.jpg"
+            src="/gurus/Sri%20Ganapathy%20Sachchidananda%20Swamiji%2C.png"
             alt={t.swamijiName}
             fill
             sizes="(min-width: 768px) 768px, 100vw"
@@ -131,8 +126,8 @@ export default function GurusPage() {
           </div>
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-[var(--foreground)]/5">
             <Image
-              src="/swamiji-with-client.jpg"
-              alt="Prof. Krishna Murthy and his wife with Satyananda Swamiji"
+              src="/gurus/kvk%20with%20swamiji.png"
+              alt="Prof. Krishna Murthy with Sri Ganapathy Sachchidananda Swamiji"
               fill
               sizes="(min-width: 640px) 50vw, 100vw"
               className="object-cover"

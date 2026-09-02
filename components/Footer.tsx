@@ -5,12 +5,12 @@ import { ArrowUpRight, PenLine } from "lucide-react";
 const navLinks = [
   { label: "Home", href: "/#hero" },
   { label: "About", href: "/about" },
-  { label: "Gurus", href: "/#gurus" },
   { label: "Journey", href: "/#journey" },
+  { label: "Gurus", href: "/#gurus" },
+  { label: "Books", href: "/archive" },
+  { label: "Gallery", href: "/gallery" },
   { label: "Awards", href: "/#awards" },
   { label: "Contact", href: "/#contact" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Books", href: "/archive" },
 ];
 
 const socialLinks = [

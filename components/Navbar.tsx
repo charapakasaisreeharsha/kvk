@@ -21,12 +21,12 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", en: "Home", te: "హోమ్", icon: Home },
   { href: "about", en: "About", te: "పరిచయం", icon: UserRound },
-  { href: "/gurus", en: "Gurus", te: "గురువులు", icon: UserRound },
   { href: "#journey", en: "Journey", te: "ప్రయాణం", icon: Route },
+  { href: "/gurus", en: "Gurus", te: "గురువులు", icon: UserRound },
+  { href: "/archive", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
+  { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
   { href: "#awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
   { href: "#contact", en: "Contact", te: "సంప్రదించండి", icon: Mail },
-  { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
-  { href: "/archive", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
 ]
   .map((link) => {
     if (link.href === "about") return { ...link, href: "/about" };

@@ -3,14 +3,14 @@ import SmoothAnchorLink from "@/components/SmoothAnchorLink";
 import { ArrowUpRight, PenLine } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "/#hero" },
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Journey", href: "/#journey" },
-  { label: "Gurus", href: "/#gurus" },
+  { label: "Journey", href: "/journey" },
+  { label: "Gurus", href: "/gurus" },
   { label: "Books", href: "/archive" },
   { label: "Gallery", href: "/gallery" },
   { label: "Awards", href: "/#awards" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [

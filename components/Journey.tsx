@@ -41,7 +41,7 @@ const content = {
     gurusIntro:
       "Prof. Krishna Murthy's scholarship rests on rigorous, traditional training received directly from eminent gurus across multiple disciplines.",
     gurus: [
-      { name: "Sri Kappagantula Virabhadra Sastry", subject: "Sanskrit & Telugu Sahitya", title: "" },
+      { name: "Brahmasti Sri Kappagantula Veera Bhadra Sastry garu", subject: "Sanskrit & Telugu Sahitya", title: "" },
       { name: "Sri K. Sri Anjaneya Sastry", subject: "Vyakarana Sastra (Grammar)", title: "revered as \u201cVyaakarana Sthaapanaacharya\u201d" },
       { name: "Sri Kuppa Lakshmavadhani", subject: "Vedanta Sastra & Puranas", title: "known as \u201cSanga Swadhyaya Bhaskara\u201d" },
       { name: "Sri K. Subrahmanya Sastry", subject: "Ancient Astronomy & Vedic Sciences", title: "retired Statistician, Dept. of Irrigation, Govt. of A.P." },
@@ -97,12 +97,12 @@ const content = {
 };
 
 const guruImages = [
-  null,
+  "/gurus/Brahmasti%20Sri%20Kappagantula%20Veera%20Bhadra%20Sastry%20garu.png",
   "/gurus/Kuppa%20Sri%20Anjaneya%20Sastry%20garu%20and%20Rajyalakshi%20garu.jpeg",
   "/gurus/Kuppa%20Lakshmavadhani%20garu%20%26%20Smt.%20Bhanumathi%20garu.jpeg",
   "/gurus/Kuppa%20Subramanya%20Sastry.jpeg",
   "/gurus/Kuppa%20dakshina%20murthy%20garu.jpeg",
-  null,
+  "/gurus/Sri%20Narayana%20Ghanapathi.png",
 ] as const;
 
 export default function Journey() {

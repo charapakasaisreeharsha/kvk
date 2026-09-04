@@ -28,14 +28,14 @@ const content = {
 
 const gurus = [
   {
-    name: { en: "Sri Kappagantula Virabhadra Sastry", te: "శ్రీ కప్పగంతుల వీరభద్ర శాస్త్రి" },
+    name: { en: "Brahmasti Sri Kappagantula Veera Bhadra Sastry garu", te: "శ్రీ కప్పగంతుల వీరభద్ర శాస్త్రి" },
     subject: { en: "Sanskrit & Telugu Sahitya", te: "సంస్కృత & తెలుగు సాహిత్యం" },
     title: { en: "", te: "" },
     desc: {
       en: "A foundational teacher in Prof. Krishna Murthy's early years, guiding him through classical Sanskrit and Telugu literary works and instilling a lifelong discipline of close textual reading.",
       te: "ప్రొ. కృష్ణమూర్తి గారి తొలినాళ్లలో పునాదిగా నిలిచిన గురువు, సంస్కృత మరియు తెలుగు సాహిత్య గ్రంథాలలో మార్గదర్శనం చేసి, జీవితాంతం కొనసాగే సూక్ష్మ పఠన శిక్షణను నాటారు.",
     },
-    image: null,
+    image: "/gurus/Brahmasti%20Sri%20Kappagantula%20Veera%20Bhadra%20Sastry%20garu.png",
   },
   {
     name: { en: "Sri K. Sri Anjaneya Sastry", te: "శ్రీ కె. శ్రీ ఆంజనేయ శాస్త్రి" },
@@ -85,7 +85,7 @@ const gurus = [
       en: "A traditional Vedic reciter from Machilipatnam, he introduced Prof. Krishna Murthy to sections of the Krishna Yajurveda, preserving oral recitation methods passed down through generations.",
       te: "మచిలీపట్నానికి చెందిన సాంప్రదాయ వేద పఠనాచార్యుడు, ప్రొ. కృష్ణమూర్తి గారికి కృష్ణ యజుర్వేదంలోని కొన్ని భాగాలను పరిచయం చేసి, తరతరాలుగా వస్తున్న మౌఖిక పఠన పద్ధతులను కాపాడారు.",
     },
-    image: null,
+    image: "/gurus/Sri%20Narayana%20Ghanapathi.png",
   },
 ];
 

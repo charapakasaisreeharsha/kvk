@@ -30,6 +30,8 @@ const links = [
 ]
   .map((link) => {
     if (link.href === "about") return { ...link, href: "/about" };
+    if (link.href === "#journey") return { ...link, href: "/journey" };
+    if (link.href === "#contact") return { ...link, href: "/contact" };
     if (link.href === "#gallery") return { ...link, href: "/gallery" };
     if (link.href.startsWith("#")) return { ...link, href: `/${link.href}` };
     return link;

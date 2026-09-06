@@ -78,7 +78,7 @@ const gurus = [
     image: "/gurus/Kuppa%20dakshina%20murthy%20garu.jpeg",
   },
   {
-    name: { en: "Sri Narayana Ghanapathi", te: "శ్రీ నారాయణ ఘనపాఠి" },
+    name: { en: "Anantha Narayana Ghanapathi", te: "అనంత నారాయణ ఘనపాఠి" },
     subject: { en: "Krishna Yajurveda (Partial)", te: "కృష్ణ యజుర్వేదం (పాక్షికం)" },
     title: { en: "Machilipatnam", te: "మచిలీపట్నం" },
     desc: {
@@ -86,6 +86,26 @@ const gurus = [
       te: "మచిలీపట్నానికి చెందిన సాంప్రదాయ వేద పఠనాచార్యుడు, ప్రొ. కృష్ణమూర్తి గారికి కృష్ణ యజుర్వేదంలోని కొన్ని భాగాలను పరిచయం చేసి, తరతరాలుగా వస్తున్న మౌఖిక పఠన పద్ధతులను కాపాడారు.",
     },
     image: "/gurus/Sri%20Narayana%20Ghanapathi.png",
+  },
+];
+
+const displayedGurus = [
+  {
+    name: { en: "Sri Janardanananda Saraswathi Swami", te: "జనార్దనానంద సరస్వతి" },
+    subject: { en: "", te: "" },
+    title: { en: "", te: "" },
+    desc: { en: "", te: "" },
+    image: "/gurus/Sri%20Janardanananda%20Saraswathi%20Swami.jpeg",
+  },
+  gurus[1],
+  gurus[2],
+  gurus[5],
+  gurus[0],
+  {
+    name: { en: "Raja Rao garu", te: "రాజా రావు గారు" },
+    subject: { en: "", te: "" },
+    title: { en: "", te: "" },
+    desc: { en: "", te: "" },
   },
 ];
 
@@ -145,7 +165,7 @@ export default function GurusPage() {
           </h2>
 
           <div className="flex flex-col gap-14 sm:gap-20">
-            {gurus.map((guru, i) => {
+            {displayedGurus.map((guru, i) => {
               const imageOnRight = i % 2 === 0;
               return (
                 <div
@@ -163,15 +183,19 @@ export default function GurusPage() {
                     <h3 className="text-xl font-normal leading-snug text-[var(--foreground)] sm:text-2xl">
                       {guru.name[language]}
                     </h3>
-                    <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
-                      {guru.subject[language]}
-                    </p>
+                    {guru.subject[language] && (
+                      <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[var(--primary)]">
+                        {guru.subject[language]}
+                      </p>
+                    )}
                     {guru.title[language] && (
                       <p className="mt-2 text-sm text-[var(--secondary)]">{guru.title[language]}</p>
                     )}
-                    <p className="mt-4 text-base leading-7 text-[var(--secondary)]">
-                      {guru.desc[language]}
-                    </p>
+                    {guru.desc[language] && (
+                      <p className="mt-4 text-base leading-7 text-[var(--secondary)]">
+                        {guru.desc[language]}
+                      </p>
+                    )}
                   </div>
                   <div
                     className={

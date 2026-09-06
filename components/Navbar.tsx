@@ -25,7 +25,7 @@ const links = [
   { href: "/gurus", en: "Gurus", te: "గురువులు", icon: UserRound },
   { href: "/archive", en: "Books", te: "గ్రంథాలు", icon: BookOpen },
   { href: "#gallery", en: "Gallery", te: "గ్యాలరీ", icon: Images },
-  { href: "#awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
+  { href: "/awards", en: "Awards", te: "పురస్కారాలు", icon: Trophy },
   { href: "#contact", en: "Contact", te: "సంప్రదించండి", icon: Mail },
 ]
   .map((link) => {

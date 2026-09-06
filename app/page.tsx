@@ -1,13 +1,13 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import Introduction from "@/components/Introduction";
-import AutoScrollReveal from "@/components/AutoScrollReveal";
-import Journey from "@/components/Journey";
-import Books from "@/components/Books";
-import LiteraryContributions from "@/components/LiteraryContributions";
-import GallerySection from "@/components/GallerySection";
-import Awards from "@/components/Awards";
-import Footer from "@/components/Footer";
+// import Introduction from "@/components/Introduction";
+// import AutoScrollReveal from "@/components/AutoScrollReveal";
+// import Journey from "@/components/Journey";
+// import Books from "@/components/Books";
+// import LiteraryContributions from "@/components/LiteraryContributions";
+// import GallerySection from "@/components/GallerySection";
+// import Awards from "@/components/Awards";
+// import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -25,15 +25,19 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Introduction />
-        <Journey />
-        <LiteraryContributions />
-        <Books />
-        <Awards />
-        <GallerySection />
-        <AutoScrollReveal />
+        {/*
+          Landing-page sections are retained for later use. The client-approved
+          landing-page design currently displays only the hero.
+          <Introduction />
+          <Journey />
+          <LiteraryContributions />
+          <Books />
+          <Awards />
+          <GallerySection />
+          <AutoScrollReveal />
+        */}
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

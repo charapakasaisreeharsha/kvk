@@ -38,7 +38,7 @@ const gurus = [
     image: "/gurus/Brahmasti%20Sri%20Kappagantula%20Veera%20Bhadra%20Sastry%20garu.png",
   },
   {
-    name: { en: "Sri K. Sri Anjaneya Sastry", te: "శ్రీ కె. శ్రీ ఆంజనేయ శాస్త్రి" },
+    name: { en: "Sri Kuppa Sri Anjaneya Sastry & Smt. Rajyalakshmi garu", te: "శ్రీ కుప్పా శ్రీ ఆంజనేయ శాస్త్రి & శ్రీమతి రాజ్యలక్ష్మి గారు" },
     subject: { en: "Vyakarana Sastra (Grammar)", te: "వ్యాకరణ శాస్త్రం" },
     title: { en: "revered as \u201cVyaakarana Sthaapanaacharya\u201d", te: "\u201cవ్యాకరణ స్థాపనాచార్య\u201dగా గౌరవించబడ్డారు" },
     desc: {
@@ -48,7 +48,7 @@ const gurus = [
     image: "/gurus/Kuppa%20Sri%20Anjaneya%20Sastry%20garu%20and%20Rajyalakshi%20garu.jpeg",
   },
   {
-    name: { en: "Sri Kuppa Lakshmavadhani", te: "శ్రీ కుప్పా లక్ష్మావధాని" },
+    name: { en: "Sri Kuppa Lakshmavadhani & Smt. Bhanumathi garu", te: "శ్రీ కుప్పా లక్ష్మావధాని & శ్రీమతి భానుమతి గారు" },
     subject: { en: "Vedanta Sastra & Puranas", te: "వేదాంత శాస్త్రం & పురాణాలు" },
     title: { en: "known as \u201cSanga Swadhyaya Bhaskara\u201d", te: "\u201cసంఘ స్వాధ్యాయ భాస్కర\u201dగా ప్రసిద్ధి" },
     desc: {
@@ -106,6 +106,7 @@ const displayedGurus = [
     subject: { en: "", te: "" },
     title: { en: "", te: "" },
     desc: { en: "", te: "" },
+    image: undefined,
   },
 ];
 

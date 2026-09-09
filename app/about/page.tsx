@@ -75,7 +75,7 @@ const content = {
     familyImgAlt: "Prof. K. V. Krishna Murthy with Smt. Shanta",
     childrenHeading: "The Children",
     childrenIntro: "Four sons and a daughter, each carrying the family forward in their own way.",
-    ordinals: ["First-born", "Second-born", "Third-born", "Fourth-born", "Daughter"],
+    ordinals: ["First-born", "Second-born", "Third-born (Daughter)", "Fourth-born", "Fifth-born"],
     kidsLabel: "Children:",
     legacyHeading: "Legacy",
     legacy1:
@@ -112,6 +112,14 @@ const content = {
 export default function AboutPage() {
   const { language } = useLanguage();
   const t = content[language];
+  const orderedChildrenFamilies = [
+    childrenFamilies[0],
+    childrenFamilies[1],
+    childrenFamilies[4],
+    childrenFamilies[2],
+    childrenFamilies[3],
+  ];
+  const childOrdinalIndices = language === "te" ? [0, 1, 4, 2, 3] : [0, 1, 2, 3, 4];
 
   return (
     <>
@@ -196,7 +204,7 @@ export default function AboutPage() {
 
           <section aria-label={t.childrenHeading} className="mt-10 sm:mt-12 lg:mt-16">
               <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
-                {childrenFamilies.map((child, index) => {
+                {orderedChildrenFamilies.map((child, index) => {
                   const couple = language === "en" ? child.coupleEn : child.coupleTe;
                   const kids = language === "en" ? child.kidsEn : child.kidsTe;
 
@@ -213,7 +221,7 @@ export default function AboutPage() {
                       </div>
                       <div className="p-4 text-center sm:p-5">
                         <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#1a1a1a]/40">
-                          {t.ordinals[index]}
+                        {t.ordinals[childOrdinalIndices[index]]}
                         </span>
                         <h3 className="mt-2 break-words text-lg font-normal leading-snug text-[#1a1a1a] sm:text-xl">
                           {couple}

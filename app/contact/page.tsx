@@ -19,10 +19,10 @@ export default function ContactPage() {
             This legacy grows richer through shared memories and thoughtful voices. We would be grateful for your feedback, suggestions, or any stories you would like to share.
           </p>
           <a
-            href="mailto:karthikeya.kuppa78@gmail.com"
+            href="mailto:Kvkmlegacy@gmail.com"
             className="mt-6 inline-block text-lg text-[var(--primary)] underline underline-offset-4 transition-colors hover:text-[var(--accent)]"
           >
-            karthikeya.kuppa78@gmail.com
+            Kvkmlegacy@gmail.com
           </a>
         </section>
       </main>

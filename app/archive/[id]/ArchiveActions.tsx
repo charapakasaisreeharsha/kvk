@@ -19,6 +19,7 @@ export default function ArchiveActions({
 }: ArchiveActionsProps) {
   const [views, setViews] = useState(initialViews);
   const [downloads, setDownloads] = useState(initialDownloads);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   return (
     <>
@@ -43,10 +44,19 @@ export default function ArchiveActions({
         {hasPdf && (
           <a
             href={`/archive/${id}/download`}
-            onClick={() => setDownloads((current) => current + 1)}
-            className="rounded-xl border px-6 py-3 font-medium hover:bg-gray-50 transition"
+            onClick={(event) => {
+              if (isDownloading) {
+                event.preventDefault();
+                return;
+              }
+
+              setIsDownloading(true);
+              setDownloads((current) => current + 1);
+            }}
+            aria-disabled={isDownloading}
+            className="rounded-xl border px-6 py-3 font-medium transition hover:bg-gray-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:bg-transparent"
           >
-            Download PDF
+            {isDownloading ? "Downloading…" : "Download PDF"}
           </a>
         )}
 

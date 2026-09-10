@@ -5,6 +5,7 @@ import { Filter, Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import FilterSelect from "./FilterSelect";
+import { archiveSearchMaxLength, sanitizeArchiveSearch } from "@/lib/archive/search";
 
 type ArchiveFiltersProps = {
   search: string;
@@ -21,6 +22,11 @@ function SearchForm({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [value, setValue] = useState(search);
+
+  useEffect(() => {
+    setValue(search);
+  }, [search]);
 
   useEffect(() => {
     return () => {
@@ -33,7 +39,7 @@ function SearchForm({
 
     timeoutRef.current = setTimeout(() => {
       const params = new URLSearchParams(searchParams.toString());
-      const normalizedTerm = nextTerm.trim();
+      const normalizedTerm = sanitizeArchiveSearch(nextTerm);
 
       if (normalizedTerm) {
         params.set("search", normalizedTerm);
@@ -46,7 +52,7 @@ function SearchForm({
       router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
         scroll: false,
       });
-    }, 300);
+    }, 500);
   }
 
   return (
@@ -58,8 +64,13 @@ function SearchForm({
       />
       <input
         type="search"
-        defaultValue={search}
-        onChange={(event) => updateSearch(event.target.value)}
+        value={value}
+        maxLength={archiveSearchMaxLength}
+        onChange={(event) => {
+          const nextTerm = sanitizeArchiveSearch(event.target.value);
+          setValue(nextTerm);
+          updateSearch(nextTerm);
+        }}
         placeholder="Search works, titles, descriptions..."
         className="w-full rounded-lg bg-gray-100 py-3 pl-10 pr-4 text-sm outline-none transition focus:bg-gray-50 focus:ring-2 focus:ring-black/10"
       />

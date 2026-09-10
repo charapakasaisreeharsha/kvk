@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import ArchiveFilters from "./ArchiveFilters";
 import ImageLoadingFrame from "@/components/ImageLoadingFrame";
+import { sanitizeArchiveSearch } from "@/lib/archive/search";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -55,7 +56,7 @@ export default async function ArchivePage({
 }) {
   const params = await searchParams;
 
-  const search = params.search?.trim() || "";
+  const search = sanitizeArchiveSearch(params.search);
   const language = params.language || "All";
   const category = params.category || "All";
 
@@ -92,7 +93,7 @@ export default async function ArchivePage({
 
   // Search
   if (search) {
-    const safeSearch = search.replace(/[%_]/g, "\\$&");
+    const safeSearch = search.replace(/[\\%_]/g, "\\$&");
 
     query = query.or(
       `title.ilike.%${safeSearch}%,description.ilike.%${safeSearch}%`

@@ -41,6 +41,8 @@ export default function AdminLogin() {
     requestController.current = controller;
     const timeout = window.setTimeout(() => controller.abort(), 15_000);
 
+    let isNavigating = false;
+
     try {
       const response = await fetch("/api/admin/login", {
         method: "POST",
@@ -56,8 +58,8 @@ export default function AdminLogin() {
         return;
       }
 
+      isNavigating = true;
       router.replace("/admin");
-      router.refresh();
     } catch (requestError) {
       setError(
         requestError instanceof DOMException && requestError.name === "AbortError"
@@ -67,7 +69,7 @@ export default function AdminLogin() {
     } finally {
       window.clearTimeout(timeout);
       requestController.current = null;
-      setLoading(false);
+      if (!isNavigating) setLoading(false);
     }
   }
 

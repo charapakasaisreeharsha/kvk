@@ -74,13 +74,13 @@ export default async function ArchiveWorkPage({
 
           <div>
 
-            <div className="aspect-[3/4] overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
+            <div className="aspect-[2/3] overflow-hidden rounded-2xl bg-gray-100 shadow-lg">
 
               {coverUrl ? (
                 <img
                   src={coverUrl}
                   alt={work.title}
-                  className="w-full h-full object-cover"
+                  className="h-full w-full object-contain p-1"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-400">

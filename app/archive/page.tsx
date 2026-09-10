@@ -291,14 +291,14 @@ export default async function ArchivePage({
 
                 {/* COVER */}
 
-                <div className="relative aspect-[4/5] w-[38%] shrink-0 overflow-hidden bg-gray-100 sm:w-full">
+                <div className="relative aspect-[2/3] w-[38%] shrink-0 overflow-hidden bg-gray-100 sm:w-full">
 
                   {work.coverUrl ? (
                     <ImageLoadingFrame>
                       <img
                         src={work.coverUrl}
                         alt={work.title}
-                        className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-300"
+                        className="h-full w-full object-contain p-1 transition duration-300 group-hover:scale-[1.01]"
                       />
                     </ImageLoadingFrame>
                   ) : (

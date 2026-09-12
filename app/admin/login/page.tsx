@@ -1,11 +1,8 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AdminLogin() {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -59,7 +56,10 @@ export default function AdminLogin() {
       }
 
       isNavigating = true;
-      router.replace("/admin");
+      // The API response has just set the Supabase session cookies. A full
+      // navigation makes the first protected request read those new cookies,
+      // rather than reusing a pre-login App Router cache entry.
+      window.location.assign("/admin");
     } catch (requestError) {
       setError(
         requestError instanceof DOMException && requestError.name === "AbortError"

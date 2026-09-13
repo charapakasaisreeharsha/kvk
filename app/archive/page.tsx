@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { createClient } from "@/lib/supabase/server";
@@ -225,9 +226,9 @@ export default async function ArchivePage({
 
       <section className="max-w-7xl mx-auto px-6 pb-10 pt-8">
 
-        <div className="max-w-3xl">
+        <div className="grid max-w-7xl items-center gap-6 md:grid-cols-[minmax(0,1fr)_10rem] md:gap-10">
 
-          <div>
+          <div className="max-w-3xl">
 
             <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-4xl">
               A life in works.
@@ -238,6 +239,18 @@ export default async function ArchivePage({
               and other works preserved in the archive.
             </p>
 
+          </div>
+
+          <div
+            className="relative mx-auto aspect-square w-32 overflow-hidden rounded-[5px] border border-[var(--primary)]/30 bg-[var(--primary)]/10 md:mx-0 md:mr-10 md:w-full md:justify-self-end"
+          >
+            <Image
+              src="/about-1.png"
+              alt="Prof. K. V. Krishna Murthy"
+              fill
+              sizes="(min-width: 768px) 10rem, 8rem"
+              className="object-cover"
+            />
           </div>
 
         </div>

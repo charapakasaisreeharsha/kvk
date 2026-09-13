@@ -25,7 +25,6 @@ type QuickLink = {
 };
 
 const quickLinks: QuickLink[] = [
-  { label: "All works", href: "/archive" },
   { label: "Emesco Publications", href: "/archive?source=emesco", source: "emesco" },
   { label: "Books", href: "/archive?category=Books", category: "Books" },
   { label: "Poetry", href: "/archive?category=Poetry", category: "Poetry" },

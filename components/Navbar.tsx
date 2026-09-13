@@ -43,13 +43,20 @@ const labelMotion = {
   exit: { opacity: 0, y: -7 },
 };
 
-export default function Navbar({ sticky = true }: { sticky?: boolean }) {
+export default function Navbar({
+  sticky = true,
+  hideWhenFooterVisible = true,
+}: {
+  sticky?: boolean;
+  hideWhenFooterVisible?: boolean;
+}) {
   const pathname = usePathname();
   const { language, toggleLanguage } = useLanguage();
   const [pastHero, setPastHero] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const otherLanguage = language === "en" ? "te" : "en";
+  const shouldHideForFooter = hideWhenFooterVisible && footerVisible;
 
   useEffect(() => {
     const updateNavbarBackground = () => {
@@ -64,6 +71,10 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
   }, []);
 
   useEffect(() => {
+    if (!hideWhenFooterVisible) {
+      return;
+    }
+
     const footer = document.getElementById("footer");
     if (!footer) return;
 
@@ -77,13 +88,13 @@ export default function Navbar({ sticky = true }: { sticky?: boolean }) {
 
     observer.observe(footer);
     return () => observer.disconnect();
-  }, []);
+  }, [hideWhenFooterVisible]);
 
   return (
     <header
-      aria-hidden={footerVisible}
+      aria-hidden={shouldHideForFooter}
       className={`${sticky ? "fixed inset-x-0 top-0" : "relative"} z-50 px-3 py-3 transition-all duration-500 sm:px-6 sm:py-5 ${
-        footerVisible ? "pointer-events-none -translate-y-5 opacity-0" : "translate-y-0 opacity-100"
+        shouldHideForFooter ? "pointer-events-none -translate-y-5 opacity-0" : "translate-y-0 opacity-100"
       }`}
     >
       <nav

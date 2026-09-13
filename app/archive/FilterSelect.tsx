@@ -2,16 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChevronDown, Check } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 export default function FilterSelect({
   label,
-  value,
+  values,
   options,
   queryKey,
 }: {
   label: string;
-  value: string;
+  values: string[];
   options: string[];
   queryKey: "language" | "category";
 }) {
@@ -32,22 +32,28 @@ export default function FilterSelect({
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
 
-  function select(option: string) {
-    setOpen(false);
-
+  function toggle(option: string) {
     const params = new URLSearchParams(searchParams.toString());
+    const nextValues = option === "All"
+      ? []
+      : values.includes(option)
+        ? values.filter((value) => value !== option)
+        : [...values, option];
 
-    if (option === "All") {
-      params.delete(queryKey);
-    } else {
-      params.set(queryKey, option);
-    }
+    params.delete(queryKey);
+    nextValues.forEach((value) => params.append(queryKey, value));
 
     params.delete("page");
 
     const queryString = params.toString();
     router.push(queryString ? `${pathname}?${queryString}` : pathname);
   }
+
+  const buttonValue = values.length === 0
+    ? "All"
+    : values.length === 1
+      ? values[0]
+      : `${values.length} selected`;
 
   return (
     <div ref={ref} className="relative w-full shrink-0 md:w-44">
@@ -66,7 +72,7 @@ export default function FilterSelect({
         </span>
 
         <span className="font-semibold text-gray-900 truncate">
-          {value}
+          {buttonValue}
         </span>
 
         <ChevronDown
@@ -82,24 +88,28 @@ export default function FilterSelect({
           onWheel={(event) => event.stopPropagation()}
         >
 
-          {options.map((option) => (
-            <button
+          {options.map((option) => {
+            const checked = option === "All" ? values.length === 0 : values.includes(option);
+
+            return (
+            <label
               key={option}
-              type="button"
-              onClick={() => select(option)}
-              className={`w-full flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm text-left transition ${
-                option === value
+              className={`flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
+                checked
                   ? "bg-gray-900 text-white font-medium"
                   : "text-gray-600 hover:bg-gray-100"
               }`}
             >
-              {option}
-
-              {option === value && (
-                <Check size={14} strokeWidth={2.5} />
-              )}
-            </button>
-          ))}
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => toggle(option)}
+                className="size-4 rounded border-current accent-[var(--primary)]"
+              />
+              <span>{option}</span>
+            </label>
+            );
+          })}
 
         </div>
       )}

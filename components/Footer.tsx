@@ -13,12 +13,6 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
-const socialLinks = [
-  { label: "Instagram", href: "#" },
-  { label: "YouTube", href: "#" },
-  { label: "Facebook", href: "#" },
-];
-
 export default function Footer() {
   return (
     <footer id="footer" className="bg-[var(--foreground)] text-[var(--background)]">
@@ -38,7 +32,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid w-full grid-cols-[minmax(0,1fr)_auto] gap-x-6 gap-y-6 border-t border-[var(--background)]/20 pt-6 sm:gap-x-10 lg:w-auto lg:border-0 lg:pt-0">
+          <div className="w-full border-t border-[var(--background)]/20 pt-6 lg:w-auto lg:border-0 lg:pt-0">
             <nav aria-label="Footer navigation">
               <ul className="flex flex-col gap-1.5 text-left text-sm font-medium sm:text-base lg:text-right">
                 {navLinks.map((link) => (
@@ -54,16 +48,6 @@ export default function Footer() {
                 ))}
               </ul>
             </nav>
-            <ul className="flex flex-col gap-1.5 text-right text-sm font-medium sm:text-base">
-              {socialLinks.map((link) => (
-                <li key={link.label}>
-                  <span className="inline-flex items-center gap-1 text-[var(--background)]/60">
-                    {link.label}
-                    <ArrowUpRight className="size-3.5" aria-hidden="true" />
-                  </span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
 

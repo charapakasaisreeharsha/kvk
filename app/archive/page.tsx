@@ -43,11 +43,25 @@ const CATEGORIES = [
 ];
 
 type SearchParams = {
-  search?: string;
-  language?: string;
-  category?: string;
-  page?: string;
+  search?: string | string[];
+  language?: string | string[];
+  category?: string | string[];
+  source?: string;
+  page?: string | string[];
 };
+
+type ArchiveUrlFilters = {
+  search: string;
+  languages: string[];
+  categories: string[];
+  source?: "emesco";
+  page: string;
+};
+
+function selectedValues(value: string | string[] | undefined, options: string[]) {
+  const values = Array.isArray(value) ? value : value ? [value] : [];
+  return [...new Set(values.filter((item) => options.includes(item) && item !== "All"))];
+}
 
 export default async function ArchivePage({
   searchParams,
@@ -56,11 +70,12 @@ export default async function ArchivePage({
 }) {
   const params = await searchParams;
 
-  const search = sanitizeArchiveSearch(params.search);
-  const language = params.language || "All";
-  const category = params.category || "All";
+  const search = sanitizeArchiveSearch(Array.isArray(params.search) ? params.search[0] : params.search);
+  const languagesSelected = selectedValues(params.language, LANGUAGES);
+  const categoriesSelected = selectedValues(params.category, CATEGORIES);
+  const source = params.source === "emesco" ? "emesco" : undefined;
 
-  let page = Number(params.page || "1");
+  let page = Number(Array.isArray(params.page) ? params.page[0] : params.page || "1");
 
   if (!Number.isInteger(page) || page < 1) {
     page = 1;
@@ -101,13 +116,17 @@ export default async function ArchivePage({
   }
 
   // Language
-  if (language !== "All") {
-    query = query.eq("language", language);
+  if (languagesSelected.length > 0) {
+    query = query.in("language", languagesSelected);
   }
 
   // Category
-  if (category !== "All") {
-    query = query.eq("category", category);
+  if (categoriesSelected.length > 0) {
+    query = query.in("category", categoriesSelected);
+  }
+
+  if (source === "emesco") {
+    query = query.ilike("external_url", "http://www.emescobooks.com%");
   }
 
   const from = (page - 1) * PAGE_SIZE;
@@ -143,17 +162,30 @@ export default async function ArchivePage({
     Math.ceil(totalWorks / PAGE_SIZE)
   );
 
+  const resultsTitle = source === "emesco"
+    ? "Emesco Publications"
+    : search
+      ? "Search results"
+      : languagesSelected.length > 0 && categoriesSelected.length > 0
+        ? `${languagesSelected.join(", ")} ${categoriesSelected.join(", ")}`
+        : categoriesSelected.length > 0
+          ? categoriesSelected.join(", ")
+          : languagesSelected.length > 0
+            ? `${languagesSelected.join(", ")} works`
+            : "Works";
+
   if (page > totalPages && totalWorks > 0) {
     page = totalPages;
   }
 
   function buildUrl(
-    overrides: Partial<SearchParams>
+    overrides: Partial<ArchiveUrlFilters>
   ) {
     const next = {
       search,
-      language,
-      category,
+      languages: languagesSelected,
+      categories: categoriesSelected,
+      source,
       page: String(page),
       ...overrides,
     };
@@ -164,12 +196,11 @@ export default async function ArchivePage({
       query.set("search", next.search);
     }
 
-    if (next.language && next.language !== "All") {
-      query.set("language", next.language);
-    }
+    next.languages.forEach((language) => query.append("language", language));
+    next.categories.forEach((category) => query.append("category", category));
 
-    if (next.category && next.category !== "All") {
-      query.set("category", next.category);
+    if (next.source === "emesco") {
+      query.set("source", next.source);
     }
 
     if (next.page && next.page !== "1") {
@@ -192,18 +223,22 @@ export default async function ArchivePage({
 
       {/* HERO */}
 
-      <section className="max-w-7xl mx-auto px-6 pt-16 pb-10">
+      <section className="max-w-7xl mx-auto px-6 pb-10 pt-8">
 
         <div className="max-w-3xl">
 
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mt-3">
-            A life in works.
-          </h1>
+          <div>
 
-          <p className="text-gray-500 text-lg mt-5 max-w-2xl">
-            Explore the writings, research, poetry, books,
-            and other works preserved in the archive.
-          </p>
+            <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-4xl">
+              A life in works.
+            </h1>
+
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-500 md:text-base">
+              Explore the writings, research, poetry, books,
+              and other works preserved in the archive.
+            </p>
+
+          </div>
 
         </div>
 
@@ -213,8 +248,9 @@ export default async function ArchivePage({
 
       <ArchiveFilters
         search={search}
-        language={language}
-        category={category}
+        languagesSelected={languagesSelected}
+        categoriesSelected={categoriesSelected}
+        source={source}
         languages={LANGUAGES}
         categories={CATEGORIES}
       />
@@ -227,7 +263,7 @@ export default async function ArchivePage({
 
           <div>
             <h2 className="text-xl font-semibold">
-              Works
+              {resultsTitle}
             </h2>
 
             <p className="text-sm text-gray-500 mt-1">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Filter, Search } from "lucide-react";
+import { ArrowUpRight, Filter, Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import FilterSelect from "./FilterSelect";
@@ -9,11 +9,70 @@ import { archiveSearchMaxLength, sanitizeArchiveSearch } from "@/lib/archive/sea
 
 type ArchiveFiltersProps = {
   search: string;
-  language: string;
-  category: string;
+  languagesSelected: string[];
+  categoriesSelected: string[];
+  source?: "emesco";
   languages: string[];
   categories: string[];
 };
+
+type QuickLink = {
+  label: string;
+  href: string;
+  language?: string;
+  category?: string;
+  source?: "emesco";
+};
+
+const quickLinks: QuickLink[] = [
+  { label: "All works", href: "/archive" },
+  { label: "Emesco Publications", href: "/archive?source=emesco", source: "emesco" },
+  { label: "Books", href: "/archive?category=Books", category: "Books" },
+  { label: "Poetry", href: "/archive?category=Poetry", category: "Poetry" },
+  { label: "Research papers", href: "/archive?category=Research+Papers", category: "Research Papers" },
+  { label: "Telugu books", href: "/archive?language=Telugu&category=Books", language: "Telugu", category: "Books" },
+];
+
+function QuickLinks({
+  languagesSelected,
+  categoriesSelected,
+  source,
+  onStickyBackground,
+}: Pick<ArchiveFiltersProps, "languagesSelected" | "categoriesSelected" | "source"> & {
+  onStickyBackground: boolean;
+}) {
+  return (
+    <nav aria-label="Archive quick links" className="mt-3 flex justify-center gap-x-5 gap-y-2 overflow-x-auto pb-1">
+      {quickLinks.map((link) => {
+        const isActive =
+          (link.source ?? undefined) === source &&
+          (link.language ? languagesSelected.length === 1 && languagesSelected[0] === link.language : languagesSelected.length === 0) &&
+          (link.category ? categoriesSelected.length === 1 && categoriesSelected[0] === link.category : categoriesSelected.length === 0);
+
+        return (
+          <Link
+            key={link.label}
+            href={link.href}
+            scroll={false}
+            aria-current={isActive ? "page" : undefined}
+            className={`inline-flex shrink-0 items-center gap-1 text-xs font-medium underline decoration-1 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${
+              isActive
+                ? onStickyBackground
+                  ? "text-white decoration-white"
+                  : "text-[var(--foreground)] decoration-[var(--foreground)]"
+                : onStickyBackground
+                  ? "text-[var(--background)]/75 decoration-[var(--background)]/45 hover:text-white hover:decoration-white"
+                  : "text-[var(--secondary)] decoration-[var(--secondary)]/45 hover:text-[var(--foreground)] hover:decoration-[var(--foreground)]"
+            }`}
+          >
+            {link.label}
+            <ArrowUpRight className="size-3" aria-hidden="true" />
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
 
 function SearchForm({
   search,
@@ -80,8 +139,9 @@ function SearchForm({
 
 export default function ArchiveFilters({
   search,
-  language,
-  category,
+  languagesSelected,
+  categoriesSelected,
+  source,
   languages,
   categories,
 }: ArchiveFiltersProps) {
@@ -111,15 +171,15 @@ export default function ArchiveFilters({
   const barBackground = hasScrolled
     ? "bg-[var(--primary)] shadow-[0_8px_24px_rgba(80,25,0,0.2)]"
     : "bg-transparent shadow-none";
-  const hasActiveFilters = Boolean(search) || language !== "All" || category !== "All";
+  const hasActiveFilters = Boolean(search) || languagesSelected.length > 0 || categoriesSelected.length > 0 || Boolean(source);
 
   return (
     <>
       <section ref={desktopBarRef} className={`sticky top-0 z-30 mx-auto hidden max-w-7xl px-6 py-3 transition-[background-color,box-shadow] duration-300 md:block ${barBackground}`}>
         <div className="flex items-center gap-3">
           <SearchForm search={search} />
-          <FilterSelect label="Language" value={language} options={languages} queryKey="language" />
-          <FilterSelect label="Category" value={category} options={categories} queryKey="category" />
+          <FilterSelect label="Language" values={languagesSelected} options={languages} queryKey="language" />
+          <FilterSelect label="Category" values={categoriesSelected} options={categories} queryKey="category" />
           {hasActiveFilters && (
             <Link
               href="/archive"
@@ -130,6 +190,7 @@ export default function ArchiveFilters({
             </Link>
           )}
         </div>
+        <QuickLinks languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} source={source} onStickyBackground={hasScrolled} />
       </section>
 
       <section ref={mobileBarRef} className={`sticky top-0 z-30 mx-auto max-w-7xl px-6 py-3 transition-[background-color,box-shadow] duration-300 md:hidden ${barBackground}`}>
@@ -148,12 +209,13 @@ export default function ArchiveFilters({
           {filtersOpen && (
             <div className="absolute left-0 top-full z-40 w-full pt-3">
               <div className="grid gap-3">
-                <FilterSelect label="Language" value={language} options={languages} queryKey="language" />
-                <FilterSelect label="Category" value={category} options={categories} queryKey="category" />
+                <FilterSelect label="Language" values={languagesSelected} options={languages} queryKey="language" />
+                <FilterSelect label="Category" values={categoriesSelected} options={categories} queryKey="category" />
               </div>
             </div>
           )}
           </div>
+          <QuickLinks languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} source={source} onStickyBackground={hasScrolled} />
       </section>
     </>
   );

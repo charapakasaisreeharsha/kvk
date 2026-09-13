@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <Navbar />
+      <Navbar hideWhenFooterVisible={false} />
       <main className="min-h-[60vh] bg-[var(--background)] px-4 pb-20 pt-32 sm:px-6 sm:pt-40">
         <section className="mx-auto max-w-3xl">
           <h1 className="text-3xl font-normal text-[var(--foreground)] sm:text-4xl">Contact</h1>

@@ -100,7 +100,7 @@ const content = {
     familyImgAlt: "శ్రీమతి శాంతతో ప్రొ. కె. వి. కృష్ణమూర్తి",
     childrenHeading: "పిల్లలు",
     childrenIntro: "నలుగురు కుమారులు మరియు ఒక కుమార్తె, ఒక్కొక్కరూ తమదైన రీతిలో కుటుంబాన్ని ముందుకు తీసుకెళ్తున్నారు.",
-    ordinals: ["మొదటి సంతానం", "రెండవ సంతానం", "మూడవ సంతానం", "నాలుగవ సంతానం", "కుమార్తె"],
+    ordinals: ["మొదటి సంతానం", "రెండవ సంతానం", "మూడవ సంతానం (కుమార్తె)", "నాలుగవ సంతానం", "ఐదవ సంతానం"],
     kidsLabel: "పిల్లలు:",
     legacyHeading: "వారసత్వం",
     legacy1:
@@ -119,7 +119,7 @@ export default function AboutPage() {
     childrenFamilies[2],
     childrenFamilies[3],
   ];
-  const childOrdinalIndices = language === "te" ? [0, 1, 4, 2, 3] : [0, 1, 2, 3, 4];
+  const childOrdinalIndices = [0, 1, 2, 3, 4];
 
   return (
     <>

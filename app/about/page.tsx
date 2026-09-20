@@ -68,6 +68,14 @@ const content = {
     p3: "In 2004, Prof. Krishna Murthy founded I-SERVE, a registered charitable trust recognised by India's Department of Scientific and Industrial Research (DSIR) as a Scientific and Industrial Research Organisation. Under his leadership, I-SERVE has organised around 50 national and international conferences and forged research collaborations with institutions including the Central University of Hyderabad, Dr. B.R. Ambedkar Open University, S.V. Ayurvedic Medical College (Tirupati), the Sanskrit Academy at Osmania University, GITAM University, AAPNA (USA) and the Indic Studies Foundation (California, USA).",
     p4: "His scholarship rests on rigorous, traditional training received directly from eminent gurus across disciplines: Sanskrit & Telugu Sahitya under Sri Kappagantula Virabhadra Sastry, Vyakarana Sastra under Sri K. Sri Anjaneya Sastry, Vedanta Sastra & Puranas under Sri Kuppa Lakshmavadhani, Ancient Astronomy & Vedic Sciences under Sri K. Subrahmanya Sastry, Jyothisha Sastra under Sri K. Dakshina Murthy, and Krishna Yajurveda under Sri Narayana Ghanapathi, extending also to classic texts such as Dhvanyaloka and Rasagangadhara, alongside scientific Sanskrit works including Brihat Samhita and Adbhuta Sagara.",
     familyHeading: "Family",
+    eldersHeading: "Elders",
+    elders1:
+      "Brahmasri Madduri Venkateswara Yajulu Garu and Smt. Madduri Venkatalakshmi Sovidevamma Garu were the respected parents of KVK Garu.",
+    elders1TeluguDraft:
+      "\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c26\u0c4d\u0c26\u0c42\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2f\u0c3e\u0c1c\u0c41\u0c32\u0c41 \u0c17\u0c3e\u0c30\u0c41  \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c36\u0c4d\u0c30\u0c40\u0c2e\u0c24\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c40 \u0c38\u0c4b\u0c35\u0c3f\u0c26\u0c2e\u0c4d\u0c2e\u0c17\u0c3e\u0c30\u0c41 \u2014 \u0c35\u0c40\u0c30\u0c3f\u0c26\u0c4d\u0c26\u0c30\u0c42 \u0c15\u0c47\u0c35\u0c40\u0c15\u0c47 \u0c17\u0c3e\u0c30\u0c3f \u0c05\u0c30\u0c4d\u0c27\u0c3e\u0c02\u0c17\u0c3f, \u0c24\u0c32\u0c4d\u0c32\u0c3f\u0c26\u0c02\u0c21\u0c4d\u0c30\u0c41\u0c32\u0c41\u0c17\u0c3e \u0c09\u0c28\u0c4d\u0c28\u0c3e\u0c30\u0c41.",
+    elders2:
+      "Brahmasri Madduri Venkateswara Bhimajayagaru was not only well-versed in the Vedas and Vedangas and dedicated to teaching them, but was also a great scholar and practitioner who strictly followed the traditional rituals and practices prescribed in the Vedic scriptures. The numerous Yagnas and Yagams performed by him during his lifetime were highly remarkable and renowned. The Yagnas he conducted were so unique and distinguished that even in the present era, it is said that such Yagnas are rarely, if ever, performed by others.",
+    eldersImgAlt: "Brahmasri Madduri Venkateswara Yajulu Garu and Smt. Madduri Venkatalakshmi Sovidevamma Garu",
     family1:
       "Behind Prof. Krishna Murthy's decades of scholarship has stood the quiet steadiness of his family. His wife, Smt. Shanta, has been a constant presence through the long years of research, travel and teaching that his work has demanded, holding the home together so that his scholarship could flourish.",
     family2:
@@ -83,6 +91,16 @@ const content = {
     wholeFamilyAlt: "The Kuppa family",
   },
   te: {
+    eldersHeading: "\u0c2a\u0c46\u0c26\u0c4d\u0c26\u0c32\u0c41",
+    elders1:
+      "\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c26\u0c4d\u0c26\u0c42\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2f\u0c3e\u0c1c\u0c41\u0c32\u0c41 \u0c17\u0c3e\u0c30\u0c41  \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c36\u0c4d\u0c30\u0c40\u0c2e\u0c24\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c40 \u0c38\u0c4b\u0c35\u0c3f\u0c26\u0c2e\u0c4d\u0c2e\u0c17\u0c3e\u0c30\u0c41 \u2014 \u0c35\u0c40\u0c30\u0c3f\u0c26\u0c4d\u0c26\u0c30\u0c42 \u0c15\u0c47\u0c35\u0c40\u0c15\u0c47 \u0c17\u0c3e\u0c30\u0c3f \u0c05\u0c30\u0c4d\u0c27\u0c3e\u0c02\u0c17\u0c3f, \u0c24\u0c32\u0c4d\u0c32\u0c3f\u0c26\u0c02\u0c21\u0c4d\u0c30\u0c41\u0c32\u0c41\u0c17\u0c3e.",
+    elders1WithClosing:
+      "\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c26\u0c4d\u0c26\u0c42\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2f\u0c3e\u0c1c\u0c41\u0c32\u0c41 \u0c17\u0c3e\u0c30\u0c41  \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c36\u0c4d\u0c30\u0c40\u0c2e\u0c24\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c40 \u0c38\u0c4b\u0c35\u0c3f\u0c26\u0c2e\u0c4d\u0c2e\u0c17\u0c3e\u0c30\u0c41 \u2014 \u0c35\u0c40\u0c30\u0c3f\u0c26\u0c4d\u0c26\u0c30\u0c42 \u0c15\u0c47\u0c35\u0c40\u0c15\u0c47 \u0c17\u0c3e\u0c30\u0c3f \u0c05\u0c30\u0c4d\u0c27\u0c3e\u0c02\u0c17\u0c3f, \u0c24\u0c32\u0c4d\u0c32\u0c3f\u0c26\u0c02\u0c21\u0c4d\u0c30\u0c41\u0c32\u0c41\u0c17\u0c3e \u0c09\u0c28\u0c4d\u0c28\u0c3e\u0c30\u0c41.",
+    elders1Old:
+      "\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c26\u0c4d\u0c26\u0c42\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2f\u0c3e\u0c1c\u0c41\u0c32\u0c41 \u0c17\u0c3e\u0c30\u0c41 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c36\u0c4d\u0c30\u0c40\u0c2e\u0c24\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c40 \u0c38\u0c4b\u0c35\u0c3f\u0c26\u0c2e\u0c4d\u0c2e\u0c17\u0c3e\u0c30\u0c41 — \u0c35\u0c40\u0c30\u0c3f\u0c26\u0c4d\u0c26\u0c30\u0c42 \u0c15\u0c47\u0c35\u0c40\u0c15\u0c47 \u0c17\u0c3e\u0c30\u0c3f \u0c24\u0c32\u0c4d\u0c32\u0c3f\u0c26\u0c02\u0c21\u0c4d\u0c30\u0c41\u0c32\u0c41.",
+    elders2:
+      "\u0c2c\u0c4d\u0c30\u0c39\u0c4d\u0c2e\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c3e\u0c27\u0c41\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2d\u0c40\u0c2e\u0c1c\u0c2f\u0c17\u0c3e\u0c30\u0c41 \u0c35\u0c47\u0c26\u0c35\u0c47\u0c26\u0c3e\u0c02\u0c17\u0c3e\u0c32\u0c28\u0c41 \u0c05\u0c27\u0c4d\u0c2f\u0c2f\u0c28\u0c02 \u0c1a\u0c47\u0c38\u0c3f, \u0c35\u0c3e\u0c1f\u0c3f\u0c28\u0c3f \u0c2c\u0c4b\u0c27\u0c3f\u0c02\u0c1a\u0c21\u0c02 \u0c2e\u0c3e\u0c24\u0c4d\u0c30\u0c2e\u0c47 \u0c15\u0c3e\u0c15\u0c41\u0c02\u0c21\u0c3e, \u0c35\u0c47\u0c26\u0c36\u0c3e\u0c38\u0c4d\u0c24\u0c4d\u0c30\u0c3e\u0c32\u0c32\u0c4b \u0c2a\u0c47\u0c30\u0c4d\u0c15\u0c4a\u0c28\u0c4d\u0c28 \u0c06\u0c1a\u0c3e\u0c30\u0c3e\u0c32\u0c28\u0c41 \u0c28\u0c3f\u0c37\u0c4d\u0c20\u0c24\u0c4b \u0c06\u0c1a\u0c30\u0c3f\u0c02\u0c1a\u0c3f\u0c28 \u0c2e\u0c39\u0c28\u0c40\u0c2f\u0c41\u0c32\u0c41. \u0c08 \u0c15\u0c3e\u0c32\u0c02\u0c32\u0c4b \u0c35\u0c3e\u0c30\u0c41 \u0c28\u0c3f\u0c30\u0c4d\u0c35\u0c39\u0c3f\u0c02\u0c1a\u0c3f\u0c28 \u0c05\u0c28\u0c47\u0c15 \u0c2f\u0c1c\u0c4d\u0c1e\u0c2f\u0c3e\u0c17\u0c3e\u0c26\u0c41\u0c32\u0c41 \u0c35\u0c3f\u0c36\u0c47\u0c37\u0c2e\u0c3e\u0c32\u0c4d\u0c2f\u0c28\u0c35\u0c3f. \u0c35\u0c3e\u0c30\u0c41 \u0c1a\u0c47\u0c38\u0c3f\u0c28 \u0c2f\u0c1c\u0c4d\u0c1e\u0c3e\u0c32\u0c28\u0c41 \u0c2e\u0c30\u0c46\u0c35\u0c30\u0c42 \u0c1a\u0c47\u0c2f\u0c32\u0c47\u0c30\u0c28\u0c47\u0c02\u0c24\u0c17\u0c3e \u0c35\u0c3e\u0c1f\u0c3f\u0c15\u0c3f \u0c2a\u0c4d\u0c30\u0c24\u0c4d\u0c2f\u0c47\u0c15\u0c24, \u0c2a\u0c4d\u0c30\u0c3e\u0c2e\u0c41\u0c16\u0c4d\u0c2f\u0c24 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c2a\u0c4d\u0c30\u0c38\u0c3f\u0c26\u0c4d\u0c27\u0c3f \u0c32\u0c2d\u0c3f\u0c02\u0c1a\u0c3e\u0c2f\u0c3f.",
+    eldersImgAlt: "\u0c2c\u0c4d\u0c30\u0c39\u0c4d\u0c2e\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c26\u0c4d\u0c26\u0c42\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2f\u0c3e\u0c1c\u0c41\u0c32\u0c41 \u0c17\u0c3e\u0c30\u0c41 \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c36\u0c4d\u0c30\u0c40\u0c2e\u0c24\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c40 \u0c38\u0c4b\u0c35\u0c3f\u0c26\u0c2e\u0c4d\u0c2e\u0c17\u0c3e\u0c30\u0c41",
     name: "కుప్పా వేంకట కృష్ణమూర్తి",
     intro1:
       "ప్రొ. కె. వి. కృష్ణమూర్తి గారు కవి, తత్వవేత్త మరియు శాస్త్రవేత్త అసాధారణ సామరస్యంతో సహజీవనం చేసే అరుదైన పండితులు. ఐదు దశాబ్దాలకు పైగా, ఆయన ప్రాచీన సంస్కృత సాహిత్యంలో దాగిన శాస్త్రీయ లోతును వెలికితీస్తూ, భారతదేశపు శాశ్వత జ్ఞానానికి మరియు ఆధునిక శాస్త్ర ఆవిష్కరణలకు మధ్య వారధులు నిర్మిస్తున్నారు. సాంప్రదాయ తెలుగు పద్యాలను పఠించడంలోనూ, జాతీయ టెలివిజన్‌లో ఖగోళశాస్త్రం, గణితం మరియు ఆయుర్వేదంపై చర్చించడంలోనూ సమానంగా నిష్ణాతులైన ఆయన, వేద జ్ఞానాన్ని సమకాలీన పాండిత్యంతో అనుసంధానించే అత్యంత గౌరవనీయమైన స్వరాలలో ఒకరిగా ఎదిగారు.",
@@ -182,6 +200,32 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+
+        {/* Elders section */}
+        <section
+          aria-labelledby="elders-heading"
+          className="mt-12 border-t border-[#1a1a1a]/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-20 lg:pt-16"
+        >
+          <div className="text-left text-sm leading-7 text-[#2a2a2a] sm:text-[15px] sm:leading-[1.9] md:text-justify md:text-base">
+            <h2 id="elders-heading" className="text-3xl font-normal leading-tight tracking-tight text-[#1a1a1a] sm:text-4xl">
+              {t.eldersHeading}
+            </h2>
+            <div className="mt-5 max-w-5xl space-y-5">
+              <p>{t.elders1}</p>
+              <p>{t.elders2}</p>
+            </div>
+          </div>
+
+          <div className="relative mt-8 aspect-[3/2] w-full overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(26,26,26,0.2)] lg:mt-10">
+            <Image
+              src="/family/elders.jpeg"
+              alt={t.eldersImgAlt}
+              fill
+              sizes="(max-width: 1152px) 100vw, 1152px"
+              className="object-cover"
+            />
+          </div>
+        </section>
 
         {/* Legacy and children */}
         <div className="mt-12 border-t border-[#1a1a1a]/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-20 lg:pt-16">

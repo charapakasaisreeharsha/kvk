@@ -17,7 +17,7 @@ export default async function AdminPage() {
   const { data: works, error } = await supabase
     .from("archive")
     .select(
-      "id, title, year, category, language, views, downloads, pdf_file, external_url, created_at"
+      "id, title, author, year, category, language, views, downloads, pdf_file, external_url, created_at"
     )
     .order("created_at", { ascending: false });
 

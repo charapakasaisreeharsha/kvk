@@ -27,6 +27,8 @@ const CATEGORIES = [
   "Other",
 ];
 
+const DEFAULT_AUTHOR = "Prof. K. V. Krishna Murthy";
+
 function wordCount(value: string) {
   return value.trim()
     ? value.trim().split(/\s+/).length
@@ -38,6 +40,7 @@ export default function NewArchiveWork() {
   const supabase = createClient();
 
   const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState(DEFAULT_AUTHOR);
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
   const [language, setLanguage] = useState("");
@@ -66,6 +69,7 @@ export default function NewArchiveWork() {
     setError("");
 
     const cleanTitle = title.trim();
+    const cleanAuthor = author.trim();
     const cleanDescription = description.trim();
 
     // -------------------------
@@ -77,6 +81,11 @@ export default function NewArchiveWork() {
 
     if (titleWords < 1 || titleWords > 15) {
       setError("Title must contain between 1 and 15 words.");
+      return;
+    }
+
+    if (!cleanAuthor) {
+      setError("Please enter the author's name.");
       return;
     }
 
@@ -233,6 +242,7 @@ export default function NewArchiveWork() {
         .from("archive")
         .insert({
           title: cleanTitle,
+          author: cleanAuthor,
           description: cleanDescription || null,
           year: year ? Number(year) : null,
           language,
@@ -366,6 +376,25 @@ export default function NewArchiveWork() {
                   required
                   className="w-full bg-gray-50 focus:bg-white rounded-lg px-4 py-3 text-sm outline-none ring-1 ring-transparent focus:ring-black/10 transition"
                 />
+              </div>
+
+              {/* AUTHOR */}
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Author *
+                </label>
+                <input
+                  type="text"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                  placeholder="Author name"
+                  required
+                  className="w-full bg-gray-50 focus:bg-white rounded-lg px-4 py-3 text-sm outline-none ring-1 ring-transparent focus:ring-black/10 transition"
+                />
+                <p className="mt-1.5 text-xs text-gray-400">
+                  Defaults to Prof. K. V. Krishna Murthy; replace it for works by another author.
+                </p>
               </div>
 
               {/* DESCRIPTION */}

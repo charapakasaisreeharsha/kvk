@@ -47,6 +47,7 @@ type SearchParams = {
   search?: string | string[];
   language?: string | string[];
   category?: string | string[];
+  author?: string | string[];
   source?: string;
   page?: string | string[];
 };
@@ -55,6 +56,7 @@ type ArchiveUrlFilters = {
   search: string;
   languages: string[];
   categories: string[];
+  authors: string[];
   source?: "emesco";
   page: string;
 };
@@ -84,6 +86,13 @@ export default async function ArchivePage({
 
   const supabase = await createClient();
 
+  const { data: authorRows } = await supabase
+    .from("archive")
+    .select("author")
+    .not("author", "is", null);
+  const AUTHORS = ["All", ...new Set((authorRows ?? []).map((work) => work.author).filter((author): author is string => Boolean(author)))];
+  const authorsSelected = selectedValues(params.author, AUTHORS);
+
   let query = supabase
     .from("archive")
     .select(
@@ -91,6 +100,7 @@ export default async function ArchivePage({
         id,
         title,
         description,
+        author,
         year,
         language,
         category,
@@ -112,7 +122,7 @@ export default async function ArchivePage({
     const safeSearch = search.replace(/[\\%_]/g, "\\$&");
 
     query = query.or(
-      `title.ilike.%${safeSearch}%,description.ilike.%${safeSearch}%`
+      `title.ilike.%${safeSearch}%,description.ilike.%${safeSearch}%,author.ilike.%${safeSearch}%`
     );
   }
 
@@ -124,6 +134,10 @@ export default async function ArchivePage({
   // Category
   if (categoriesSelected.length > 0) {
     query = query.in("category", categoriesSelected);
+  }
+
+  if (authorsSelected.length > 0) {
+    query = query.in("author", authorsSelected);
   }
 
   if (source === "emesco") {
@@ -186,6 +200,7 @@ export default async function ArchivePage({
       search,
       languages: languagesSelected,
       categories: categoriesSelected,
+      authors: authorsSelected,
       source,
       page: String(page),
       ...overrides,
@@ -199,6 +214,7 @@ export default async function ArchivePage({
 
     next.languages.forEach((language) => query.append("language", language));
     next.categories.forEach((category) => query.append("category", category));
+    next.authors.forEach((author) => query.append("author", author));
 
     if (next.source === "emesco") {
       query.set("source", next.source);
@@ -263,9 +279,11 @@ export default async function ArchivePage({
         search={search}
         languagesSelected={languagesSelected}
         categoriesSelected={categoriesSelected}
+        authorsSelected={authorsSelected}
         source={source}
         languages={LANGUAGES}
         categories={CATEGORIES}
+        authors={AUTHORS}
       />
 
       {/* RESULTS */}
@@ -391,6 +409,12 @@ export default async function ArchivePage({
                   <h3 className="text-sm font-semibold leading-snug line-clamp-2 text-gray-900">
                     {work.title}
                   </h3>
+
+                  {work.author && (
+                    <p className="mt-1 truncate text-xs text-gray-500">
+                      {work.author}
+                    </p>
+                  )}
 
                   <div className="mt-auto flex items-center gap-3 pt-3 text-[11px] text-gray-400 sm:mt-3 sm:pt-0">
 

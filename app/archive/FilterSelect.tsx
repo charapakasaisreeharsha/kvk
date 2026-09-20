@@ -13,7 +13,7 @@ export default function FilterSelect({
   label: string;
   values: string[];
   options: string[];
-  queryKey: "language" | "category";
+  queryKey: "language" | "category" | "author";
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -56,7 +56,7 @@ export default function FilterSelect({
       : `${values.length} selected`;
 
   return (
-    <div ref={ref} className="relative w-full shrink-0 md:w-44">
+    <div ref={ref} className={`relative w-full shrink-0 ${label === "Other Legacy Authors" ? "md:w-64" : "md:w-44"}`}>
 
       <button
         type="button"
@@ -67,11 +67,11 @@ export default function FilterSelect({
             : "bg-gray-100 hover:bg-gray-200"
         }`}
       >
-        <span className="text-gray-500">
+        <span className="whitespace-nowrap text-gray-500">
           {label}
         </span>
 
-        <span className="font-semibold text-gray-900 truncate">
+        <span className="truncate whitespace-nowrap font-semibold text-gray-900">
           {buttonValue}
         </span>
 

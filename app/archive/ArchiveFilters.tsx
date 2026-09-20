@@ -11,9 +11,11 @@ type ArchiveFiltersProps = {
   search: string;
   languagesSelected: string[];
   categoriesSelected: string[];
+  authorsSelected: string[];
   source?: "emesco";
   languages: string[];
   categories: string[];
+  authors: string[];
 };
 
 type QuickLink = {
@@ -38,9 +40,10 @@ function QuickLinks({
   search,
   languagesSelected,
   categoriesSelected,
+  authorsSelected,
   source,
   onStickyBackground,
-}: Pick<ArchiveFiltersProps, "search" | "languagesSelected" | "categoriesSelected" | "source"> & {
+}: Pick<ArchiveFiltersProps, "search" | "languagesSelected" | "categoriesSelected" | "authorsSelected" | "source"> & {
   onStickyBackground: boolean;
 }) {
   return (
@@ -53,7 +56,8 @@ function QuickLinks({
           (link.search ? search === link.search : !search) &&
           (link.source ?? undefined) === source &&
           (link.language ? languagesSelected.length === 1 && languagesSelected[0] === link.language : languagesSelected.length === 0) &&
-          (link.category ? categoriesSelected.length === 1 && categoriesSelected[0] === link.category : categoriesSelected.length === 0);
+          (link.category ? categoriesSelected.length === 1 && categoriesSelected[0] === link.category : categoriesSelected.length === 0) &&
+          authorsSelected.length === 0;
 
         return (
           <Link
@@ -136,7 +140,7 @@ function SearchForm({
   const showLoadingIndicator = isSearching || isPending;
 
   return (
-    <div className="relative min-w-0 flex-1">
+    <div className="relative min-w-0 flex-1 md:w-80 md:flex-none xl:w-[32rem]">
       {showLoadingIndicator ? (
         <LoaderCircle
           className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 animate-spin text-gray-400"
@@ -170,9 +174,11 @@ export default function ArchiveFilters({
   search,
   languagesSelected,
   categoriesSelected,
+  authorsSelected,
   source,
   languages,
   categories,
+  authors,
 }: ArchiveFiltersProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -200,7 +206,7 @@ export default function ArchiveFilters({
   const barBackground = hasScrolled
     ? "bg-[var(--primary)] shadow-[0_8px_24px_rgba(80,25,0,0.2)]"
     : "bg-transparent shadow-none";
-  const hasActiveFilters = Boolean(search) || languagesSelected.length > 0 || categoriesSelected.length > 0 || Boolean(source);
+  const hasActiveFilters = Boolean(search) || languagesSelected.length > 0 || categoriesSelected.length > 0 || authorsSelected.length > 0 || Boolean(source);
 
   return (
     <>
@@ -209,6 +215,7 @@ export default function ArchiveFilters({
           <SearchForm search={search} />
           <FilterSelect label="Language" values={languagesSelected} options={languages} queryKey="language" />
           <FilterSelect label="Category" values={categoriesSelected} options={categories} queryKey="category" />
+          <FilterSelect label="Other Legacy Authors" values={authorsSelected} options={authors} queryKey="author" />
           {hasActiveFilters && (
             <Link
               href="/archive"
@@ -219,7 +226,7 @@ export default function ArchiveFilters({
             </Link>
           )}
         </div>
-        <QuickLinks search={search} languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} source={source} onStickyBackground={hasScrolled} />
+        <QuickLinks search={search} languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} authorsSelected={authorsSelected} source={source} onStickyBackground={hasScrolled} />
       </section>
 
       <section ref={mobileBarRef} className={`sticky top-0 z-30 mx-auto max-w-7xl px-6 py-3 transition-[background-color,box-shadow] duration-300 md:hidden ${barBackground}`}>
@@ -240,11 +247,12 @@ export default function ArchiveFilters({
               <div className="grid gap-3">
                 <FilterSelect label="Language" values={languagesSelected} options={languages} queryKey="language" />
                 <FilterSelect label="Category" values={categoriesSelected} options={categories} queryKey="category" />
+                <FilterSelect label="Other Legacy Authors" values={authorsSelected} options={authors} queryKey="author" />
               </div>
             </div>
           )}
           </div>
-          <QuickLinks search={search} languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} source={source} onStickyBackground={hasScrolled} />
+          <QuickLinks search={search} languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} authorsSelected={authorsSelected} source={source} onStickyBackground={hasScrolled} />
           {hasActiveFilters && (
             <Link
               href="/archive"

@@ -11,6 +11,7 @@ export async function POST(request: Request) {
 
   const formData = await request.formData();
   const title = getText(formData, "title").trim();
+  const author = getText(formData, "author").trim();
   const description = getText(formData, "description").trim();
   const year = getText(formData, "year").trim();
   const category = getText(formData, "category");
@@ -18,7 +19,7 @@ export async function POST(request: Request) {
   const externalUrl = getText(formData, "externalUrl").trim();
   const cover = getFile(formData, "cover");
   const pdf = getFile(formData, "pdf");
-  const validationError = validateWork({ title, description, year, category, language, externalUrl, cover, pdf });
+  const validationError = validateWork({ title, author, description, year, category, language, externalUrl, cover, pdf });
   if (validationError) return NextResponse.json({ error: validationError }, { status: 400 });
 
   // This happens before any Storage write, so duplicates cannot create orphan files.
@@ -44,7 +45,7 @@ export async function POST(request: Request) {
       if (pdfError) throw new Error(`PDF upload failed: ${pdfError.message}`);
       uploadedPdfPath = pdfPath;
     }
-    const { error: insertError } = await supabase.from("archive").insert({ title, description: description || null, year: year ? Number(year) : null, category, language, cover_file: coverPath, pdf_file: pdfPath, external_url: externalUrl || null });
+    const { error: insertError } = await supabase.from("archive").insert({ title, author, description: description || null, year: year ? Number(year) : null, category, language, cover_file: coverPath, pdf_file: pdfPath, external_url: externalUrl || null });
     if (insertError) throw new Error(`Save failed: ${insertError.message}`);
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -61,8 +62,9 @@ function wordCount(value: string) { return value ? value.split(/\s+/).length : 0
 function fileExtension(name: string, fallback: string) { const extension = name.split(".").pop()?.replace(/[^a-zA-Z0-9]/g, ""); return extension || fallback; }
 function escapeIlikePattern(value: string) { return value.replace(/[\\%_]/g, "\\$&"); }
 
-function validateWork({ title, description, year, category, language, externalUrl, cover, pdf }: { title: string; description: string; year: string; category: string; language: string; externalUrl: string; cover: File | null; pdf: File | null }) {
+function validateWork({ title, author, description, year, category, language, externalUrl, cover, pdf }: { title: string; author: string; description: string; year: string; category: string; language: string; externalUrl: string; cover: File | null; pdf: File | null }) {
   if (wordCount(title) < 1 || wordCount(title) > 15) return "Title must contain between 1 and 15 words.";
+  if (!author) return "Please enter the author's name.";
   if (wordCount(description) > 300) return "Description cannot exceed 300 words.";
   if (year && (!Number.isInteger(Number(year)) || Number(year) < 1000 || Number(year) > new Date().getFullYear())) return "Please enter a valid year.";
   if (!CATEGORIES.includes(category)) return "Please select a valid category.";

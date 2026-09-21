@@ -70,11 +70,11 @@ const content = {
     familyHeading: "Family",
     eldersHeading: "Elders",
     elders1:
-      "Brahmasri Madduri Venkateswara Yajulu Garu and Smt. Madduri Venkatalakshmi Sovidevamma Garu were the respected parents of KVK Garu.",
+      "Brahmasri Madduri Venkateswara Yajulu Garu and Smt. Madduri Venkatalakshmi Sovidevamma Garu.",
     elders1TeluguDraft:
       "\u0c36\u0c4d\u0c30\u0c40 \u0c2e\u0c26\u0c4d\u0c26\u0c42\u0c30\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c47\u0c36\u0c4d\u0c35\u0c30 \u0c2f\u0c3e\u0c1c\u0c41\u0c32\u0c41 \u0c17\u0c3e\u0c30\u0c41  \u0c2e\u0c30\u0c3f\u0c2f\u0c41 \u0c36\u0c4d\u0c30\u0c40\u0c2e\u0c24\u0c3f \u0c35\u0c46\u0c02\u0c15\u0c1f\u0c32\u0c15\u0c4d\u0c37\u0c4d\u0c2e\u0c40 \u0c38\u0c4b\u0c35\u0c3f\u0c26\u0c2e\u0c4d\u0c2e\u0c17\u0c3e\u0c30\u0c41 \u2014 \u0c35\u0c40\u0c30\u0c3f\u0c26\u0c4d\u0c26\u0c30\u0c42 \u0c15\u0c47\u0c35\u0c40\u0c15\u0c47 \u0c17\u0c3e\u0c30\u0c3f \u0c05\u0c30\u0c4d\u0c27\u0c3e\u0c02\u0c17\u0c3f, \u0c24\u0c32\u0c4d\u0c32\u0c3f\u0c26\u0c02\u0c21\u0c4d\u0c30\u0c41\u0c32\u0c41\u0c17\u0c3e \u0c09\u0c28\u0c4d\u0c28\u0c3e\u0c30\u0c41.",
     elders2:
-      "Brahmasri Madduri Venkateswara Bhimajayagaru was not only well-versed in the Vedas and Vedangas and dedicated to teaching them, but was also a great scholar and practitioner who strictly followed the traditional rituals and practices prescribed in the Vedic scriptures. The numerous Yagnas and Yagams performed by him during his lifetime were highly remarkable and renowned. The Yagnas he conducted were so unique and distinguished that even in the present era, it is said that such Yagnas are rarely, if ever, performed by others.",
+      "Brahmasri Madduri Venkateswara Bhimajayagaru was not only well-versed in the Vedas and Vedangas and dedicated to teaching them, but was also a great scholar and practitioner who strictly followed the traditional rituals and practices prescribed in the Vedic scriptures. The numerous Yagnas and Yagams performed by him during his lifetime were highly remarkable and renowned. The Yagnas he conducted were so unique and distinguished that even in the present era, it is said that such Yagnas are rarely, if ever, performed by others. They were the respected parents of KVK Garu's wife, Smt. Shanta.",
     eldersImgAlt: "Brahmasri Madduri Venkateswara Yajulu Garu and Smt. Madduri Venkatalakshmi Sovidevamma Garu",
     family1:
       "Behind Prof. Krishna Murthy's decades of scholarship has stood the quiet steadiness of his family. His wife, Smt. Shanta, has been a constant presence through the long years of research, travel and teaching that his work has demanded, holding the home together so that his scholarship could flourish.",
@@ -201,32 +201,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Elders section */}
-        <section
-          aria-labelledby="elders-heading"
-          className="mt-12 border-t border-[#1a1a1a]/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-20 lg:pt-16"
-        >
-          <div className="text-left text-sm leading-7 text-[#2a2a2a] sm:text-[15px] sm:leading-[1.9] md:text-justify md:text-base">
-            <h2 id="elders-heading" className="text-3xl font-normal leading-tight tracking-tight text-[#1a1a1a] sm:text-4xl">
-              {t.eldersHeading}
-            </h2>
-            <div className="mt-5 max-w-5xl space-y-5">
-              <p>{t.elders1}</p>
-              <p>{t.elders2}</p>
-            </div>
-          </div>
-
-          <div className="relative mt-8 aspect-[3/2] w-full overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(26,26,26,0.2)] lg:mt-10">
-            <Image
-              src="/family/elders.jpeg"
-              alt={t.eldersImgAlt}
-              fill
-              sizes="(max-width: 1152px) 100vw, 1152px"
-              className="object-cover"
-            />
-          </div>
-        </section>
-
         {/* Legacy and children */}
         <div className="mt-12 border-t border-[#1a1a1a]/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-20 lg:pt-16">
           <h2 className="text-3xl font-normal leading-tight tracking-tight text-[#1a1a1a] sm:text-4xl">
@@ -236,7 +210,7 @@ export default function AboutPage() {
             <p>{t.legacy1}</p>
           </div>
 
-          <div className="relative mt-8 h-[320px] w-full overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(26,26,26,0.2)] sm:h-[480px] lg:mt-10 lg:h-[640px]">
+          <div className="relative mt-8 aspect-[1497/783] w-full overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(26,26,26,0.2)] sm:aspect-auto sm:h-[480px] lg:mt-10 lg:h-[640px]">
             <Image
               src="/family/whole-family.png"
               alt={t.wholeFamilyAlt}
@@ -282,6 +256,32 @@ export default function AboutPage() {
               </div>
           </section>
         </div>
+
+        {/* Elders section */}
+        <section
+          aria-labelledby="elders-heading"
+          className="mt-12 border-t border-[#1a1a1a]/10 pt-10 sm:mt-16 sm:pt-12 lg:mt-20 lg:pt-16"
+        >
+          <div className="text-left text-sm leading-7 text-[#2a2a2a] sm:text-[15px] sm:leading-[1.9] md:text-justify md:text-base">
+            <h2 id="elders-heading" className="text-3xl font-normal leading-tight tracking-tight text-[#1a1a1a] sm:text-4xl">
+              {t.eldersHeading}
+            </h2>
+            <div className="mt-5 max-w-5xl space-y-5">
+              <p>{t.elders1}</p>
+              <p>{t.elders2}</p>
+            </div>
+          </div>
+
+          <div className="relative mt-8 aspect-[3/2] w-full overflow-hidden rounded-2xl shadow-[0_18px_40px_rgba(26,26,26,0.2)] lg:mt-10">
+            <Image
+              src="/family/elders.jpeg"
+              alt={t.eldersImgAlt}
+              fill
+              sizes="(max-width: 1152px) 100vw, 1152px"
+              className="object-cover"
+            />
+          </div>
+        </section>
       </div>
       </main>
       <Footer />

@@ -38,6 +38,7 @@ export default async function AdminPage() {
             </p>
           </div>
           <div className="flex items-center justify-between gap-3 sm:justify-end">
+            <Link href="/admin/announcements" className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Announcements</Link>
             <Link href="/admin/gallery" className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">Gallery manager</Link>
             <LogoutButton />
           </div>

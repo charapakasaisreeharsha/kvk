@@ -5,6 +5,7 @@ import { useState } from "react";
 type ArchiveActionsProps = {
   id: string;
   hasPdf: boolean;
+  audioUrl: string | null;
   externalUrl: string | null;
   initialViews: number;
   initialDownloads: number;
@@ -13,6 +14,7 @@ type ArchiveActionsProps = {
 export default function ArchiveActions({
   id,
   hasPdf,
+  audioUrl,
   externalUrl,
   initialViews,
   initialDownloads,
@@ -57,6 +59,27 @@ export default function ArchiveActions({
             className="rounded-xl border px-6 py-3 font-medium transition hover:bg-gray-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-60 aria-disabled:hover:bg-transparent"
           >
             {isDownloading ? "Downloading…" : "Download PDF"}
+          </a>
+        )}
+
+        {audioUrl && (
+          <a
+            href={audioUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl bg-black text-white px-6 py-3 font-medium hover:bg-gray-800 transition"
+          >
+            Listen Audio
+          </a>
+        )}
+
+        {audioUrl && (
+          <a
+            href={audioUrl}
+            download
+            className="rounded-xl border px-6 py-3 font-medium transition hover:bg-gray-50"
+          >
+            Download Audio
           </a>
         )}
 

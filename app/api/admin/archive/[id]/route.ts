@@ -13,7 +13,7 @@ export async function DELETE(_request: Request, { params }: RouteContext<"/api/a
     const { error } = await supabase.storage.from("archive-pdfs").remove([work.pdf_file]);
     if (error) return NextResponse.json({ error: "Failed to delete the PDF file." }, { status: 500 });
   }
-  if (work.cover_file) {
+  if (work.cover_file && !work.cover_file.startsWith("/")) {
     const { error } = await supabase.storage.from("archive-covers").remove([work.cover_file]);
     if (error) return NextResponse.json({ error: "Failed to delete the cover image." }, { status: 500 });
   }

@@ -106,6 +106,7 @@ export default async function ArchivePage({
         category,
         cover_file,
         pdf_file,
+        audio_file,
         external_url,
         views,
         downloads
@@ -158,11 +159,15 @@ export default async function ArchivePage({
       let coverUrl: string | null = null;
 
       if (work.cover_file) {
-        const { data } = supabase.storage
-          .from("archive-covers")
-          .getPublicUrl(work.cover_file);
+        if (work.cover_file.startsWith("/")) {
+          coverUrl = work.cover_file;
+        } else {
+          const { data } = supabase.storage
+            .from("archive-covers")
+            .getPublicUrl(work.cover_file);
 
-        coverUrl = data.publicUrl;
+          coverUrl = data.publicUrl;
+        }
       }
 
       return {
@@ -377,6 +382,12 @@ export default async function ArchivePage({
                   {work.pdf_file && (
                     <div className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-sm rounded-full p-1.5 shadow-sm">
                       <FileText size={13} strokeWidth={2} className="text-gray-700" />
+                    </div>
+                  )}
+
+                  {work.audio_file && (
+                    <div className="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 text-[10px] font-medium text-gray-700 shadow-sm">
+                      Audio
                     </div>
                   )}
 

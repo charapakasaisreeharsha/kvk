@@ -33,6 +33,7 @@ const quickLinks: QuickLink[] = [
   { label: "Poetry", href: "/archive?category=Poetry", category: "Poetry" },
   { label: "Research papers", href: "/archive?category=Research+Papers", category: "Research Papers" },
   { label: "Telugu books", href: "/archive?language=Telugu&category=Books", language: "Telugu", category: "Books" },
+  { label: "Telugu speeches", href: "/archive?language=Telugu&category=Speeches", language: "Telugu", category: "Speeches" },
   { label: "Yoga Vasishta", href: "/archive?search=Yoga+Vasishta", search: "Yoga Vasishta" },
 ];
 

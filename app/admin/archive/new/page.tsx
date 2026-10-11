@@ -50,6 +50,7 @@ export default function NewArchiveWork() {
   const [cover, setCover] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [pdf, setPdf] = useState<File | null>(null);
+  const [audioPath, setAudioPath] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -127,15 +128,22 @@ export default function NewArchiveWork() {
       return;
     }
 
-    if (!pdf && !externalUrl.trim()) {
+    const cleanAudioPath = audioPath.trim();
+
+    if (!pdf && !cleanAudioPath && !externalUrl.trim()) {
       setError(
-        "Upload a PDF or provide an external source."
+        "Upload a PDF, audio file, or provide an external source."
       );
       return;
     }
 
     if (pdf && pdf.type !== "application/pdf") {
       setError("The document must be a PDF.");
+      return;
+    }
+
+    if (cleanAudioPath && !/^\/audio\/[^/]+\.(mp3|m4a|aac|ogg|wav|webm)$/i.test(cleanAudioPath)) {
+      setError("Audio must be a file in /audio/, for example /audio/book-name.mp3.");
       return;
     }
 
@@ -252,6 +260,7 @@ export default function NewArchiveWork() {
           // These are Storage paths, NOT URLs.
           cover_file: uploadedCoverPath,
           pdf_file: uploadedPdfPath,
+          audio_file: cleanAudioPath || null,
 
           external_url:
             externalUrl.trim() || null,
@@ -557,6 +566,26 @@ export default function NewArchiveWork() {
 
                 <p className="text-xs text-gray-400 mt-1.5">
                   Upload the authorized PDF if available.
+                </p>
+              </div>
+
+              {/* AUDIO */}
+
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Audio
+                </label>
+
+                <input
+                  type="text"
+                  value={audioPath}
+                  onChange={(e) => setAudioPath(e.target.value)}
+                  placeholder="/audio/book-name.mp3"
+                  className="w-full bg-gray-50 focus:bg-white rounded-lg px-4 py-3 text-sm outline-none ring-1 ring-transparent focus:ring-black/10 transition"
+                />
+
+                <p className="text-xs text-gray-400 mt-1.5">
+                  First add the file to public/audio, then enter its path here. Visitors can listen to or download it.
                 </p>
               </div>
 

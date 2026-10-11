@@ -19,7 +19,8 @@ export async function POST(request: Request) {
   const externalUrl = getText(formData, "externalUrl").trim();
   const cover = getFile(formData, "cover");
   const pdf = getFile(formData, "pdf");
-  const validationError = validateWork({ title, author, description, year, category, language, externalUrl, cover, pdf });
+  const audioPath = getText(formData, "audioPath").trim();
+  const validationError = validateWork({ title, author, description, year, category, language, externalUrl, cover, pdf, audioPath });
   if (validationError) return NextResponse.json({ error: validationError }, { status: 400 });
 
   // This happens before any Storage write, so duplicates cannot create orphan files.
@@ -45,7 +46,7 @@ export async function POST(request: Request) {
       if (pdfError) throw new Error(`PDF upload failed: ${pdfError.message}`);
       uploadedPdfPath = pdfPath;
     }
-    const { error: insertError } = await supabase.from("archive").insert({ title, author, description: description || null, year: year ? Number(year) : null, category, language, cover_file: coverPath, pdf_file: pdfPath, external_url: externalUrl || null });
+    const { error: insertError } = await supabase.from("archive").insert({ title, author, description: description || null, year: year ? Number(year) : null, category, language, cover_file: coverPath, pdf_file: pdfPath, audio_file: audioPath || null, external_url: externalUrl || null });
     if (insertError) throw new Error(`Save failed: ${insertError.message}`);
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -62,7 +63,7 @@ function wordCount(value: string) { return value ? value.split(/\s+/).length : 0
 function fileExtension(name: string, fallback: string) { const extension = name.split(".").pop()?.replace(/[^a-zA-Z0-9]/g, ""); return extension || fallback; }
 function escapeIlikePattern(value: string) { return value.replace(/[\\%_]/g, "\\$&"); }
 
-function validateWork({ title, author, description, year, category, language, externalUrl, cover, pdf }: { title: string; author: string; description: string; year: string; category: string; language: string; externalUrl: string; cover: File | null; pdf: File | null }) {
+function validateWork({ title, author, description, year, category, language, externalUrl, cover, pdf, audioPath }: { title: string; author: string; description: string; year: string; category: string; language: string; externalUrl: string; cover: File | null; pdf: File | null; audioPath: string }) {
   if (wordCount(title) < 1 || wordCount(title) > 15) return "Title must contain between 1 and 15 words.";
   if (!author) return "Please enter the author's name.";
   if (wordCount(description) > 300) return "Description cannot exceed 300 words.";
@@ -71,8 +72,9 @@ function validateWork({ title, author, description, year, category, language, ex
   if (!LANGUAGES.includes(language)) return "Please select a valid language.";
   if (!cover) return "Cover image is required.";
   if (!cover.type.startsWith("image/")) return "Cover must be an image file.";
-  if (!pdf && !externalUrl) return "Upload a PDF or provide an external source URL.";
+  if (!pdf && !audioPath && !externalUrl) return "Upload a PDF, add an audio path, or provide an external source URL.";
   if (pdf && pdf.type !== "application/pdf") return "The uploaded file must be a PDF.";
+  if (audioPath && !/^\/audio\/[^/]+\.(mp3|m4a|aac|ogg|wav|webm)$/i.test(audioPath)) return "Audio must be a supported file in /audio/.";
   if (externalUrl) {
     try {
       const url = new URL(externalUrl);

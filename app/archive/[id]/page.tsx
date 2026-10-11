@@ -16,6 +16,12 @@ function safeExternalUrl(value: string | null) {
   }
 }
 
+function safeAudioUrl(value: string | null) {
+  return value && /^\/audio\/[^/]+\.(mp3|m4a|aac|ogg|wav|webm)$/i.test(value)
+    ? value
+    : null;
+}
+
 export default async function ArchiveWorkPage({
   params,
 }: {
@@ -36,6 +42,7 @@ export default async function ArchiveWorkPage({
       category,
       cover_file,
       pdf_file,
+      audio_file,
       external_url,
       views,
       downloads
@@ -48,11 +55,14 @@ export default async function ArchiveWorkPage({
   }
 
   const coverUrl = work.cover_file
-    ? supabase.storage
-        .from("archive-covers")
-        .getPublicUrl(work.cover_file).data.publicUrl
+    ? work.cover_file.startsWith("/")
+      ? work.cover_file
+      : supabase.storage
+          .from("archive-covers")
+          .getPublicUrl(work.cover_file).data.publicUrl
     : null;
   const externalUrl = safeExternalUrl(work.external_url);
+  const audioUrl = safeAudioUrl(work.audio_file);
 
   return (
     <main className="min-h-screen">
@@ -131,6 +141,7 @@ export default async function ArchiveWorkPage({
             <ArchiveActions
               id={work.id}
               hasPdf={Boolean(work.pdf_file)}
+              audioUrl={audioUrl}
               externalUrl={externalUrl}
               initialViews={work.views ?? 0}
               initialDownloads={work.downloads ?? 0}

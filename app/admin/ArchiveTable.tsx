@@ -6,7 +6,7 @@ import AddWorkButton from "./AddWorkButton";
 export type ArchiveWork = {
   id: string; title: string; author: string | null; year: number | null;
   category: string | null; language: string | null; views: number | null;
-  downloads: number | null; pdf_file: string | null; external_url: string | null; created_at: string;
+  downloads: number | null; pdf_file: string | null; audio_file: string | null; external_url: string | null; created_at: string;
 };
 
 export default function ArchiveTable({ works, onWorksChange }: { works: ArchiveWork[]; onWorksChange?: (works: ArchiveWork[]) => void }) {
@@ -53,7 +53,7 @@ export default function ArchiveTable({ works, onWorksChange }: { works: ArchiveW
 
 function uniqueValues(values: (string | null)[]) { return [...new Set(values.filter((value): value is string => Boolean(value)))].sort(); }
 function EmptyState({ hasWorks }: { hasWorks: boolean }) { return <div className="flex flex-col items-center gap-2 px-6 py-16 text-center"><span className="text-3xl">{hasWorks ? "⌕" : "📚"}</span><p className="font-medium text-gray-800">{hasWorks ? "No matching works" : "No works yet"}</p><p className="text-sm text-gray-500">{hasWorks ? "Try changing or clearing the filters." : "Add the first work to your archive."}</p></div>; }
-function SourceBadge({ work }: { work: ArchiveWork }) { if (work.pdf_file) return <span className="inline-flex rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">PDF</span>; if (work.external_url) return <span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">External</span>; return <span className="text-gray-400">—</span>; }
+function SourceBadge({ work }: { work: ArchiveWork }) { if (work.pdf_file && work.audio_file) return <span className="inline-flex rounded-full bg-purple-50 px-2.5 py-1 text-xs font-medium text-purple-700">PDF + Audio</span>; if (work.pdf_file) return <span className="inline-flex rounded-full bg-green-50 px-2.5 py-1 text-xs font-medium text-green-700">PDF</span>; if (work.audio_file) return <span className="inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700">Audio</span>; if (work.external_url) return <span className="inline-flex rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">External</span>; return <span className="text-gray-400">—</span>; }
 function DeleteButton({ work, deletingId, onDelete }: { work: ArchiveWork; deletingId: string | null; onDelete: (work: ArchiveWork) => void }) { return <button type="button" onClick={() => onDelete(work)} disabled={deletingId === work.id} className="font-medium text-red-600 hover:text-red-800 disabled:opacity-40">{deletingId === work.id ? "Deleting..." : "Delete"}</button>; }
 function ArchiveRows({ works, deletingId, onDelete }: { works: ArchiveWork[]; deletingId: string | null; onDelete: (work: ArchiveWork) => void }) {
   const headings = ["Work", "Author", "Year", "Category", "Language", "Views", "Downloads", "Source"];

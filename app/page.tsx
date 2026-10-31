@@ -1,5 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import AnnouncementToast, { type LatestAnnouncement } from "@/components/AnnouncementToast";
+import { createClient } from "@/lib/supabase/server";
 // import Introduction from "@/components/Introduction";
 // import AutoScrollReveal from "@/components/AutoScrollReveal";
 // import Journey from "@/components/Journey";
@@ -19,7 +21,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("announcements")
+    .select("id, title, body")
+    .order("published_at", { ascending: false });
+
   return (
     <>
       <Navbar />
@@ -38,6 +48,7 @@ export default function Home() {
         */}
       </main>
       {/* <Footer /> */}
+      <AnnouncementToast announcements={(data ?? []) as LatestAnnouncement[]} />
     </>
   );
 }

@@ -4,40 +4,6 @@ import { useEffect, useState } from "react";
 
 const MINIMUM_DISPLAY_TIME = 850;
 const EXIT_DURATION = 650;
-const ASSET_LOAD_TIMEOUT = 4000;
-
-function waitForImage(image: HTMLImageElement) {
-  if (image.complete) return Promise.resolve();
-
-  return new Promise<void>((resolve) => {
-    const finish = () => {
-      window.clearTimeout(timeout);
-      resolve();
-    };
-    const timeout = window.setTimeout(finish, ASSET_LOAD_TIMEOUT);
-
-    image.addEventListener("load", finish, { once: true });
-    image.addEventListener("error", finish, { once: true });
-  });
-}
-
-function waitForVideo(video: HTMLVideoElement) {
-  if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-    return Promise.resolve();
-  }
-
-  return new Promise<void>((resolve) => {
-    const finish = () => {
-      window.clearTimeout(timeout);
-      resolve();
-    };
-    const timeout = window.setTimeout(finish, ASSET_LOAD_TIMEOUT);
-
-    video.addEventListener("loadeddata", finish, { once: true });
-    video.addEventListener("error", finish, { once: true });
-  });
-}
-
 export default function PageLoader() {
   const [isLeaving, setIsLeaving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -46,18 +12,14 @@ export default function PageLoader() {
     const startedAt = performance.now();
     document.body.classList.add("site-is-loading");
 
-    const waitForContent = async () => {
-      const images = Array.from(document.images).map(waitForImage);
-      const videos = Array.from(document.querySelectorAll("video")).map(waitForVideo);
-      await Promise.all([...images, ...videos]);
-
-      const remainingTime = Math.max(0, MINIMUM_DISPLAY_TIME - (performance.now() - startedAt));
-      window.setTimeout(() => setIsLeaving(true), remainingTime);
-    };
-
-    void waitForContent();
+    // Never gate the whole site on media. On a slow connection this previously
+    // waited for every image (including a gallery) and could hide the page for
+    // four seconds or more.
+    const remainingTime = Math.max(0, MINIMUM_DISPLAY_TIME - (performance.now() - startedAt));
+    const leaveTimer = window.setTimeout(() => setIsLeaving(true), remainingTime);
 
     return () => {
+      window.clearTimeout(leaveTimer);
       document.body.classList.remove("site-is-loading");
     };
   }, []);

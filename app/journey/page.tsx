@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 
 const content = {
   en: {
@@ -54,6 +54,7 @@ const content = {
         "Its research spans Ayurveda, Vedic Astronomy, Vedic Geology & Environment, Ancient Mathematics, New Computer Logic, and the study of ancient scientific texts — including the Vedas, Puranas and Atharva Veda — pursued in service of a non-hazardous, non-polluting science for all of humanity.",
       mous:
         "Formal MOUs link I-SERVE to the Central University of Hyderabad, Dr. B.R. Ambedkar Open University, S.V. Ayurvedic Medical College, the Sanskrit Academy at Osmania University, GITAM University, AAPNA (USA) and the Indic Studies Foundation (USA).",
+      downloadLabel: "Download I-SERVE organisation details",
       meta: ["Est. 2004", "DSIR-recognised SIRO", "12 years as Chairman", "50+ conferences"],
       photoCaption: "With Dr. A.P.J. Abdul Kalam, former President of India",
     },
@@ -109,6 +110,7 @@ const content = {
         "దీని పరిశోధన ఆయుర్వేదం, వేద ఖగోళశాస్త్రం, వేద భూగర్భశాస్త్రం & పర్యావరణం, ప్రాచీన గణితం, నూతన కంప్యూటర్ లాజిక్, మరియు వేదాలు, పురాణాలు, అథర్వ వేదం వంటి ప్రాచీన శాస్త్రీయ గ్రంథాల అధ్యయనానికి విస్తరించింది — మానవాళి అందరికీ హానికరం కాని, కాలుష్యరహిత శాస్త్రం కోసం.",
       mous:
         "హైదరాబాద్ కేంద్రీయ విశ్వవిద్యాలయం, డా. బి.ఆర్. అంబేద్కర్ ఓపెన్ యూనివర్సిటీ, ఎస్.వి. ఆయుర్వేదిక్ మెడికల్ కాలేజీ, ఉస్మానియా విశ్వవిద్యాలయంలోని సంస్కృత అకాడమీ, గీతం విశ్వవిద్యాలయం, AAPNA (USA) మరియు ఇండిక్ స్టడీస్ ఫౌండేషన్ (USA) లతో అధికారిక ఒప్పందాలు (MOUs) I-SERVE ను అనుసంధానిస్తాయి.",
+      downloadLabel: "I-SERVE సంస్థ వివరాలను డౌన్‌లోడ్ చేయండి",
       meta: ["స్థాపన 2004", "DSIR గుర్తింపు పొందిన SIRO", "12 సంవత్సరాలు చైర్మన్‌గా", "50+ సదస్సులు"],
       photoCaption: "డా. ఎ.పి.జె. అబ్దుల్ కలామ్‌తో, భారత మాజీ రాష్ట్రపతి",
     },
@@ -202,6 +204,14 @@ export default function JourneyPage() {
             <p className="mt-4 w-full text-justify text-base leading-8 text-[var(--secondary)]">
               {iserve.mous}
             </p>
+            <a
+              href="/iserve.pdf"
+              download
+              className="group mt-7 inline-flex items-center gap-3 rounded-full bg-[#9a762e] px-5 py-3 text-sm font-semibold text-white shadow-[0_6px_14px_rgba(91,70,54,0.2)] transition-colors hover:bg-[#805f22] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9a762e]"
+            >
+              <Download className="size-4 transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
+              {iserve.downloadLabel}
+            </a>
 
             {iserve.meta.length > 0 && (
               <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2">

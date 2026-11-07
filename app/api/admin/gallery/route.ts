@@ -16,7 +16,9 @@ export async function POST(request: Request) {
   // The public caption is also the accessibility description. Keeping one
   // field avoids asking the gallery editor to describe the same photo twice.
   const altText = text(formData, "altText").trim() || caption.slice(0, 200);
-  const displayLayout = text(formData, "displayLayout");
+  // The gallery manager does not ask editors to choose a layout. Keep the
+  // API compatible with that form and with the database default.
+  const displayLayout = text(formData, "displayLayout") || "landscape";
   const validationError = validate(image, caption, altText, displayLayout);
   if (validationError) return NextResponse.json({ error: validationError }, { status: 400 });
 

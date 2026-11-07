@@ -22,7 +22,36 @@ export default function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [activeIndex, close, next, previous]);
 
-  return <><div className="grid grid-cols-4 gap-[3px] [grid-auto-rows:80px] sm:grid-cols-6 sm:gap-1 sm:[grid-auto-rows:100px] lg:[grid-auto-rows:120px]">{photos.map((photo, index) => <button key={photo.id} type="button" onClick={() => setActiveIndex(index)} aria-label={`View ${photo.alt} in full size`} className={`group relative cursor-zoom-in overflow-hidden rounded-[5px] bg-[#d8d2b4] ${photo.colSpan} ${photo.rowSpan}`}>{photo.src.startsWith("/") ? <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1024px) 16vw, (min-width: 640px) 25vw, 50vw" className="object-cover transition-transform duration-300 ease-out group-hover:scale-105" /> : <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-105" />}<span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" /></button>)}</div>{activeIndex !== null && <Lightbox photo={photos[activeIndex]} onClose={close} onPrevious={previous} onNext={next} />}</>;
+  return <>
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 xl:grid-cols-3">
+      {photos.map((photo, index) => (
+        <figure
+          key={photo.id}
+          className="group overflow-hidden rounded-xl border border-[#b9ae83]/35 bg-[#f8f4e5] shadow-[0_7px_22px_rgba(54,45,20,0.08)] transition-shadow duration-300 hover:shadow-[0_12px_28px_rgba(54,45,20,0.15)]"
+        >
+          <button
+            type="button"
+            onClick={() => setActiveIndex(index)}
+            aria-label={`View ${photo.alt} in full size`}
+            className="relative block w-full cursor-zoom-in overflow-hidden bg-[#d8d2b4] text-left focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-[#8a7a4f]"
+          >
+            <div className="relative aspect-[4/3]">
+              {photo.src.startsWith("/") ? (
+                <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 1280px) 30vw, (min-width: 640px) 46vw, 100vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
+              ) : (
+                <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
+              )}
+              <span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" aria-hidden="true" />
+            </div>
+          </button>
+          <figcaption className="border-t border-[#b9ae83]/30 px-4 py-3.5 text-sm leading-6 text-[#302c22] sm:px-5 sm:py-4 sm:text-[15px]">
+            {photo.caption}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    {activeIndex !== null && <Lightbox photo={photos[activeIndex]} onClose={close} onPrevious={previous} onNext={next} />}
+  </>;
 }
 
 function Lightbox({ photo, onClose, onPrevious, onNext }: { photo: GalleryPhoto; onClose: () => void; onPrevious: () => void; onNext: () => void }) {

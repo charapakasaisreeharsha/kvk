@@ -47,6 +47,7 @@ const childrenFamilies: ChildFamily[] = [
     coupleTe: "కుప్పా నరసింహ & యజ్ఞప్రియ",
     kidsEn: "Puruhutika",
     kidsTe: "పురుహూతిక",
+    youtubeUrl: "https://www.youtube.com/@KuppaNarasimhaSharma",
   },
   {
     photo: "/family/daughter.png",

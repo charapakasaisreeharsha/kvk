@@ -12,6 +12,7 @@ type ChildFamily = {
   coupleTe: string;
   kidsEn?: string;
   kidsTe?: string;
+  youtubeUrl?: string;
 };
 
 // TODO: replace each photo path with the actual uploaded image for that child/spouse pair
@@ -29,6 +30,7 @@ const childrenFamilies: ChildFamily[] = [
     coupleTe: "కుప్పా విశ్వనాథ శర్మ & తార",
     kidsEn: "Gouthama Sharma & Venkata Vagdevi",
     kidsTe: "గౌతమ శర్మ & వేంకట వాగ్దేవి",
+    youtubeUrl: "https://www.youtube.com/@taravishwanatha",
   },
   {
     photo: "/family/son-3.png",
@@ -221,7 +223,7 @@ export default function AboutPage() {
           </div>
 
           <section aria-label={t.childrenHeading} className="mt-10 sm:mt-12 lg:mt-16">
-              <div className="flex flex-wrap justify-center gap-4 sm:gap-5">
+              <div className="flex flex-wrap items-start justify-center gap-4 sm:gap-5">
                 {orderedChildrenFamilies.map((child, index) => {
                   const couple = language === "en" ? child.coupleEn : child.coupleTe;
                   const kids = language === "en" ? child.kidsEn : child.kidsTe;
@@ -248,6 +250,16 @@ export default function AboutPage() {
                           <p className="mt-3 text-sm leading-6 text-[#2a2a2a]/75">
                             {t.kidsLabel} {kids}
                           </p>
+                        )}
+                        {child.youtubeUrl && (
+                          <a
+                            href={child.youtubeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-4 inline-flex rounded-full bg-[#9a762e] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#805f22] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9a762e]"
+                          >
+                            YouTube channel
+                          </a>
                         )}
                       </div>
                     </article>

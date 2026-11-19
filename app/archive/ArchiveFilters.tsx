@@ -47,6 +47,8 @@ function QuickLinks({
 }: Pick<ArchiveFiltersProps, "search" | "languagesSelected" | "categoriesSelected" | "authorsSelected" | "source"> & {
   onStickyBackground: boolean;
 }) {
+  const hasActiveFilters = Boolean(search) || languagesSelected.length > 0 || categoriesSelected.length > 0 || authorsSelected.length > 0 || Boolean(source);
+
   return (
     <nav
       aria-label="Archive quick links"
@@ -81,6 +83,19 @@ function QuickLinks({
           </Link>
         );
       })}
+      {hasActiveFilters && (
+        <Link
+          href="/archive"
+          scroll={false}
+          className={`ml-1 inline-flex shrink-0 items-center rounded-full border px-3 py-1 text-xs font-semibold no-underline transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 sm:py-1.5 ${
+            onStickyBackground
+              ? "border-white/35 text-white hover:border-white hover:bg-white/10"
+              : "border-[var(--secondary)]/30 text-[var(--foreground)] hover:border-[var(--primary)] hover:bg-[var(--primary)]/10"
+          }`}
+        >
+          Clear filters
+        </Link>
+      )}
     </nav>
   );
 }
@@ -207,25 +222,14 @@ export default function ArchiveFilters({
   const barBackground = hasScrolled
     ? "bg-[var(--primary)] shadow-[0_8px_24px_rgba(80,25,0,0.2)]"
     : "bg-transparent shadow-none";
-  const hasActiveFilters = Boolean(search) || languagesSelected.length > 0 || categoriesSelected.length > 0 || authorsSelected.length > 0 || Boolean(source);
-
   return (
     <>
       <section ref={desktopBarRef} className={`sticky top-0 z-30 mx-auto hidden max-w-7xl px-6 py-3 transition-[background-color,box-shadow] duration-300 md:block ${barBackground}`}>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <SearchForm search={search} />
           <FilterSelect label="Language" values={languagesSelected} options={languages} queryKey="language" />
           <FilterSelect label="Category" values={categoriesSelected} options={categories} queryKey="category" />
           <FilterSelect label="Other Legacy Authors" values={authorsSelected} options={authors} queryKey="author" />
-          {hasActiveFilters && (
-            <Link
-              href="/archive"
-              scroll={false}
-              className="shrink-0 rounded-lg px-3 py-3 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-black"
-            >
-              Clear filters
-            </Link>
-          )}
         </div>
         <QuickLinks search={search} languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} authorsSelected={authorsSelected} source={source} onStickyBackground={hasScrolled} />
       </section>
@@ -254,19 +258,6 @@ export default function ArchiveFilters({
           )}
           </div>
           <QuickLinks search={search} languagesSelected={languagesSelected} categoriesSelected={categoriesSelected} authorsSelected={authorsSelected} source={source} onStickyBackground={hasScrolled} />
-          {hasActiveFilters && (
-            <Link
-              href="/archive"
-              scroll={false}
-              className={`mt-1 inline-flex min-h-10 items-center rounded-md px-2 text-sm font-medium underline decoration-1 underline-offset-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 ${
-                hasScrolled
-                  ? "text-[var(--background)]/80 decoration-[var(--background)]/50 hover:text-white hover:decoration-white"
-                  : "text-[var(--secondary)] decoration-[var(--secondary)]/45 hover:text-[var(--foreground)] hover:decoration-[var(--foreground)]"
-              }`}
-            >
-              Clear filters
-            </Link>
-          )}
       </section>
     </>
   );

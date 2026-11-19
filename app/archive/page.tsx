@@ -43,6 +43,13 @@ const CATEGORIES = [
   "Other",
 ];
 
+const EMESCO_URL_FILTER = [
+  "external_url.ilike.http://emescobooks.com%",
+  "external_url.ilike.https://emescobooks.com%",
+  "external_url.ilike.http://www.emescobooks.com%",
+  "external_url.ilike.https://www.emescobooks.com%",
+].join(",");
+
 type SearchParams = {
   search?: string | string[];
   language?: string | string[];
@@ -142,7 +149,7 @@ export default async function ArchivePage({
   }
 
   if (source === "emesco") {
-    query = query.ilike("external_url", "http://www.emescobooks.com%");
+    query = query.or(EMESCO_URL_FILTER);
   }
 
   const from = (page - 1) * PAGE_SIZE;
@@ -235,6 +242,8 @@ export default async function ArchivePage({
       ? `/archive?${queryString}`
       : "/archive";
   }
+
+  const archiveReturnUrl = buildUrl({});
 
   return (
     <div className="min-h-screen bg-[var(--background)]">
@@ -357,7 +366,10 @@ export default async function ArchivePage({
 
               <Link
                 key={work.id}
-                href={`/archive/${work.id}`}
+                href={{
+                  pathname: `/archive/${work.id}`,
+                  query: { returnTo: archiveReturnUrl },
+                }}
                 className="group flex overflow-hidden rounded-xl bg-white shadow-sm transition-shadow hover:shadow-md sm:block"
               >
 

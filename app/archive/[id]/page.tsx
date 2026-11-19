@@ -24,10 +24,19 @@ function safeAudioUrl(value: string | null) {
 
 export default async function ArchiveWorkPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ returnTo?: string | string[] }>;
 }) {
   const { id } = await params;
+  const detailSearchParams = await searchParams;
+  const requestedReturnUrl = Array.isArray(detailSearchParams.returnTo)
+    ? detailSearchParams.returnTo[0]
+    : detailSearchParams.returnTo;
+  const returnUrl = requestedReturnUrl?.startsWith("/archive")
+    ? requestedReturnUrl
+    : "/archive";
 
   const supabase = await createClient();
 
@@ -72,7 +81,7 @@ export default async function ArchiveWorkPage({
         {/* BACK */}
 
         <Link
-          href="/archive"
+          href={returnUrl}
           className="inline-flex items-center text-sm text-gray-500 hover:text-black mb-10"
         >
           ← Back to Archive
